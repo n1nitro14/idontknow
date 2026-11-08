@@ -1,0 +1,40 @@
+<ion-view title='KU Vote'>
+  <ion-nav-bar>
+  </ion-nav-bar>
+
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBackVoteDetail(voteDetail)" class="button icon ion-ios-arrow-back stylesec2"></a>
+  </div>
+  <ion-content scroll="true" has-tabs="true" class="bgcontentF4">
+
+    <img style="width: 100%" ng-src="{{choiceDetail.choice_icon}}">
+
+    <!-- <div class="card greencard contentFont font16"> -->
+    <div class="card votecard contentFont font16">
+
+      <div class="item item-text-wrap" style="border-width:0px;">
+        <h2 style="font-size:20px;font-weight: 600;color:#333333;">{{choiceDetail.choice_text}}</h2>
+      </div>
+
+      <!-- <div class="item item-avatar-left item-icon-right item-text-wrap" style="border-width:0px;">
+            <img ng-src="{{newsDetail.icon}}">
+            <p style="color: #006664;">{{newsDetail.post_by}}</p>
+            <p>{{newsDetail.post_date}}</p>
+        </div> -->
+
+      <hr style="width:90%;height: 1px; background-color:#ddd; border: none;">
+
+      <div ng-if="choiceDetail.choice_desc !=''" class="item item-text-wrap" style="border-width:0px;">
+        <span ng-bind-html="renderHtml(choiceDetail.choice_desc)"></span>
+      </div>
+
+      <div ng-if="choiceDetail.choice_link !=''" class="item item-text-wrap" style="border-width:0px;"
+        ng-click="goToModule('{{choiceDetail.choice_link}}');">
+        <span class="iosfont">ข้อมูลเพิ่มเติม</span>
+      </div>
+
+    </div>
+    <br>
+
+  </ion-content>
+</ion-view>

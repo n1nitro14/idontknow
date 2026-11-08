@@ -1,0 +1,42 @@
+<style>
+    .greencard {
+        box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+        margin-top:8px;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+</style>
+<ion-view title='Notificcation Detail'>
+    <ion-nav-bar>
+    </ion-nav-bar>
+
+    <div class="bar bar-subheader has-footer no-bar">
+      <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"></a>
+    </div>
+    <ion-content scroll="true" has-tabs="true" class="bgcontentF4">
+
+      <img ng-if="notiDetail.image !=''" style="width: 100%" ng-src="{{notiDetail.image}}">
+
+      <div class="card greencard contentFont font16">
+
+        <div class="item item-text-wrap" style="border-width:0px;">
+            <h2 style="font-size:20px;font-weight: 600;color:#333333;">{{notiDetail.title}}</h2>
+        </div>
+
+        <div class="item item-avatar-left item-icon-right item-text-wrap" style="border-width:0px;">
+            <img ng-src="{{notiDetail.noticon}}">
+            <p style="color: #006664;">{{notiDetail.post_by}}</p>
+            <p>{{notiDetail.post_date}}</p>
+        </div>
+
+        <hr style="width:90%;height: 1px; background-color:#ddd; border: none;">
+
+        <div class="item item-text-wrap" style="border-width:0px;">
+            <span ng-bind-html="notiDetail.message | linky:'_blank'"></span>
+        </div>
+
+    </div>
+    <br>
+
+    </ion-content>
+  </ion-view>

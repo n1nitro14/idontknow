@@ -1,0 +1,137 @@
+<ion-view>
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+  <ion-content ng-init="getVoteBanner();selectedView='vote1';">
+    <!-- <ion-content class="fixbgcontent" ng-init="getVoteBanner();getVoteInit(searchTxt);selectedView='vote1';"> -->
+    <!-- /* Style*/
+      /* <link rel='stylesheet' type="text/css" href="css/stylepage.css"></link> */
+      /* Style*/ -->
+
+    <!-- BANNER -->
+    <div>
+      <img ng-src="{{bannerLists.banner}}" class="radiusBanner"
+        style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div>
+
+    <!-- MENU -->
+    <div class="container-icon-chkin-menu">
+      <div class="row borderbottomgrey ">
+        <div class="col">
+          <a ng-class="['button','button-icon',{'now-active':selectedView=='vote1'}]" ng-click="selectedView='vote1';">
+            <i
+              ng-class="['ion-android-checkmark-circle','picon2',{'active-picon2':selectedView=='vote1'}]"></i><br>Vote</a>
+        </div>
+        <div class="col">
+          <a ng-class="['button','button-icon',{'now-active':selectedView=='vote2'}]" ng-click="selectedView='vote2';">
+            <i ng-class="['ion-ios-paper-outline','picon2',{'active-picon2':selectedView=='vote2'}]"></i><br>ประวัติการ
+            Vote</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ######### VOTE 1 ######### -->
+    <div ng-if="selectedView=='vote1'" ng-init="getVoteInit();">
+
+      <div class="row">
+        <div class="col">
+          <div class="item tableheader">
+            <h2>Vote</h2>
+            <span>การลงคะแนนเสียง</span>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="loadingVote==0">
+        <div class="row">
+          <div class="col">
+            <div class="card greenvotelistcard" ng-repeat="voteList in voteContent">
+              <a class="item item-avatar-left" ng-click="goToVoteDetail(voteList)">
+                <img class="radiusimg" ng-src="{{voteList.icon}}">
+                <span class="votecardtitle contentFont item-text-wrap">{{voteList.vote_title}}</span><br><br>
+                <span class="datafont14  item-text-wrap">{{voteList.vote_date}}</span><br>
+                <span class="datafont14 kugreenfont2 item-text-wrap">{{voteList.post_by}}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="loadingVote==1" id="votenotfound" class="notfound" style="text-align:center;">
+        <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+      </div>
+    </div>
+
+    <!-- ######### VOTE 2 ######### -->
+    <div ng-if="selectedView=='vote2'" ng-init="getVoteLog(year);">
+      <div class="row">
+        <div class="col">
+          <div class="item tableheader">
+            <h2>VOTE LOG</h2>
+            <span>ประวัติการลงคะแนนเสียง</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ### START DATA ### -->
+      <div style="padding-left:12px;padding-right: 12px;">
+
+        <div class="row" style="padding-bottom: 12px;">
+          <div class="col">
+            <div class="item" style="color:#333; border: none;text-align: right;">ปี พ.ศ.</div>
+          </div>
+          <div class="col">
+            <a class="item item-icon-right item-select" ng-click="selectYear();"
+              style=" border: none;  border-bottom: 1px solid #dbdbdb !important;">
+              <span class="item-note" style="color:#006664;font-weight: 600;">
+                {{selectYearTxt}}
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div ng-if="loadingVoteLog==0">
+          <div class="item item-input greenhead borderradiustop"></div>
+
+          <!-- <ion-item ng-repeat="item in voteLogList" class="item-remove-animate item-avatar-left item-icon-right">
+            <img class="radiusimg" ng-src="{{item.icon}}">
+            <span class="votecardtitle item-text-wrap">{{item.vote_title}}</span><br>
+            <span class="datafont14 item-text-wrap">{{item.vote_date}}</span><br>
+            <span ng-if="item.post_by!=''" class="datafont14 kugreenfont2 item-text-wrap">{{item.post_by}}</span><br>
+          </ion-item> -->
+
+          <ion-item ng-repeat="item in voteLogList" class="item-remove-animate item-avatar-left item-icon-right" >
+            <img class="radiusimg" ng-src="{{item.icon}}">
+            <!-- แสดงผลโหวต -->
+            <span ng-if="item.show_result=='1'" class="datafont16 " ng-click="openVoteURL('{{item.result_url}}');">
+              <span class="votecardtitle item-text-wrap">{{item.vote_title}}</span><br>
+              <span class="datafont14 item-text-wrap">{{item.vote_date}}</span><br>
+              <span ng-if="item.post_by!=''" class="datafont14 item-text-wrap">{{item.post_by}}</span><br>
+              <i class="icon custom-icon arrow-right-icon ion-ios-arrow-right" ng-if="item.show_result=='1'"></i>
+              <span class="datafont16 kugreenfont2 item-text-wrap font-weight:600">{{item.txt_result}}</span>
+            </span>
+            <!-- ไม่แสดงผลโหวต -->
+            <span ng-if="item.show_result!='1'" class="datafont16 ">
+              <span class="votecardtitle item-text-wrap">{{item.vote_title}}</span><br>
+              <span class="datafont14 item-text-wrap">{{item.vote_date}}</span><br>
+              <span ng-if="item.post_by!=''" class="datafont14 item-text-wrap">{{item.post_by}}</span><br>
+            </span>
+          </ion-item>
+
+        </div>
+
+        <!-- ### END DATA ### -->
+        <div ng-if="loadingVoteLog==1" id="votenotfound" class="notfound" style="text-align:center;">
+          <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- FOOTER -->
+    <div class="item admin item-text-wrap" ng-bind-html="renderHtml(voteContact)"></div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,35 @@
+<ion-view title='Exam Schedule'>
+  <ion-nav-bar class="bar-subheader bar-light">
+    <ion-nav-back-button class="button-clear">
+      <i class="ion-chevron-left"></i>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content class="has-subheader bgcontent" ng-init="getExamSchedule()">
+    <img src="./img/bg9.jpg" style="margin-bottom:0em;" width="100%">
+    <div class="card" ng-repeat="items in ExamNisit">
+      <div class="item item-divider" style="color:{{colorSet[items.color_idx].date_color}};background-color:{{colorSet[items.color_idx].bg_color}}">
+        {{items.date_txt}}
+      </div>
+      <a class="item" ng-repeat="item in items.courses">
+        <div class="row">
+          <div class="col col-33">
+            <h3 style="color:{{colorSet[items.color_idx].time_color}}">{{item.time}}</h3>
+          </div>
+          <div class="col col-67">
+            <h3 style="color:{{colorSet[items.color_idx].course_color}}">{{item.course_id}}
+              sec.
+              {{item.section}}</h3>
+            <h3 style="color:{{colorSet[items.color_idx].course_color}}">{{item.course_name}}</h3>
+            <h3 style="color:{{colorSet[items.color_idx].build_color}}">อาคาร :
+              {{item.building}}</h3>
+            <h3 style="color:{{colorSet[items.color_idx].build_color}}">ห้องสอบ :
+              {{item.room}}</h3>
+            <h3 style="color:{{colorSet[items.color_idx].build_color}}">ที่นั่ง :
+              {{item.seat}}</h3>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div ng-show="ExamNisit==null" style="text-align:center;">No Exam Schedule</div>
+  </ion-content>
+</ion-view>

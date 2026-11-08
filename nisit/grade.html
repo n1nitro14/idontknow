@@ -1,0 +1,112 @@
+<style>
+  .gradelistcard {
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+      margin-top:16px;
+      border-radius: 8px;
+      font-size: 18px;
+      margin-left: 12px;
+      margin-right: 12px;
+      margin-bottom: 18px;
+  }
+  .gradecardtitle {
+      font-size: 18px;
+      font-weight: 600;
+  }
+</style>
+<ion-view title='Grade Report'>
+  <!-- <ion-nav-bar class="bar bar-subheader no-bar">
+    <ion-nav-back-button class="button icon ion-ios-arrow-back stylesec2">
+    </ion-nav-back-button>
+  </ion-nav-bar> -->
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+
+  <ion-content class="bgcontent"  ng-init="getGrade()">
+    <!-- BANNER START -->
+    <div>
+      <img src="./img/bg2.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div>
+    <!-- BANNER END -->
+
+    <div class="row" style="padding-left: 10px;">
+      <div class="col">
+        <div class="item tableheader bgcontent">
+            <h2>GRADE</h2>
+            <span style="color: #006664;">ผลการเรียน</span>
+        </div>
+      </div>
+    </div>
+
+    <ion-list>
+      <div class="list card gradelistcard">
+        <div class="item item-input" style="height:1.25em;background-color:rgba(12, 150, 145, 0.6);"></div>
+        <ion-list ng-if="$last" ng-repeat="gradeList in gradeNisit">
+          <div class="row">
+            <div class="col col-80">ผลการเรียนเฉลี่ยสะสม
+            </div>
+            <div class="col">{{gradeList.cum_gpa}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-80">Cumulative Grade Point Average
+            </div>
+            <div class="col">
+            </div>
+          </div>
+        </ion-list>
+      </div>
+
+      <div class="list card gradelistcard" style="margin-top:0.32em;">
+        <!-- Header-->
+        <div class="item item-input" style="background-color:rgba(12, 150, 145, 0.2);">
+          <div class="row" style="padding: 0px;">
+            <div class="col col-75">ผลการเรียนประจำภาคการศึกษา<br>Semester Grade Point Average
+            </div>
+          </div>
+        </div>
+        <!-- List -->
+        <div ng-repeat="gradeList in gradeNisit  | orderBy: ['-year','-semester'] ">
+          <ion-item class="item item-icon-right" ng-class="{active: isGroupShown(gradeList)}" ng-click="toggleGroup(gradeList)">
+            <i class="icon custom-icon" ng-class="isGroupShown(gradeList) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
+            &nbsp; 25{{gradeList.year}}
+            : ภาค{{gradeList.sem_name}}
+          </ion-item>
+          <div class="card" ng-show="isGroupShown(gradeList)">
+            <div class="row" style="background-color:rgba(12, 150, 145, 0.7);text-align:center;color:white;">
+              <div class="col col-50">รายวิชา<br>Course
+              </div>
+              <div class="col">จำนวน<br>Credit
+              </div>
+              <div class="col">ผลการเรียน<br>Grade
+              </div>
+            </div>
+            <div class="row" ng-repeat="item in gradeList.courses">
+              <div class="col col-50" style="color:#006664;">
+                <font >{{item.course_id}}<br>{{item.course_name}}</font>
+              </div>
+              <div class="col" style="text-align:center;">
+                <p>{{item.credit}}
+                  หน่วยกิต</p>
+              </div>
+              <div class="col" style="text-align:center;">
+                <p>{{item.grade}}</p>
+              </div>
+            </div>
+            <div class="row" style="background-color:rgba(12, 150, 145, 0.2);">
+              <div class="col col-80">ผลการเรียนเฉลี่ย (sem G.P.A.)</div>
+              <div class="col">{{gradeList.sm_gpa}}</div>
+            </div>
+            <div class="row" style="background-color:#93C8C7">
+              <div class="col col-80">ผลการเรียนเฉลี่ยสะสม (cum G.P.A.)</div>
+              <div class="col">{{gradeList.cum_gpa}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+      <!-- <pre ng-bind="gradeNisit | json"></pre> -->
+    </ion-content>
+  </ion-view>

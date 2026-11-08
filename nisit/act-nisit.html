@@ -1,0 +1,92 @@
+<ion-view title='Activity Transcript'>
+  <!-- <ion-nav-bar class="bar-subheader bar-light">
+    <ion-nav-back-button class="button-clear">
+      <i class="ion-chevron-left"></i>
+      <button ng-click="backHome();" class="button back-button buttons  button-clear header-item">
+        <i class="ion-chevron-left"></i>
+      </button>
+    </ion-nav-back-button>
+  </ion-nav-bar> -->
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"></a>
+  </div>
+  <ion-content class=" bgcontent" ng-init="getActReport()">
+    <!-- <img src="img/bg4.jpg" style="margin-bottom:0em;" width="100%"> -->
+        <!-- BANNER START -->
+        <div>
+          <img src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+        </div>
+        <!-- BANNER END -->
+
+    <!-- <div ng-if="act_notfound==0&&actReportNisit==undefind" style="text-align:center;"><ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner></div> -->
+
+    <div ng-if="actReportNisit!=undefind">
+    <!-- <pre ng-bind="actReportNisit | json"></pre> -->
+    <!-- สถานะการมีสิทธิ์ลงทะเบียน-->
+    <div class="list card activitytlistcard">
+      <div class="item item-input" style="height:1.875em;background-color:#0c9691;color:white;font-size:18px;">Activity Transcript</div>
+      <div class="row">
+        <div class="col" style="font-size:18px;">สถานะ</div>
+        <div class="col warningfont" style="text-align:center;font-size:16px;">{{actReportNisit.activity_status}}</div>
+        <div class="col"></div>
+      </div>
+    </div>
+
+    <!-- ไฟล์ -->
+    <div class="list card activitytlistcard" style="margin-top:0.3125em;text-align:center;">
+      <div class="item item-input" style="height:1.875em;background-color:rgba(12, 150, 145, 0.2);color:#444444;font-size:18px;">Information</div>
+
+      <div class="row" style="font-size: 16px;padding:10px;">
+        <div class="col" style="text-align:left;">Transcript กิจกรรม</div>
+        <div class="col iosfont">
+          <a ng-click="openURL(actReportNisit.link_html);"><img style="width:35px;" src="./img/html.png"><br>HTML บนเว็บ</a>
+        </div>
+        <div class="col iosfont">
+          <a ng-click="openURL(actReportNisit.link_pdf);"><img style="width:35px;" src="./img/pdf.png"><br>PDF ไฟล์</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="col"></div>
+        <div class="col iosfont">
+          <a ng-click="openURL(actReportNisit.link_doc);"><img style="width:35px;" src="./img/doc.png"><br>WORD ไฟล์</a>
+        </div>
+        <div class="col iosfont">
+          <a ng-click="openURL(actReportNisit.link_xls);"><img style="width:35px;" src="./img/xls.png"><br>EXCEL ไฟล์</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="col" style="text-align:left;">Transcript กิจกรรม<br>เฉพาะที่ "รับรอง"<br>ผ่านเกณฑ์ข้อบังคับฯ</div>
+        <div class="col iosfont">
+          <a ng-click="openURL(actReportNisit.link_html2);"><img style="width:35px;" src="./img/html.png"><br>HTML บนเว็บ</a>
+        </div>
+        <div class="col iosfont"></div>
+      </div>
+
+    </div>
+  </div>
+  <div ng-if="act_notfound==1">
+      <!-- <div class="item admin" ng-bind-html="renderHtml(act_info)"></div> -->
+    <!-- </a> -->
+    <div class="list card activitytlistcard">
+        <div class="item item-input" style="height:1.875em;background-color:#0c9691;color:white;">Activity Transcript</div>
+        <div class="row">
+          <div class="col">
+            <a ng-click="openURL(act_url)" ng-bind-html="renderHtml(act_info)"></a>
+          </div>
+        </div>
+      </div>
+  </div>
+  </ion-content> 
+</ion-view>

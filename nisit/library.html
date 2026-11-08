@@ -1,0 +1,435 @@
+<style>
+  .radiusBanner {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .borderbottomgrey {
+    border-bottom: 1px solid rgb(243, 243, 243) !important;
+    padding-bottom: 10px;
+  }
+
+  .lib-active {
+    color: #006664 !important;
+    font-weight: 600;
+  }
+
+  /* ###### START Member Information ###### */
+
+  .tableheader {
+    font-size: 1em;
+    border: 0px;
+    font-weight: 600;
+    color: #0c9691;
+    border-left: 8px solid #0c9691 !important;
+    padding-left: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .tableheader-left {
+    font-size: 1em;
+    border: 0px;
+    font-weight: 600;
+    color: #0c9691;
+    border-left: 8px solid #0c9691 !important;
+    padding-left: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .tableheader-right {
+    font-size: 14px;
+    border: 0px;
+    color: #0c9691;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: right;
+  }
+
+  .greenhead {
+    height: 16px;
+    background-color: rgba(12, 150, 145, 0.8);
+  }
+
+  .datafont {
+    color: #030303;
+    font-size: 16px;
+  }
+
+  .librarycard {
+    /* box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0); */
+    margin-top: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 12px;
+    /* background-color: #fbfbfb; */
+  }
+
+  .radiusimg {
+    border-radius: 50px;
+  }
+
+  .newscardtitle {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .nobordercard {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    line-height: 0px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1)
+  }
+
+  /* ###### END Member Information ###### */
+
+  /* ###### START ReadingLog ###### */
+  .greenbar05 {
+    /* height:1.25em; */
+    background-color: rgba(12, 150, 145, 0.5);
+  }
+
+  .greenfont {
+    color: #0c9691;
+  }
+
+  /* Expand Card */
+  .amp {
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0.55s;
+  }
+
+  .amp.active {
+    max-height: 2000px;
+    transition: all 1.3s;
+  }
+
+  /* ###### END ReadingLog ###### */
+
+  /* ###### start TOP Menu ###### */
+  .container-icon-lib-menu {
+    padding: 0.5em;
+    padding-top: 0px;
+    text-align: center;
+  }
+
+  .container-icon-lib-menu .button {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #666666;
+    line-height: 26px;
+    font-weight: 600;
+    /* padding-bottom: 20px; */
+  }
+
+  .now-active {
+    color: #0c9691 !important;
+    font-weight: 600;
+  }
+
+  .picon2 {
+    text-decoration: none;
+    color: #333333;
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    display: inline-block;
+    background-color: white;
+    /* background-color: rgba(12, 150, 145, 0.9); */
+    line-height: 45px;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+  }
+
+  .active-picon2 {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    display: inline-block;
+    background-color: rgba(12, 150, 145, 0.9);
+    line-height: 45px;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+  }
+
+  /* ###### end TOP Menu ###### */
+  .indicator-wrapper {
+    transition: height 1s linear;
+    width: 100%;
+    height: 2px;
+  }
+
+  .indicator-wrapper #slide-tab-indicator {
+    height: 100%;
+    width: 0%;
+    background-color: #6fdab3;
+    position: relative;
+    transform: translate(0%, 0);
+    transition: width 0.3s, transform 0.2s linear !important;
+  }
+
+  .profilecard {
+    /* box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0); */
+    margin-top: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 12px;
+    /* background-color: #fbfbfb; */
+  }
+
+  .greenhead {
+    height: 16px;
+    background-color: rgba(12, 150, 145, 0.8);
+  }
+</style>
+
+<ion-view>
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+  <ion-content ng-init="getKuLibraryBanner();selectedView='lib1';">
+    <div style="min-height: 150px; ">
+      <img ng-src="{{bannerLists.banner}}" class="radiusBanner"
+        style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div>
+
+    <div class="container-icon-lib-menu">
+      <div class="row borderbottomgrey">
+        <div class="col">
+          <a ng-class="['button','button-icon',{'now-active':selectedView=='lib1'}]" ng-click="selectedView='lib1';">
+            <i
+              ng-class="['ion-ios-person-outline','picon2',{'active-picon2':selectedView=='lib1'}]"></i><br>ข้อมูลสมาชิก</a>
+        </div>
+        <div class="col">
+          <a ng-class="['button','button-icon',{'now-active':selectedView=='lib2'}]" ng-click="selectedView='lib2';">
+            <i ng-class="['ion-ios-book-outline','picon2',{'active-picon2':selectedView=='lib2'}]"></i><br>รายการยืม</a>
+        </div>
+        <div class="col">
+          <a ng-class="['button','button-icon',{'now-active':selectedView=='lib3'}]" ng-click="selectedView='lib3';">
+            <i
+              ng-class="['ion-ios-timer-outline','picon2',{'active-picon2':selectedView=='lib3'}]"></i><br>เกินกำหนดส่ง</a>
+        </div>
+        <div class="col">
+          <a ng-class="['button','button-icon',{'now-active':selectedView=='lib4'}]" ng-click="selectedView='lib4';">
+            <i
+              ng-class="['ion-ios-paper-outline','picon2',{'active-picon2':selectedView=='lib4'}]"></i><br>ประวัติการยืม</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ##### lib1 #####-->
+
+    <div ng-if="selectedView=='lib1'" ng-init="getMemberInfo();">
+
+      <div class="row">
+        <div class="col">
+          <div class="item tableheader">
+            <h2>MEMBER INFORMATION</h2>
+            <span>ข้อมูลสมาชิก</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="greycard2 hovercard">
+        <div class="cardheader" style="background-image: url('{{card_banner}}');background-position: center;">
+        </div>
+        <div class="avatar">
+          <img ng-src="{{img_profile}}">
+        </div>
+        <div class="info">
+          <div class="title">
+            {{nisit.name_th}}
+          </div>
+          <div class="desc">{{nisit.name_en}}</div>
+          <div class="desc">{{nisit.id}}</div>
+        </div>
+
+        <div style="margin-top:20px;margin-bottom:20px;">
+          <div ng-if="img_qrcode!=''" >
+            <img ng-src="{{img_qrcode}}" style="width: 50%;">
+          </div>
+          <div ng-if="img_barcode!=''">
+            <img ng-src="{{img_barcode}}" style="width: 80%;">
+          </div>
+        </div>
+        <div ng-if="memberInfo.length > 0">
+          <div ng-repeat="item in memberInfo">
+            <div class="row" style="border: none;padding-left: 10px;padding-right: 10px;padding-top: 0px;padding-bottom: 0px;">
+              <div class="col datafont16 contentFont" style="text-align: left;">{{item.label}}</div>
+              <div class="col datafont18 contentFont " style="text-align: right;">{{item.value}}</div>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+
+      <div class="notfound" ng-if="loadingMember==1" style="text-align:center;">
+        <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+      </div>
+      <div class="item admin item-text-wrap" ng-bind-html="renderHtml(libContact)"></div>
+    </div>
+
+    <!-- ##### lib2 ##### -->
+    <div ng-if="selectedView=='lib2'" ng-init="getBorrow();">
+
+      <div class="row">
+        <div class="col">
+          <div class="item tableheader">
+            <h2>BORROW</h2>
+            <span>รายการยืม</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card list" style="margin-top:5px;margin-bottom: 5px;" ng-show="borrow.books.length > 0">
+        <ion-item class="item greenbar05 boldfont item-icon-right" style="padding-top: 0px;padding-bottom: 0px;">
+          <i class="icon custom-icon"></i>
+          <div class="row">
+            <div class="col">{{borrow.id_label}}</div>
+            <div class="col col-50">{{borrow.title_label}}</div>
+            <div class="col">{{borrow.date_due_label}}</div>
+          </div>
+        </ion-item>
+
+        <div ng-repeat="borrowList in borrow.books">
+          <ion-item class="item item-icon-right" ng-class="{active: isGroupShown(borrowList)}"
+            ng-click="toggleGroup(borrowList)" style="padding-top: 10px;padding-bottom:10px;">
+            <i class="icon custom-icon"
+              ng-class="isGroupShown(borrowList) ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i>
+            <div class="row">
+              <div class="col datafont14">{{borrowList.id}}</div>
+              <div class="col col-50 greenfont item-text-wrap">{{borrowList.title}}</div>
+              <div class="col warnfont boldfont" ng-show="borrowList.over_due=='1'">{{borrowList.date_due}}</div>
+              <div class="col datafont14" ng-show="borrowList.over_due=='0'">{{borrowList.date_due}}</div>
+            </div>
+          </ion-item>
+          <div class="amp" ng-class="{active: isGroupShown(borrowList)}">
+            <div ng-repeat="item in borrowList.detail">
+              <div class="item bgcontent">
+                <span>{{item.label}}</span>
+                <span class="item-note datafont item-text-wrap" style="text-align: right;">{{item.value}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notfound" ng-if="loadingBorrow==1" style="text-align:center;">
+        <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+      </div>
+      <div class="item admin item-text-wrap" ng-bind-html="renderHtml(libContact)"></div>
+    </div>
+
+    <!-- ##### lib3 ##### -->
+    <div ng-if="selectedView=='lib3'" ng-init="getOverDue();">
+
+      <div class="row">
+        <div class="col">
+          <div class="item tableheader">
+            <h2>OVER DUE</h2>
+            <span>เกินกำหนดส่ง/ค้างส่ง</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card list" style="margin-top:5px;margin-bottom: 5px;" ng-show="overdue.books.length > 0">
+        <ion-item class="item greenbar05 boldfont item-icon-right" style="padding-top: 0px;padding-bottom: 0px;">
+          <i class="icon custom-icon"></i>
+          <div class="row">
+            <div class="col">{{overdue.id_label}}</div>
+            <div class="col col-50">{{overdue.title_label}}</div>
+            <div class="col">{{overdue.date_due_label}}</div>
+          </div>
+        </ion-item>
+
+        <div ng-repeat="overdueList in overdue.books">
+          <ion-item class="item item-icon-right" ng-class="{active: isGroupShown(overdueList)}"
+            ng-click="toggleGroup(overdueList)" style="padding-top: 10px;padding-bottom:10px;">
+            <i class="icon custom-icon"
+              ng-class="isGroupShown(overdueList) ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i>
+            <div class="row">
+              <div class="col datafont14">{{overdueList.id}}</div>
+              <div class="col col-50 greenfont item-text-wrap">{{overdueList.title}}</div>
+              <div class="col datafont14">{{overdueList.date_due}}</div>
+            </div>
+          </ion-item>
+          <div class="amp" ng-class="{active: isGroupShown(overdueList)}">
+            <div ng-repeat="item in overdueList.detail">
+              <div class="item bgcontent">
+                <span>{{item.label}}</span>
+                <span class="item-note datafont item-text-wrap" style="text-align: right;">{{item.value}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notfound" ng-if="loadingOverDue==1" style="text-align:center;">
+        <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+      </div>
+      <div class="item admin item-text-wrap" ng-bind-html="renderHtml(libContact)"></div>
+    </div>
+
+    <!-- ##### lib4 ##### -->
+    <div ng-if="selectedView=='lib4'" ng-init="getReadingLog();">
+
+      <div class="row">
+        <div class="col">
+          <div class="item tableheader">
+            <h2>READING LOG</h2>
+            <span>ประวัติการยืม</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card list" style="margin-top:5px;margin-bottom: 5px;" ng-show="readinglog.books.length > 0">
+        <ion-item class="item greenbar05 boldfont item-icon-right" style="padding-top: 0px;padding-bottom: 0px;">
+          <i class="icon custom-icon"></i>
+          <div class="row">
+            <div class="col">{{readinglog.id_label}}</div>
+            <div class="col">{{readinglog.title_label}}</div>
+          </div>
+        </ion-item>
+
+        <div ng-repeat="readinglogList in readinglog.books">
+          <ion-item class="item item-icon-right" ng-class="{active: isGroupShown(readinglogList)}"
+            ng-click="toggleGroup(readinglogList)" style="padding-top: 10px;padding-bottom:10px;">
+            <i class="icon custom-icon"
+              ng-class="isGroupShown(readinglogList) ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i>
+            <div class="row">
+              <div class="col col-10 datafont14">{{readinglogList.id}}</div>
+              <div class="col greenfont item-text-wrap">{{readinglogList.title}}</div>
+            </div>
+          </ion-item>
+          <div class="amp" ng-class="{active: isGroupShown(readinglogList)}">
+            <div ng-repeat="item in readinglogList.detail">
+              <div class="item bgcontent">
+                <span>{{item.label}}</span>
+                <span class="item-note datafont item-text-wrap" style="text-align: right;">{{item.value}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notfound" ng-if="loadingReadingLog==1" style="text-align:center;">
+        <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+      </div>
+      <div class="item admin item-text-wrap" ng-bind-html="renderHtml(libContact)"></div>
+
+    </div>
+  </ion-content>
+</ion-view>

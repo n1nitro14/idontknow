@@ -1,0 +1,47 @@
+<style>
+    .prcard {
+        box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+        margin-top:8px;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+</style>
+<ion-view title='Press Release'>
+    <ion-nav-bar>
+    </ion-nav-bar>
+  
+    <div class="bar bar-subheader has-footer no-bar">
+      <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"></a>
+    </div>
+    <ion-content scroll="true" has-tabs="true" class="bgcontentF4">
+  
+      <img style="width: 100%" ng-src="{{prDetail.photo}}">
+  
+      <div class="card prcard contentFont font16">
+
+        <div class="item item-text-wrap" style="border-width:0px;">
+            <h2 style="font-size:20px; font-weight: 600;color:#333333;">{{prDetail.title}}</h2>
+        </div>
+
+        <div class="item item-avatar-left item-icon-right item-text-wrap" style="border-width:0px;">
+            <img ng-src="{{prDetail.icon}}">
+            <p style="font-size:16px; color:#006766;">{{prDetail.post_by}}</p>
+            <p style="font-size:16px;">{{prDetail.post_date}}</p>
+        </div>
+
+        <hr style="width:90%;height: 1px; background-color: #ddd; border: none;">
+
+        <div class="item item-text-wrap" style="border-width:0px;">
+            <span style="font-size:16px;" ng-bind-html="renderHtml(prDetail.detail)"></span>
+        </div>
+
+        <div ng-if="prDetail.url !=''" class="item item-text-wrap" style="border-width:0px;" ng-click="goToModule('{{prDetail.url}}');">
+            <span class="iosfont font16" >ข้อมูลเพิ่มเติม</span>
+        </div>
+
+    </div>
+    <br>
+
+    </ion-content>
+  </ion-view>
+  

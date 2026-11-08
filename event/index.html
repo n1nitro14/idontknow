@@ -1,0 +1,47 @@
+<ion-view>
+  <div class="bar bar-subheader">
+    <div class="buttons" side="left">
+      <a ng-click="backHome()" class="button icon ion-ios-arrow-back stylesec2">
+        <!-- <i class="ion-chevron-left" style="color:#00675E;padding-left:5px;"></i> -->
+      </a>
+    </div>
+    <div class="title">
+        <!-- <h4 style="color:#00675E;">KU Events</h4> -->
+        <h4 style="color:#333333;">KU Calendar</h4>
+    </div>
+    <div class="buttons" side="right">
+      <button class="button button-icon button-clear" style="color:#00675E;"
+      ng-class="options.showDay? 'ion-ios-list-outline' : 'ion-ios-calendar-outline'" ng-click="changeView();"></button>
+    </div>
+  </div>
+
+  <ion-content class="has-header has-subheader" ng-init="getEvents('month','');" style="background-color:#F4F4F4;padding:16px;">
+    <br>
+    <flex-calendar events="events" options="options" ></flex-calendar>
+
+    <div class="list" ng-show="eventsLists.length != 0">
+
+      <!-- <ion-scroll style="{{event_style}}"> -->
+        <div class="card greennewslistcard " ng-repeat="eventsList in eventsLists">
+          <div class="item subdivider" id="{{eventsList.name}}" style=" background-color: rgba(12, 150, 145, 0.2); padding-top: 8px;padding-bottom: 8px;">
+            {{eventsList.name}}
+          </div>
+
+          <a class="item item-avatar-left" ng-repeat="item in eventsList.events" ng-click="openURL('{{item.url}}');" style="border-color:#f4f4f4;">
+            <img ng-src="{{item.photo}}">
+            <!-- <h3 style="color:#606060;">{{item.event_name}}</h3> -->
+            <span class="newscardtitle item-text-wrap" >{{item.event_name}}</span>
+            <p ng-if="item.detail.lenght==1">{{item.detail}}</p>
+            <p ng-if="item.start_event!=item.end_event" >{{item.start_event}}
+              -
+              {{item.end_event}}</p>
+            <p ng-if="item.start_event==item.end_event">{{item.start_event}}</p>
+            <p ng-if="item.url!=''" style="color:#13706D;">ข้อมูลเพิ่มเติม</p>
+          </a>
+        </div>
+      <!-- </ion-scroll> -->
+    </div>
+
+    <br>
+  </ion-content>
+</ion-view>

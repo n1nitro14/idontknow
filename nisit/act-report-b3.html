@@ -1,0 +1,89 @@
+<ion-view title='Activity Transcript'>
+  <!-- <ion-nav-bar class="bar-subheader bar-light">
+    <ion-nav-back-button class="button-clear">
+      <i class="ion-chevron-left"></i>
+    </ion-nav-back-button>
+  </ion-nav-bar> -->
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+  <ion-content class="bgcontent" style="margin:0px; padding:0px;">
+    <!-- <img src="img/bg4.jpg" style="margin-bottom:0em;" width="100%"> -->
+            <!-- BANNER START -->
+            <div>
+              <img src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+            </div>
+            <!-- BANNER END -->
+
+    <!-- <pre ng-bind="actReportNisit | json"></pre> -->
+    <!-- สถานะการมีสิทธิ์ลงทะเบียน-->
+    <!-- <div class="list card">
+      <div class="item item-input" style="height:1.875em;background-color:rgb(245, 127, 23);color:white;">Transcript กิจกรรมนิสิต</div>
+      <div class="row">
+        <div class="col">สถานะ</div>
+        <div class="col warningfont">{{actReportNisit.activity_status}}</div>
+      </div>
+    </div> -->
+
+    <div ng-if="act_notfound==0">
+    <!-- ไฟล์ -->
+    <div class="list card activitytlistcard">
+      <div class="item item-input" style="height:1.875em;background-color:#0c9691;color:white;font-size:18px;">รายงาน Transcript กิจกรรม</div>
+
+      <div class="row">
+        <!-- <div class="col">Transcript กิจกรรม</div> -->
+        <div class="col iosfont" style="text-align:center; font-size: 18px;">
+          <a ng-click="getActDetail()">แสดงรายงานการเข้าร่วมกิจกรรม <br>
+            <span class="redfont">** ใช้เวลาในการโหลดข้อมูล **</span>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+    </div>
+
+    <!-- ตารางกำหนดการลงทะเบียนเรียน -->
+    <div class="list card activitytlistcard" ng-show="TranscriptDetail">
+      <div class="item item-input" style="height:1.875em;background-color: rgba(12, 150, 145, 0.2);color:#444444;">รายงาน Transcript กิจกรรม</div>
+      <!--LIST-->
+      <div ng-repeat="actList in actDetailNisit.Detail">
+        <ion-item class="item item-icon-right" ng-class="{active: isGroupShown(actList)}" ng-click="toggleGroup(actList)">
+          <i class="icon custom-icon" ng-class="isGroupShown(actList) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
+          <span style="font-size:16px; !important;">{{actList.label_name}}</span>
+          <!-- <span class="iosfont" style="font-size: 0.8750em !important;">{{actList.Label_COUNT_P}}
+            {{actList.Label_SCORE_SUM}}</span> -->
+          <br ng-show="actList.LabelCOUNT_PG"><span class="iosfont" style="font-size:16px; !important;">{{actList.LabelCOUNT_PG}}&nbsp;
+              {{actList.LabelCOUNT_G}}&nbsp;{{actList.LabelSCORE_G}}</span>
+        </ion-item>
+
+        <!-- ng-bind-html การแสดง syntax html ที่ส่งค่า html ผ่านตัวแปรมา -->
+        <div ng-bind-html="renderHtml(actList.html_content)" ng-show="isGroupShown(actList)"></div>
+
+      </div>
+    </div>
+  </div>
+  <!-- <div ng-if="notfound==1" style="padding:50px 0 25px 0;text-align:center;">
+    <a class="button button-icon" ng-click="openURL(act_url);">
+      <div class="item admin" ng-bind-html="renderHtml(act_info)"></div>
+    </a>
+  </div> -->
+
+</div>
+<div ng-if="act_notfound==1">
+    <!-- <div class="item admin" ng-bind-html="renderHtml(act_info)"></div> -->
+  <!-- </a> -->
+  <div class="list card activitytlistcard">
+      <div class="item item-input" style="height:1.875em;background-color:#0c9691;color:white;font-size:18px;">รายงาน Transcript กิจกรรม</div>
+      <div class="row">
+        <div class="col">
+          <a ng-click="openURL(act_url)" ng-bind-html="renderHtml(act_info)"></a>
+        </div>
+      </div>
+    </div>
+</div>
+<br>
+  </ion-content>
+</ion-view>

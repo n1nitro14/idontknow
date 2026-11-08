@@ -1,0 +1,133 @@
+<ion-view id="qrscanner">
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+  <ion-content ng-init="getCheckInBanner();selectedView='checkin1';">
+      <!-- /* Style Check In */
+      /* <link rel='stylesheet' type="text/css" href="css/stylepage.css"></link> */
+      /* Style Check In */ -->
+
+    <div ng-if="!showCamera">
+      <!-- BANNER -->
+      <!-- <div style="min-height: 150px; "> -->
+      <div>
+        <img ng-src="{{bannerLists.banner}}" class="radiusBanner"
+          style="width: 100%; transition: opacity 1s ease-in-out;">
+      </div>
+
+      <!-- MENU -->
+      <div class="container-icon-chkin-menu">
+        <div class="row borderbottomgrey">
+          <div class="col">
+            <a ng-class="['button','button-icon',{'now-active':selectedView=='checkin1'}]"
+              ng-click="selectedView='checkin1';">
+              <i ng-class="['ion-qr-scanner','picon2',{'active-picon2':selectedView=='checkin1'}]"></i><br>Check In</a>
+          </div>
+          <div class="col">
+            <a ng-class="['button','button-icon',{'now-active':selectedView=='checkin2'}]"
+              ng-click="selectedView='checkin2';">
+              <i
+                ng-class="['ion-ios-paper-outline','picon2',{'active-picon2':selectedView=='checkin2'}]"></i><br>ประวัติการ
+              Check In</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ######### CHECK IN 1 ######### -->
+      <div ng-if="selectedView=='checkin1'">
+
+        <div class="row">
+          <div class="col">
+            <div class="item tableheader">
+              <h2>CHECK IN</h2>
+              <span>การเช็คอิน</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="text-align: center;padding-top:20px;">
+          <div class="col"></div>
+          <div class="col">
+            <img src="img/scan.png" ng-click="doScan()">
+            <button class="button button-block ion-android-camera scanbutton" ng-click="doScan()">
+              <span class="padding" style="color:white;">Scan Now</span>
+            </button>
+          </div>
+          <div class="col"></div>
+        </div>
+      
+      </div>
+
+      <!-- ######### CHECK IN 2 ######### -->
+      <div ng-if="selectedView=='checkin2'" ng-init="getCheckInLog(searchTxt,year);">
+        <div class="row">
+          <div class="col">
+            <div class="item tableheader">
+              <h2>CHECK IN LOG</h2>
+              <span>ประวัติการ Check In</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ### START DATA ### -->
+        <div style="padding-left:12px;padding-right: 12px;">
+          <div class="item item-input-inset " style="border:0px;">
+            <label class="item-input-wrapper borderradius2" style="padding:3px;">
+              <i class="icon ion-ios-search placeholder-icon" style="font-size:20px;padding-left:20px;"></i>
+              <input type="search" style="font-family: 'EDPenSookRegular';font-size:18px;line-height:30px;"
+                ng-model="searchTxt" placeholder="กรอกคำค้น...">
+            </label>
+            <a class="button button-icon icon ion-ios-search" style="color:#006664;"
+              ng-click="getCheckInLog(searchTxt,year);"></a>
+          </div>
+
+          <div class="row" style="padding-bottom: 12px;">
+            <div class="col">
+              <div class="item" style="color:#333; border: none;text-align: right;">ปี พ.ศ.</div>
+            </div>
+            <div class="col">
+              <a class="item item-icon-right item-select" ng-click="selectYear();"
+                style=" border: none;  border-bottom: 1px solid #dbdbdb !important;">
+                <span class="item-note" style="color:#006664;font-weight: 600;">
+                  {{selectYearTxt}}
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <div ng-if="loadingCheckInLog==0">
+            <div class="item item-input greenhead borderradiustop"></div>
+            <ion-item ng-repeat="item in checkinList" class="item-remove-animate item-avatar-left item-icon-right"
+              ng-click="goToCheckInDetail(item);">
+              <img src="./img/ku.jpg">
+              <h3 style="color:#333;">{{item.activity_date}}</h3>
+              <h3 style="color:#1A716E;">{{item.activity_name}}</h3>
+              <p style="font-size:14px;">{{item.activity_location}}</p>
+              <p style="font-size:12px;">{{item.activity_time}}</p>
+              <i class="icon arrow-right-icon ion-ios-arrow-right"></i>
+            </ion-item>
+          </div>
+
+          <!-- ### END DATA ### -->
+          <div ng-if="loadingCheckInLog==1" id="checkinnotfound" class="notfound" style="text-align:center;">
+            <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="item admin item-text-wrap" ng-bind-html="renderHtml(checkinContact)"></div>
+    </div>
+
+    <div ng-if="showCamera">
+      <a class="button button-icon icon ion-close-round float" ng-click="closeCamera()"></a>
+      <img src="img/qr_rectangle.png" alt="" id="qr_region">
+      <!-- <img src="img/light_off.png" alt="" id="light_qr"> -->
+    </div>
+  </ion-content>
+</ion-view>

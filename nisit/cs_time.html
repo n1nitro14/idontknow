@@ -1,0 +1,122 @@
+<style>
+  .tabletlistcard {
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+      margin-top:16px;
+      border-radius: 8px;
+      font-size: 18px;
+      margin-left: 12px;
+      margin-right: 12px;
+      margin-bottom: 18px;
+  }
+  .tablecardtitle {
+      font-size: 18px;
+      color: #444444;
+  }
+
+  .frame-container-icon {
+    padding: 16px;
+    text-align: center;
+    height: 50%;
+    /* background: #f6f6f6; */
+  }
+
+  .frame-container-icon .button {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #666666;
+    line-height: 16px;
+    /* font-weight: 600; */
+  }
+
+  .frame-container-icon img.icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-bottom: 2.5pt; */
+    width: 40px;
+    border: 0em;
+    /* padding: 2.5pt; */
+  }
+
+</style>
+<ion-view>
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+  <ion-content class="bgcontent" ng-init="getCsTime();setView='table';">
+    <!-- BANNER START-->
+    <div>
+      <img src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div>
+    <!-- BANNER END -->
+
+    <!-- MENU -->
+    <div class="container-icon-chkin-menu">
+      <div class="row borderbottomgrey ">
+        <div class="col">
+          <a ng-class="['button','button-icon',{'now-active':setView=='table'}]" ng-click="setView='table';">
+            <i ng-class="['ion-ios-calendar-outline','picon2',{'active-picon2':setView=='table'}]"></i><br>Timetable</a>
+        </div>
+        <div class="col">
+          <a ng-class="['button','button-icon',{'now-active':setView=='list'}]" ng-click="setView='list';">
+            <i ng-class="['ion-ios-list-outline','picon2',{'active-picon2':setView=='list'}]"></i><br>List</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row bgcontent">
+      <div class="col bgcontent">
+        <div class="item tableheader bgcontent">
+          <h2>Class Schedule</h2>
+          <span>ตารางเรียน</span>
+        </div>
+      </div>
+      <div ng-if="setView=='table'">
+
+          <!-- <a class="button button-icon" style="font-size:30px;padding-right: 12px;color: #888888;"
+          ng-class="portrait?'ion-android-phone-landscape':'ion-android-phone-portrait'" ng-click="setLayout();"></a> -->
+
+          <a class="button button-icon" style="font-size:30px;padding-right: 12px;color: #888888;"
+          ng-class="theme=='light'?'ion-ios-calendar':'ion-ios-calendar-outline'" ng-click="setTheme();"></a>
+
+          <a class="button button-icon ion-android-share-alt" style="font-size:30px;padding-right: 12px;color: #888888;"
+          ng-click="openSocialShare();"></a>
+      </div>
+    </div>
+
+    <!-- ######### Table ######### -->
+    <div ng-if="setView=='table'" style="padding: 12px;" ng-click="setLayout();">
+      <img ng-src="{{timetable_img}}" class="radiusBanner" style="border-radius: 8px;width: 100%; transition: opacity 1s ease-in-out;" >
+    </div>
+
+    <!-- ######### List ######### -->
+    <div ng-if="setView=='list'">
+      <div class="card tabletlistcard" ng-repeat="CsTimeList in CsTimeNisit">
+        <div class="item item-divider subdivider tablecardtitle" id="{{CsTimeList.year}}" style="background-color:{{CsTimeList.colorday}}">
+          {{CsTimeList.day}}
+        </div>
+        <a class="item" ng-repeat="item in CsTimeList.courses">
+          <div class="row">
+            <div class="col col-33">
+              <h3 style="color:#0c9691">{{item.time}}</h3>
+            </div>
+            <div class="col col-67">
+              <h3 style="color:#444444">{{item.course_id}}&nbsp;&nbsp;sec.{{item.section}}</h3>
+              <h3 style="color:#444444">{{item.course_name}}</h3>
+              <h3 style="color:#444444">ห้อง :&nbsp;{{item.room}}</h3>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="notfound" ng-if="loadingCsTime==1" style="text-align:center;">
+      <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+    </div>
+    <div ng-show="CsTimeNisit==null" ng-if="loadingCsTime==0" style="text-align:center;">No Class Schedule Time</div>
+    <br><br>
+  </ion-content>
+</ion-view>

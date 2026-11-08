@@ -1,0 +1,107 @@
+<style>
+.verticalListItem  {
+    <!-- display: block;
+    overflow: hidden;-->
+    margin-left:10px;
+    margin-top:-8px;
+    margin-bottom:-8px;
+    vertical-align:middle;
+    text-align:left;
+    line-height:30px;
+    color:#666666;
+    font-size:14px;
+}
+
+.verticalItemImage img {
+    display: block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    vertical-align:middle;
+}
+
+.actionsheetfont {
+  color:#2c7ed4;
+  font-size:12px;
+}
+
+</style>
+
+<ion-view title='Bill Payment [KU9]'>
+  <ion-nav-bar class="bar-subheader bar-light">
+    <ion-nav-back-button class="button-clear">
+      <i class="ion-chevron-left"></i>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content class="has-subheader bgcontent">
+    <!-- Hilight -->
+    <div class="myBill" ng-init="getKU9()" >
+      <div style="display: table-cell;">
+        <img class="ku9-img" ng-src="{{ku9Nisit.img_profile}}">
+        <p>{{ku9Nisit.id}}</p>
+        <p style="margin-top:-0.5em;">{{ku9Nisit.name_th}}</p>
+      </div>
+    </div>
+    <!-- Header-->
+    <!-- <div class="list card">
+      <div class="item item-input" style="height:1.875em;background-color:rgb(23, 156, 113);color:white;">ปีการศึกษา 2559 ภาคต้น</div>
+    </div> -->
+    <!-- <div class="item-input" style="font-size: 1em;color:gray;line-height: 0.85em;font-weight: 800;margin-top:-5px;margin-bottom:5px;">
+      Bill Payment [KU9]</div> -->
+    <!-- <br> -->
+    <!--LIST1-->
+    <div class="mySlideKu9">
+      <ion-slide-box show-pager="true" ng-show="ku9Nisit.KU9.length!=0" style="height:auto;padding-bottom:40px;">
+        <ion-slide ng-repeat="ku9List in ku9Nisit.KU9">
+          <h4 class="ku9font" style="margin-top:20px;margin-bottom:-5px;">{{ku9List.desc}}</h4><br>
+          <h4 class="ku9font" style="margin-top:-8px;margin-bottom:-6px;">{{ku9Nisit.Yr}}&nbsp;{{ku9Nisit.Name_sm}}</h4>
+          <div class="list card">
+            <div class="item item-divider">
+              <h3 style="color:#444444;font-weight:400;">Bill Payment Detail</h3>
+            </div>
+            <div class="item item-body" style="height:100%;">
+              <div class="row ku9row">
+                <div class="col col-25">จำนวนเงิน&nbsp;</div>
+                <div class="col iosfont" style="text-align:left;" >{{ku9List.money}}&nbsp;บาท</div>
+                <div class="col"></div>
+              </div>
+              <div class="row ku9row">
+                <div class="col col-25">Ref.1&nbsp;</div>
+                <div class="col iosfont">{{ku9List.ref_1}}</div>
+                <div class="col"></div>
+              </div>
+              <div class="row ku9row">
+                <div class="col col-25">Ref.2&nbsp;</div>
+                <div class="col iosfont">{{ku9List.ref_2}}</div>
+                <div class="col"></div>
+              </div>
+            </div>
+          </div>
+          <div class="container-icon">
+            <div class="row" style="margin-top:-25px;">
+              <div class="col"></div>
+              <div class="col">
+                <a class="button button-icon" style="color:#ffffff;" ng-click="showCompCode(ku9Nisit.CompCode);">
+                  <img class="icon" src="./img/compcode.png" style="width:50px;">CompCode</a>
+              </div>
+              <div class="col">
+                <a class="button button-icon" style="color:#ffffff;" ng-click="openBarcodeModal(ku9List.img_barcode)">
+                  <img class="icon" src="./img/scan.png" style="width:50px;">Barcode</a>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+      <div ng-show="ku9Nisit.KU9.length==0">
+        <br>
+        <h4 class="ku9font" style="margin-top:-8px;margin-bottom:-6px;text-align:center;">{{ku9Nisit.Yr}}&nbsp;{{ku9Nisit.Name_sm}}</h4>
+        <div class="list card">
+          <div ng-bind-html="renderHtml(ku9Nisit.Msg_Info)" class="warnfont" style="text-align:center !important; margin-top:10px; margin-bottom:10px;" ></div>
+        </div>
+    </div>
+
+  </div>
+  <!-- <pre ng-bind="gradeNisit | json"></pre> -->
+</ion-content>
+</ion-view>

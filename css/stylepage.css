@@ -1,0 +1,103 @@
+/* Style Check In */
+  /* Style Check In */
+  .tableheader {
+    font-size: 16px;
+    border: 0px;
+    font-weight: 600;
+    color: #0c9691;
+    border-left: 8px solid #0c9691 !important;
+    padding-left: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .tableheader-right {
+    font-size: 16px;
+    border: 0px;
+    font-weight: 600;
+    color: #006765;
+    padding-right: 0px;
+    padding-top: 4px;
+    padding-bottom: 0px;
+    text-align: right;
+  }
+  
+  .scanbutton {
+    background-color: #36A09C;
+    border-radius: 2em;
+    color: white;
+  }
+  
+  .disablebutton{
+    background-color: #e3e7e7;
+    border-radius: 2em;
+    color: #999;
+    border-width: 0px;
+  }
+  .radiusBanner {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .container-icon-chkin-menu {
+    padding: 0.5em;
+    padding-top: 0px;
+    text-align: center;
+  }
+  
+  .container-icon-chkin-menu .button {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #666666;
+    line-height: 26px;
+    font-weight: 600;
+    /* padding-bottom: 20px; */
+  }
+  
+  .borderbottomgrey {
+    border-bottom: 1px solid rgb(243, 243, 243) !important;
+    padding-bottom: 10px;
+  }
+
+  .bordertopgrey {
+    border-top: 1px solid rgb(243, 243, 243) !important;
+    padding-top: 10px;
+  }
+  
+  .now-active {
+    color: #0c9691 !important;
+    font-weight: 600;
+  }
+  
+  .picon2 {
+    text-decoration: none;
+    color: #333333;
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    display: inline-block;
+    background-color: white;
+    /* background-color: rgba(12, 150, 145, 0.9); */
+    line-height: 45px;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+  }
+  
+  .active-picon2 {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    display: inline-block;
+    background-color: rgba(12, 150, 145, 0.9);
+    line-height: 45px;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+  }
+  /* Style Check In */
+  /* Style Check In */

@@ -1,0 +1,236 @@
+<style>
+  .radiusBanner {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .borderbottomgrey {
+    border-bottom: 1px solid rgb(243, 243, 243) !important;
+    padding-bottom: 10px;
+  }
+
+  /* ###### START Member Information ###### */
+  .tableheader {
+    font-size: 1em;
+    border: 0px;
+    font-weight: 600;
+    color: #0c9691;
+    border-left: 8px solid #0c9691 !important;
+    padding-left: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .tableheader-left {
+    font-size: 1em;
+    border: 0px;
+    font-weight: 600;
+    color: #0c9691;
+    border-left: 8px solid #0c9691 !important;
+    padding-left: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .tableheader-right {
+    font-size: 14px;
+    border: 0px;
+    color: #0c9691;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: right;
+  }
+
+  .greenhead {
+    height: 16px;
+    background-color: rgba(12, 150, 145, 0.8);
+  }
+
+  .datafont {
+    color: #030303;
+    font-size: 16px;
+  }
+
+  .radiusimg {
+    border-radius: 50px;
+  }
+
+  .newscardtitle {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .nobordercard {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    line-height: 0px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1)
+  }
+
+  /* ###### END Member Information ###### */
+
+  /* ###### START ReadingLog ###### */
+  .greenbar05 {
+    /* height:1.25em; */
+    background-color: rgba(12, 150, 145, 0.5);
+  }
+
+  /* Expand Card */
+  .amp-score {
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0.55s;
+    background-color: rgba(220, 226, 225, 0.2);
+  }
+
+  .amp-score.active {
+    max-height: 2000px;
+    transition: all 1.3s;
+  }
+
+  /* ###### END ReadingLog ###### */
+
+  /* ###### start TOP Menu ###### */
+
+  .now-active {
+    color: #0c9691 !important;
+    font-weight: 600;
+  }
+
+  .picon2 {
+    text-decoration: none;
+    color: #333333;
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    display: inline-block;
+    background-color: white;
+    /* background-color: rgba(12, 150, 145, 0.9); */
+    line-height: 45px;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+  }
+
+  .active-picon2 {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    display: inline-block;
+    background-color: rgba(12, 150, 145, 0.9);
+    line-height: 45px;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+  }
+
+  /* ###### end TOP Menu ###### */
+
+  .card-header {
+    background-color: rgba(12, 150, 145, 0.25);
+    text-align: center;
+    color: #333333;
+    font-weight: 600;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+</style>
+
+<ion-view>
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+  <ion-content ng-init="getExamScore();">
+
+    <!-- BANNER START -->
+    <div ng-if="banner ==''">
+      <img src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div>
+
+    <div ng-if="banner !=''">
+      <img ng-src="{{banner}}" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div>
+    <!-- BANNER END -->
+
+    <div class="row">
+      <div class="col">
+        <div class="item tableheader">
+          <h2>{{title}}</h2>
+          <span>{{sub_title}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card list" style="margin-top:5px;margin-bottom: 5px;" ng-show="examscore.course.length > 0">
+      <ion-item class="item greenbar05 boldfont item-icon-right" style="padding-top: 0px;padding-bottom: 0px;">
+        <i class="icon custom-icon"></i>
+        <div class="row">
+          <div class="col">{{examscore.header_1}}</div>
+          <div class="col" style="text-align: center;">{{examscore.header_3}}</div>
+          <div class="col col-50">{{examscore.header_2}}</div>
+        </div>
+      </ion-item>
+
+      <div ng-repeat="examscoreList in examscore.course">
+        <ion-item class="item item-icon-right" ng-class="{active: isGroupShown(examscoreList)}"
+          ng-click="toggleGroup(examscoreList)" style="padding-top: 10px;padding-bottom:10px;">
+          <i class="icon custom-icon"
+            ng-class="isGroupShown(examscoreList) ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i>
+          <div class="row">
+            <div class="col kugreenfont datafont14 boldfont">{{examscoreList.cs_code}}</div>
+            <div class="col datafont14" style="text-align: center;">{{examscoreList.cs_sec}}</div>
+            <div class="col col-50 item-text-wrap">
+              <span class='datafont14'>{{examscoreList.cs_title}}</span>
+            </div>
+          </div>
+        </ion-item>
+        <div class="amp-score datafont14" ng-class="{active: isGroupShown(examscoreList)}">
+          <div style="padding:12px 12px 24px 12px;">
+            <div ng-if="examscoreList.detail.length > 0">
+              <div class="row card-header item-text-wrap">
+                <div class="col">{{examscore.sub_header_1}}</div>
+                <div class="col">{{examscore.sub_header_2}}</div>
+                <div class="col">{{examscore.sub_header_3}}</div>
+                <div class="col">{{examscore.sub_header_4}}</div>
+              </div>
+              <div class="row datafont14" ng-repeat="item in examscoreList.detail"
+                style="padding-top:10px;background-color: white;">
+                <div class="col">
+                  <span>{{item.date}}</span>
+                </div>
+                <div class="col">
+                  <span>{{item.desc}}</span>
+                </div>
+                <div class="col" style="text-align:center;">
+                  <span>{{item.full_score}}</span>
+                </div>
+                <div class="col" style="text-align:center;color:#006664;">
+                  <span>{{item.score}}</span>
+                </div>
+              </div>
+            </div>
+            <!-- <div ng-if="examscoreList.detail.length == 0">test</div> -->
+            <div class="notfound" ng-if="examscoreList.detail.length == 0" style="text-align:center;">
+              ไม่พบข้อมูล
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notfound" ng-if="loadingExamScore==1" style="text-align:center;">
+      <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+    </div>
+    <div class="item admin item-text-wrap" ng-bind-html="renderHtml(scoreContact)"></div>
+
+  </ion-content>
+</ion-view>

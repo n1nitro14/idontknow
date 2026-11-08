@@ -1,0 +1,55 @@
+<ion-view title='QuickLink'>
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+
+  <ion-pane ng-init="getLink();">
+    <ion-content class="bgcontent">
+                  <!-- BANNER START -->
+                  <div>
+                    <img src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+                  </div>
+                  <!-- BANNER END -->
+      <div class="bar bar-header item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-ios-search placeholder-icon"></i>
+          <input ng-model="searchLink" placeholder="Search" type="text">
+        </label>
+      </div>
+      <!-- <ion-list ng-repeat="item in linkLists | filter : searchLink ">
+        <a class="item" ng-click="openURL('{{item.url}}');">
+          <h3 style="color:#006664; font-size: 18px;">{{item.title}}</h3>
+          <p>{{item.url}}</p>
+        </a>
+      </ion-list> -->
+
+
+
+      <!-- <ion-scroll style="{{event_style}}"> -->
+        <div class="card quicklinklistcard " ng-repeat="item in linkLists | filter : searchLink ">
+          <!-- <div class="item subdivider" id="{{eventsList.name}}" style=" background-color: rgba(12, 150, 145, 0.2); padding-top: 8px;padding-bottom: 8px;">
+            {{eventsList.name}}
+          </div> -->
+          <a class="item" ng-click="openURL('{{item.url}}');">
+            <span class="newscardtitle item-text-wrap">{{item.title}}</span>
+            <p>{{item.url}}</p>
+          </a>
+          <!-- <a class="item item-avatar-left" ng-repeat="item in eventsList.events" ng-click="openURL('{{item.url}}');" style="border-color:#f4f4f4;">
+            <img ng-src="{{item.photo}}">
+            <span class="newscardtitle item-text-wrap" >{{item.event_name}}</span>
+            <p ng-if="item.detail.lenght==1">{{item.detail}}</p>
+            <p ng-if="item.start_event!=item.end_event" >{{item.start_event}}
+              -
+              {{item.end_event}}</p>
+            <p ng-if="item.start_event==item.end_event">{{item.start_event}}</p>
+            <p ng-if="item.url!=''" style="color:#13706D;">ข้อมูลเพิ่มเติม</p>
+          </a> -->
+        </div>
+      <!-- </ion-scroll> -->
+
+
+    </ion-content>
+  </ion-pane>
+</ion-view>

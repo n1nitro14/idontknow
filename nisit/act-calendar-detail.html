@@ -1,0 +1,99 @@
+<ion-view>
+  <!-- <ion-nav-bar class="bar bar-subheader has-footer no-bar">
+    <ion-nav-back-button class="button icon ion-ios-arrow-back stylesec2">
+    </ion-nav-back-button>
+    <ion-nav-buttons side="right">
+      <button class="button button-icon button-clear" ng-class="showDay? 'ion-android-more-horizontal' : 'ion-android-more-vertical' " ng-click="changeView();"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar> -->
+
+  <div class="bar bar-subheader">
+    <div class="buttons" side="left">
+      <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2">
+      </a>
+    </div>
+    <div class="title">
+        <h4 style="color:#333333;">Activity Transcript</h4>
+    </div>
+    <div class="buttons" side="right">
+      <button class="button button-icon button-clear" style="color:#00675E;" ng-class="showDay? 'ion-android-more-horizontal' : 'ion-android-more-vertical' " ng-click="changeView();"></button>
+      <!-- <button class="button button-icon button-clear" style="color:#00675E;"
+      ng-class="options.showDay? 'ion-ios-list-outline' : 'ion-ios-calendar-outline'" ng-click="changeView();"></button> -->
+    </div>
+  </div>
+
+  <ion-content class="has-header has-subheader bgcontent" ng-init="getActCalendarDetail2(campusid);">
+    <br>
+    <!-- <img src="img/bg4.jpg" style="margin-bottom:0em;" width="100%"> -->
+            <!-- BANNER START -->
+            <div>
+              <img src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+            </div>
+            <!-- BANNER END -->
+
+    <div class="list card activitytlistcard" ng-show="actCalendarNisit.LabelCOUNT!='0'" style="margin-bottom:-4px;">
+      <div class="item item-input" style="height:1.875em;background-color:#0c9691;color:white;font-size:18px;">ปฏิทินโครงการ
+        {{actCalendarNisit.Label_Camp}}&nbsp;
+        <span ng-show="actCalendarNisit.Act_View=='Day'">(แยกตามกิจกรรม)</span>
+        <span ng-show="actCalendarNisit.Act_View=='Type'">(แยกตามประเภทกิจกรรม)</span></div>
+    </div>
+    <!--LIST-->
+    <div ng-show="actCalendarNisit.Act_View=='Day'">
+      <div class="list card activitytlistcard" ng-repeat="actList in actCalendarNisit.Detail">
+        <ion-item class="item item-icon-right" ng-class="{active: isGroupShown(actList)}" ng-click="toggleGroup(actList)">
+          <i class="icon custom-icon" ng-class="isGroupShown(actList) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
+          <span style="font-size: 16px !important; ">{{actList.LabelProj_DateManage}}</span><br>
+          <span class="iosfont" style="font-size: 16px!important;">{{actList.LabelProj_Name}}</span><br>
+          <span style="font-size: 16px!important;">สถานะ&nbsp;:&nbsp;</span>
+          <span class="warnfont" style="font-size: 16px !important;">{{actList.LabelProj_Status}}</span><br>
+        </ion-item>
+
+        <!-- ng-bind-html การแสดง syntax html ที่ส่งค่า html ผ่านตัวแปรมา -->
+        <div class="card activitytlistcard" ng-bind-html="renderHtml(actList.html_content)" ng-show="isGroupShown(actList)"></div>
+      </div>
+
+    </div>
+
+    <div ng-show="actCalendarNisit.Act_View=='Type'">
+      <div class="list card activitytlistcard" ng-repeat="actList in actCalendarNisit.Detail">
+        <div class="item item-input" style="background-color:rgba(12, 150, 145, 0.2); color:#444444;font-weight: 600;">
+          {{actList.Plan}}
+        </div>
+        <div ng-repeat="actList2 in actList.Data">
+          <ion-item class="item item-icon-right" ng-class="{active: isGroupShown(actList2)}" ng-click="toggleGroup(actList2)">
+            <i class="icon custom-icon" ng-class="isGroupShown(actList2) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
+            <span style="font-size: 16px !important; ">{{actList2.Type_Name}}</span>
+            <span class="iosfont" style="font-size: 16px !important;">{{actList2.Proj_List.length}}
+              กิจกรรม
+            </span>
+          </ion-item>
+          <div class="card activitytlistcard" ng-show="isGroupShown(actList2)">
+
+            <div ng-repeat="actList3 in actList2.Proj_List">
+              <ion-item class="item item-divider item-icon-right" 
+                  style="background-color:rgba(12, 150, 145, 0.2); ng-class="{active: isGroupShown(actList3)}" ng-click="toggleGroup(actList3)">
+                <i class="icon custom-icon iosfont" ng-class="isGroupShown(actList3) ? 'ion-ios-close-outline' : 'ion-ios-information-outline'"></i>
+                <span style="font-size: 16px !important;color:#444444;">{{actList3.LabelProj_DateManage}}</span><br>
+                <span class="iosfont" style="font-size: 16px !important;">{{actList3.LabelProj_Name}}</span><br>
+                <span style="font-size: 16px !important;color:#444444;">สถานะ&nbsp;:&nbsp;</span>
+                <span class="warnfont" style="font-size: 16px !important;">{{actList3.LabelProj_Status}}</span><br>
+              </ion-item>
+              <!-- ng-bind-html การแสดง syntax html ที่ส่งค่า html ผ่านตัวแปรมา -->
+              <div ng-bind-html="renderHtml(actList3.html_content)" ng-show="isGroupShown(actList3)"></div>
+            </div>
+            <div class="warnfont" style="text-align:center !important; margin-top:10px; margin-bottom:10px;" ng-show="actList2.Proj_List.length=='0'">ไม่มีข้อมูล</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list card activitytlistcard" ng-show="actCalendarNisit.LabelCOUNT=='0'">
+      <div class="item item-input" style="height:1.875em;background-color:#0c9691;color:white;font-size:18px;">ปฏิทินโครงการ
+        {{actCalendarNisit.Label_Camp}}</div>
+      <div class="warnfont" style="text-align:center !important; margin-top:20px; margin-bottom:10px;">ไม่มีข้อมูล</div>
+    </div>
+
+    <br>
+
+  </ion-content>
+</ion-view>

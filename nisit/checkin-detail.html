@@ -1,0 +1,50 @@
+<style>
+  .checkincard {
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+    margin-top: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+</style>
+<ion-view>
+  <ion-nav-bar>
+  </ion-nav-bar>
+
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"></a>
+  </div>
+  <ion-content scroll="true" has-tabs="true" class="bgcontentF4">
+    <div>
+      <img src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div>
+
+    <div class="card checkincard contentFont font16">
+
+      <div class="item item-text-wrap" style="border-width:0px;">
+        <h2 style="font-size:20px;font-weight: 600;color:#333333;">{{checkinDetail.activity_name}}</h2>
+      </div>
+
+      <div class="item item-avatar-left item-icon-right item-text-wrap" style="border-width:0px;">
+        <img src="./img/ku.jpg">
+        <p style="color: #006664;font-weight: 600;">{{checkinDetail.activity_date}}</p>
+        <p style="color: #333;">{{checkinDetail.activity_time}}</p>
+        <p style="color: #333;">{{checkinDetail.activity_location}}</p>
+      </div>
+
+      <hr style="width:90%;height: 1px; background-color:#ddd; border: none;">
+
+      <div class="item item-avatar-left item-icon-right item-text-wrap" style="border-width:0px;">
+        <!-- <img ng-src="{{img_profile}}"> -->
+        <h2>รหัสประจำตัวนิสิต&nbsp;{{id}}</h2>
+        <h2>{{name_th}}&nbsp;{{surname_th}}</h2>
+        <p style="color: #333;">{{checkinDetail.activity_action}}</p>
+        <p style="color: #333;">{{checkinDetail.checkin_time}}</p>
+        <p style="color: #333;">{{checkinDetail.checkin_location}}</p>
+      </div>
+
+    </div>
+    <br>
+
+  </ion-content>
+</ion-view>

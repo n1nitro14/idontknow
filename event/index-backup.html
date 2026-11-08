@@ -1,0 +1,33 @@
+<ion-view title='KU Event'>
+  <ion-nav-bar class="bar-subheader bar-dark">
+    <ion-nav-buttons side="right">
+      <button class="button button-icon button-clear"
+      ng-class="options.showDay? 'ion-ios-list-outline' : 'ion-ios-calendar-outline'" ng-click="changeView();"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content class="has-subheader" ng-init="getEvents('month','');">
+    <flex-calendar events="events" options="options"></flex-calendar>
+
+    <div class="list" ng-show="eventsLists.length != 0">
+      <!-- <ion-scroll style="{{event_style}}"> -->
+        <div class="card" ng-repeat="eventsList in eventsLists">
+          <div class="item item-divider subdivider" id="{{eventsList.name}}">
+            {{eventsList.name}}
+          </div>
+          <a class="item item-avatar-left item-icon-right" ng-repeat="item in eventsList.events" ng-click="openURL('{{item.url}}');">
+            <img ng-src="{{item.photo}}">
+            <h3 style="color:#008B00">{{item.event_name}}</h3>
+            <p ng-if="item.detail.lenght==1">{{item.detail}}</p>
+            <p ng-if="item.start_event!=item.end_event">{{item.start_event}}
+              -
+              {{item.end_event}}</p>
+            <p ng-if="item.start_event==item.end_event">{{item.start_event}}</p>
+            <p>ข้อมูลเพิ่มเติม :
+              {{item.detail}}</p>
+          </a>
+        </div>
+      <!-- </ion-scroll> -->
+    </div>
+
+  </ion-content>
+</ion-view>

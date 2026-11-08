@@ -1,0 +1,68 @@
+<ion-view>
+    <ion-nav-bar>
+    </ion-nav-bar>
+  
+    <div class="bar bar-subheader has-footer no-bar">
+      <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"></a>
+    </div>
+    <ion-content scroll="true" has-tabs="true" class="bgcontentF4">
+  
+        <div>
+            <img src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+          </div>
+  
+      <div class="card votecard contentFont font16">
+
+        <div class="item item-text-wrap" style="border-width:0px;">
+            <h2 style="font-size:20px;font-weight: 600;color:#333333;">{{voteDetail.vote_title}}</h2>
+        </div>
+
+        <div class="item item-avatar-left item-icon-right item-text-wrap" style="border-width:0px;">
+            <img ng-src="{{voteDetail.icon}}">
+            <p style="color: #006664;">{{voteDetail.post_by}}</p>
+            <p>{{voteDetail.vote_date}}</p>
+        </div>
+
+        <hr style="width:90%;height: 1px; background-color:#ddd; border: none;">
+
+        <div class="item item-text-wrap" style="border-width:0px;">
+            <span ng-bind-html="renderHtml(voteDetail.vote_desc)"></span>
+        </div>
+
+        <div ng-if="voteDetail.vote_type==1" >
+            <div class="list">
+                <li class="item item-checkbox" ng-repeat="item in voteDetail.choice">
+                   <label class="checkbox">
+                     <input type="radio" name="voted" value="item.choice_text">
+                   </label>
+                   {{item.choice_text}}&nbsp;&nbsp;{{item.vote_time}}
+                </li>
+            </div>
+        </div>
+
+        <div ng-if="voteDetail.vote_type==2" >
+            <div class="list">
+                <li class="item item-checkbox" ng-repeat="item in voteDetail.choice">
+                   <label class="checkbox">
+                     <input type="checkbox" ng-model="item.checked">
+                   </label>
+                   {{item.choice_text}}&nbsp;&nbsp;{{item.vote_time}}
+                </li>
+            </div>
+
+            <!-- <label ng-repeat="item in voteDetail.choice">
+                <input type="checkbox" ng-model="item.checked" ng-click="check(item, $index)" ng-disabled="!item.checked && checkedNumber === limitNumber">{{item.choice_text}}
+            </label> -->
+        </div>
+
+        <!-- <div ng-if="voteDetail.url !=''" class="item item-text-wrap" style="border-width:0px;" ng-click="goToModule('{{voteDetail.url}}');">
+            <span class="iosfont" >ข้อมูลเพิ่มเติม</span>
+        </div> -->
+        <br>
+    </div>
+    <br>
+
+  
+    </ion-content>
+  </ion-view>
+  

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NisitKU</title>
+  <link rel="icon" type="image/png" href="img/icco.png">
+  <link rel="apple-touch-icon" href="img/icco.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icco.png">
+  <style>
+    @font-face {
+      font-family: 'kufont';
+      src: url('css/kubd.ttf');
+    }
+    @font-face {
+      font-family: 'ku2font';
+      src: url('css/kumed.ttf');
+    }
+    @font-face {
+      font-family: 'ku3font';
+      src: url('css/kuli.ttf');
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: #f0f2f5;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #00675E;
+      color: white;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .brand img {
+      height: 34px;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 20px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card-panel {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .panel-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #00675E;
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #00675E;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #00675E;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #005049;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #2d3748;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e0;
+    }
+
+    /* PREVIEW CONTAINER */
+    .preview-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #e2e8f0;
+      border-radius: 12px;
+      padding: 30px 20px;
+    }
+
+    .preview-card-outer {
+      width: 340px;
+      height: 538px;
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.25);
+      background: #fff;
+    }
+
+    .preview-card-bg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* EXACT CALIBRATED POSITIONING MATCHING OFFICIAL SPEC */
+    .p-photo {
+      position: absolute;
+      top: 26.7%;
+      left: 3.5%;
+      width: 37.8%;
+      height: 30.2%;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .p-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .p-id {
+      position: absolute;
+      top: 21.9%;
+      left: 47.2%;
+      font-family: 'ku2font', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: #141414;
+      white-space: nowrap;
+    }
+
+    .p-name-th {
+      position: absolute;
+      top: 28.5%;
+      left: 47.2%;
+      font-family: 'kufont', sans-serif;
+      font-size: 1.42rem;
+      line-height: 22px;
+      color: #141414;
+      white-space: pre-line;
+    }
+
+    .p-name-en {
+      position: absolute;
+      top: 38.9%;
+      left: 47.2%;
+      font-family: 'ku2font', sans-serif;
+      font-size: 1.40rem;
+      line-height: 22px;
+      color: #141414;
+      white-space: pre-line;
+    }
+
+    .p-service {
+      position: absolute;
+      top: 49.1%;
+      left: 47.2%;
+      font-family: 'kufont', sans-serif;
+      font-size: 1.34rem;
+      line-height: 21px;
+      color: #141414;
+      white-space: pre-line;
+    }
+
+    /* KULINET BARCODE BOX (Matching Image) */
+    .barcode-box {
+      width: 340px;
+      margin-top: 20px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .barcode-header {
+      background: #28a54c;
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 6px 14px;
+    }
+
+    .barcode-body {
+      padding: 12px 14px;
+      text-align: center;
+    }
+
+    .barcode-number {
+      font-family: 'ku2font', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .barcode-svg-wrap {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .barcode-svg-wrap canvas {
+      max-width: 100%;
+      height: 75px;
+    }
+
+    .status-alert {
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      margin-top: 14px;
+      display: none;
+    }
+    .status-alert.success {
+      background: #c6f6d5;
+      color: #22543d;
+      display: block;
+    }
+    .status-alert.error {
+      background: #fed7d7;
+      color: #742a2a;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="img/home_logo.png" alt="KU Logo">
+      <span>NisitKU Card Studio</span>
+    </div>
+    <div>
+      <a href="index.html#/nisit/card" style="color:white; text-decoration:none; font-weight:600;">เปิดหน้าแอป NisitKU &rarr;</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- FORM CONTROLS -->
+    <div class="card-panel">
+      <div class="panel-title">
+        <span>⚙️ ตั้งค่าข้อมูลบัตรนิสิต</span>
+      </div>
+
+      <div class="form-group">
+        <label>ชื่อไฟล์ ID บัตร (Slug สำหรับ ?card=...)</label>
+        <input type="text" id="inputSlug" value="apiwit" placeholder="เช่น apiwit, pluem, aom">
+      </div>
+
+      <div class="form-group">
+        <label>รหัสนิสิต (Student ID)</label>
+        <input type="text" id="inputId" value="6627417856">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>ชื่อภาษาไทย</label>
+          <input type="text" id="inputNameTh" value="อภิวิชญ์">
+        </div>
+        <div class="form-group">
+          <label>นามสกุลภาษาไทย</label>
+          <input type="text" id="inputSurnameTh" value="นิตย์ประเสริฐ">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>ชื่อภาษาอังกฤษ (First Name)</label>
+          <input type="text" id="inputNameEn" value="Apiwit">
+        </div>
+        <div class="form-group">
+          <label>นามสกุลภาษาอังกฤษ (Last Name)</label>
+          <input type="text" id="inputSurnameEn" value="Nitprasert">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>คณะ / สังกัด บรรทัดที่ 1</label>
+          <input type="text" id="inputFaculty1" value="Management">
+        </div>
+        <div class="form-group">
+          <label>คณะ / สังกัด บรรทัดที่ 2</label>
+          <input type="text" id="inputFaculty2" value="Sciences">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>รหัสบาร์โค้ด KULINET</label>
+        <input type="text" id="inputBarcode" value="20068301560507">
+      </div>
+
+      <div class="form-group">
+        <label>รูปถ่ายนิสิต (Upload Photo)</label>
+        <input type="file" id="inputPhoto" accept="image/*">
+      </div>
+
+      <div class="btn-group" style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn-primary" id="btnDownloadCard" style="background:#00675E; font-size:1.05rem; padding:14px;">
+          📥 1. ดาวน์โหลดรูปหน้าบัตร (<span class="slug-label">apiwit</span>.jpg)
+        </button>
+        <button class="btn-primary" id="btnDownloadBarcode" style="background:#28a54c; font-size:1rem; padding:12px;">
+          📥 2. ดาวน์โหลดบาร์โค้ด (<span class="slug-label">apiwit</span>_barcode.png)
+        </button>
+        <button class="btn-secondary" id="btnDownloadJson" style="font-size:0.95rem; padding:10px;">
+          📄 3. ดาวน์โหลดไฟล์ข้อมูล (<span class="slug-label">apiwit</span>.json)
+        </button>
+        <button class="btn-secondary" id="btnOpenApp" style="background:#edf2f7; color:#2b6cb0; border:1px solid #cbd5e0; margin-top:6px;">
+          📱 ดูตัวอย่างในแอปทันที
+        </button>
+      </div>
+
+      <div id="statusAlert" class="status-alert"></div>
+    </div>
+
+    <!-- LIVE PREVIEW (MATCHING REFERENCE IMAGE) -->
+    <div class="preview-wrapper">
+      <div style="font-weight:700; color:#4a5568; margin-bottom:12px;">👀 Live WYSIWYG Preview</div>
+      
+      <!-- CARD PREVIEW -->
+      <div class="preview-card-outer">
+        <img src="img/f_bc.jpg" class="preview-card-bg" alt="Card Background">
+        
+        <div class="p-photo">
+          <img id="prevPhoto" src="img/natthapol.jpg" alt="Student Photo">
+        </div>
+
+        <div class="p-id" id="prevId">ID 6821861714</div>
+        <div class="p-name-th" id="prevNameTh">ณัฐพล<br>หมวกเมือง</div>
+        <div class="p-name-en" id="prevNameEn">Natthapol<br>Muakmuang</div>
+        <div class="p-service" id="prevService">Hospitality<br>Industry</div>
+      </div>
+
+      <!-- KULINET BARCODE BOX -->
+      <div class="barcode-box">
+        <div class="barcode-header">KULINET</div>
+        <div class="barcode-body">
+          <div class="barcode-number" id="prevBarcodeNum">20068218617143</div>
+          <div class="barcode-svg-wrap">
+            <canvas id="barcodeCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HIDDEN HI-RES CANVAS (2072 x 3276) FOR DIRECT JPG RENDERING -->
+  <canvas id="hiResCanvas" width="2072" height="3276" style="display:none;"></canvas>
+  <canvas id="hiResBarcodeCanvas" width="800" height="260" style="display:none;"></canvas>
+
+  <script>
+    let photoBase64 = null;
+    let photoImgElement = new Image();
+    photoImgElement.crossOrigin = "anonymous";
+    photoImgElement.src = "img/natthapol.jpg";
+
+    const bgCardImg = new Image();
+    bgCardImg.crossOrigin = "anonymous";
+    bgCardImg.src = "img/f_bc.jpg";
+
+    // Elements
+    const inputSlug = document.getElementById('inputSlug');
+    const inputId = document.getElementById('inputId');
+    const inputNameTh = document.getElementById('inputNameTh');
+    const inputSurnameTh = document.getElementById('inputSurnameTh');
+    const inputNameEn = document.getElementById('inputNameEn');
+    const inputSurnameEn = document.getElementById('inputSurnameEn');
+    const inputFaculty1 = document.getElementById('inputFaculty1');
+    const inputFaculty2 = document.getElementById('inputFaculty2');
+    const inputBarcode = document.getElementById('inputBarcode');
+    const inputPhoto = document.getElementById('inputPhoto');
+
+    const prevPhoto = document.getElementById('prevPhoto');
+    const prevId = document.getElementById('prevId');
+    const prevNameTh = document.getElementById('prevNameTh');
+    const prevNameEn = document.getElementById('prevNameEn');
+    const prevService = document.getElementById('prevService');
+    const prevBarcodeNum = document.getElementById('prevBarcodeNum');
+    const barcodeCanvas = document.getElementById('barcodeCanvas');
+    const hiResCanvas = document.getElementById('hiResCanvas');
+    const hiResBarcodeCanvas = document.getElementById('hiResBarcodeCanvas');
+
+    // Set default values to natthapol reference
+    inputSlug.value = "natthapol";
+    inputId.value = "6821861714";
+    inputNameTh.value = "ณัฐพล";
+    inputSurnameTh.value = "หมวกเมือง";
+    inputNameEn.value = "Natthapol";
+    inputSurnameEn.value = "Muakmuang";
+    inputFaculty1.value = "Hospitality";
+    inputFaculty2.value = "Industry";
+    inputBarcode.value = "20068218617143";
+
+    // Code128 pattern generator
+    function getCode128BitString(text) {
+      const PATTERNS = [
+        "212222", "222122", "222221", "121223", "121322", "131222", "122213", "122312", "132212", "221213",
+        "221312", "231212", "112232", "122132", "122231", "113222", "123122", "123221", "223211", "221132",
+        "221231", "213212", "223112", "312131", "311222", "321122", "321221", "312212", "322112", "322211",
+        "212123", "212321", "232121", "111323", "131123", "131321", "112313", "132113", "132311", "211313",
+        "231113", "231311", "112133", "112331", "132131", "113123", "113321", "133121", "313121", "211331",
+        "231131", "213113", "213311", "213131", "311123", "311321", "331121", "312113", "312311", "332111",
+        "314111", "221411", "431111", "111224", "111422", "121124", "121421", "141122", "141221", "112214",
+        "112412", "122114", "122411", "142112", "142211", "241211", "221114", "413111", "241112", "134111",
+        "111242", "121142", "121241", "114212", "124112", "124211", "411212", "421112", "421211", "212141",
+        "214121", "412121", "111143", "111341", "131141", "114113", "114311", "411113", "411311", "113141",
+        "114131", "311141", "411131", "211412", "211214", "211232", "2331112"
+      ];
+      const START_B = 104;
+      const STOP = 106;
+      let values = [START_B];
+      for (let i = 0; i < text.length; i++) values.push(text.charCodeAt(i) - 32);
+      let checksum = values[0];
+      for (let i = 1; i < values.length; i++) checksum += i * values[i];
+      values.push(checksum % 103);
+      values.push(STOP);
+
+      let bitString = "";
+      for (let v of values) {
+        let pat = PATTERNS[v];
+        let bar = true;
+        for (let c of pat) {
+          bitString += (bar ? "1" : "0").repeat(parseInt(c));
+          bar = !bar;
+        }
+      }
+      return bitString;
+    }
+
+    // Code128 generator for preview Canvas
+    function drawCode128(text, canvas) {
+      const bitString = getCode128BitString(text);
+      const mw = 2;
+      const h = 75;
+      const quiet = 15;
+      canvas.width = bitString.length * mw + (quiet * 2);
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#000';
+      let x = quiet;
+      for (let i = 0; i < bitString.length; i++) {
+        if (bitString[i] === '1') ctx.fillRect(x, 0, mw, h);
+        x += mw;
+      }
+    }
+
+    // High-Resolution Standalone Barcode Generator (PNG)
+    function renderHiResBarcode() {
+      const text = inputBarcode.value.trim() || "20068218617143";
+      const bitString = getCode128BitString(text);
+      const mw = 4;
+      const h = 180;
+      const quiet = 40;
+      const canvas = hiResBarcodeCanvas;
+      canvas.width = bitString.length * mw + (quiet * 2);
+      canvas.height = 280;
+
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // 1. Draw Number
+      ctx.fillStyle = '#111111';
+      ctx.font = '600 36px "ku2font", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(text, canvas.width / 2, 50);
+
+      // 2. Draw Bars
+      let x = quiet;
+      for (let i = 0; i < bitString.length; i++) {
+        if (bitString[i] === '1') ctx.fillRect(x, 70, mw, h);
+        x += mw;
+      }
+    }
+
+    // High-Resolution 2072 x 3276 Card Renderer
+    async function renderHiResCard() {
+      await document.fonts.load('160px "ku2font"');
+      await document.fonts.load('158px "kufont"');
+      
+      const ctx = hiResCanvas.getContext('2d');
+      ctx.clearRect(0, 0, 2072, 3276);
+
+      // 1. Background
+      ctx.drawImage(bgCardImg, 0, 0, 2072, 3276);
+
+      // 2. Photo
+      if (photoImgElement && photoImgElement.complete) {
+        // px = 72, py = 875, pw = 783, ph = 990
+        ctx.drawImage(photoImgElement, 72, 875, 783, 990);
+      }
+
+      // 3. Text Layers (Calibrated pixel-perfect to official spec)
+      ctx.fillStyle = '#141414';
+      ctx.textBaseline = 'top';
+      const textX = 978;
+
+      // Group 1: ID
+      ctx.font = '600 160px "ku2font", sans-serif';
+      ctx.fillText('ID ' + inputId.value.trim(), textX, 716);
+
+      // Group 2: Thai Name
+      ctx.font = '700 158px "kufont", sans-serif';
+      ctx.fillText(inputNameTh.value.trim(), textX, 934);
+      ctx.fillText(inputSurnameTh.value.trim(), textX, 1064);
+
+      // Group 3: English Name
+      ctx.font = '600 158px "ku2font", sans-serif';
+      ctx.fillText(inputNameEn.value.trim(), textX, 1273);
+      ctx.fillText(inputSurnameEn.value.trim(), textX, 1405);
+
+      // Group 4: Faculty / Service
+      ctx.font = '700 152px "kufont", sans-serif';
+      ctx.fillText(inputFaculty1.value.trim(), textX, 1608);
+      ctx.fillText(inputFaculty2.value.trim(), textX, 1728);
+    }
+
+    function updatePreview() {
+      const slug = (inputSlug.value.trim() || 'card').toLowerCase();
+      document.querySelectorAll('.slug-label').forEach(el => el.textContent = slug);
+
+      prevId.innerText = 'ID ' + inputId.value.trim();
+      prevNameTh.innerHTML = inputNameTh.value.trim() + '<br>' + inputSurnameTh.value.trim();
+      prevNameEn.innerHTML = inputNameEn.value.trim() + '<br>' + inputSurnameEn.value.trim();
+      prevService.innerHTML = inputFaculty1.value.trim() + '<br>' + inputFaculty2.value.trim();
+      prevBarcodeNum.innerText = inputBarcode.value.trim();
+
+      drawCode128(inputBarcode.value.trim() || "20068218617143", barcodeCanvas);
+    }
+
+    // Photo input
+    inputPhoto.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          photoBase64 = evt.target.result;
+          prevPhoto.src = photoBase64;
+          photoImgElement.src = photoBase64;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Inputs live update
+    [inputSlug, inputId, inputNameTh, inputSurnameTh, inputNameEn, inputSurnameEn, inputFaculty1, inputFaculty2, inputBarcode].forEach(el => {
+      el.addEventListener('input', updatePreview);
+    });
+
+    updatePreview();
+
+    // Helper: trigger browser file download
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // 1. Download Card JPG (2072 x 3276, 98% quality)
+    document.getElementById('btnDownloadCard').addEventListener('click', async function() {
+      const alertBox = document.getElementById('statusAlert');
+      alertBox.className = 'status-alert';
+      alertBox.style.display = 'block';
+      alertBox.innerText = '⏳ กำลังเรนเดอร์ภาพความละเอียดสูง 2072 x 3276...';
+
+      await renderHiResCard();
+
+      hiResCanvas.toBlob(function(blob) {
+        const slug = (inputSlug.value.trim() || 'card').toLowerCase();
+        downloadBlob(blob, slug + '.jpg');
+        alertBox.className = 'status-alert success';
+        alertBox.innerText = '✅ ดาวน์โหลด ' + slug + '.jpg สำเร็จ!';
+      }, 'image/jpeg', 0.98);
+    });
+
+    // 2. Download Barcode PNG
+    document.getElementById('btnDownloadBarcode').addEventListener('click', function() {
+      renderHiResBarcode();
+      hiResBarcodeCanvas.toBlob(function(blob) {
+        const slug = (inputSlug.value.trim() || 'card').toLowerCase();
+        downloadBlob(blob, slug + '_barcode.png');
+      }, 'image/png');
+    });
+
+    // 3. Download JSON Config
+    document.getElementById('btnDownloadJson').addEventListener('click', function() {
+      const slug = (inputSlug.value.trim() || 'card').toLowerCase();
+      const config = {
+        cardSlug: slug,
+        id: inputId.value.trim(),
+        idcard: inputId.value.trim(),
+        nameTh: inputNameTh.value.trim() + ' ' + inputSurnameTh.value.trim(),
+        name_th: inputNameTh.value.trim(),
+        surname_th: inputSurnameTh.value.trim(),
+        nameEn: inputNameEn.value.trim(),
+        name_en: inputNameEn.value.trim(),
+        service: inputFaculty1.value.trim() + '\n' + inputFaculty2.value.trim(),
+        barcode: inputBarcode.value.trim(),
+        student_card: "cards/" + slug + ".jpg",
+        student_card_b: "img/b_bc.png",
+        img_barcode: "cards/" + slug + "_barcode.png",
+        imgProfile: "img/kulogo.png"
+      };
+
+      const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+      downloadBlob(blob, slug + '.json');
+    });
+
+    // 4. Open in App with instant LocalStorage sync
+    document.getElementById('btnOpenApp').addEventListener('click', async function() {
+      const slug = (inputSlug.value.trim() || 'natthapol').toLowerCase();
+      localStorage.setItem('card_slug', slug);
+      localStorage.setItem('name_en', inputNameEn.value.trim());
+      localStorage.setItem('id', inputId.value.trim());
+      window.location.href = `index.html?dev=1&card=${slug}#/nisit/card`;
+    });
+  </script>
+</body>
+</html>
+

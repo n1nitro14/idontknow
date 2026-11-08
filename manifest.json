@@ -1,0 +1,24 @@
+{
+  "name": "NisitKU",
+  "short_name": "NisitKU",
+  "description": "Kasetsart University Student App",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#00675E",
+  "theme_color": "#00675E",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "img/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+

@@ -1,0 +1,82 @@
+<ion-view title='Activity Transcript'>
+  <!-- <ion-nav-bar class="bar-subheader bar-light">
+    <ion-nav-back-button class="button-clear">
+      <i class="ion-chevron-left"></i>
+    </ion-nav-back-button>
+  </ion-nav-bar> -->
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+  <ion-content class="bgcontent" style="margin:0px; padding:0px;">
+  <!-- ng-init="getActCalendar()"> -->
+    <!-- <img src="img/bg4.jpg" style="margin-bottom:0em;" width="100%"> -->
+            <!-- BANNER START -->
+            <div>
+              <img src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+            </div>
+            <!-- BANNER END -->
+
+      <div class="list card activitytlistcard"  style="margin-bottom:8px;">
+        <div class="item item-input" style="height:1.875em;background-color:#0c9691;color:white;font-size:18px;">ปฏิทินโครงการกิจกรรมนิสิต</div>
+      </div>
+      <!-- ng-bind-html การแสดง syntax html ที่ส่งค่า html ผ่านตัวแปรมา -->
+      <!-- <div ng-bind-html="renderHtml(actCalendarNisit.html_content)"></div> -->
+      <div class="row">
+          <div class="col">
+            <div class="list card activitytlistcard" style="margin:5px;padding:0px;">
+              <a class="item item-image activitycardtitle" href="#/nisit_activity/act-calendar/1">
+              <!-- ng-click="openURL(\'http://nisit.kasetsart.org/WebFormMainFrame_Main.aspx?campus=1\');"> -->
+                <img src="./img/bk.jpg"><br>บางเขน
+              </a>
+            </div>
+          </div>
+          <div class="col">
+            <div class="list card activitytlistcard" style="margin:5px;padding:0px;">
+              <a class="item item-image activitycardtitle" href="#/nisit_activity/act-calendar/2">
+              <!-- ng-click="openURL(\'http://nisit.kasetsart.org/WebFormMainFrame_Main.aspx?campus=2\');"> -->
+                <img src="./img/kps.jpg"><br>กำแพงแสน
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="list card activitytlistcard" style="margin:5px;padding:0px;">
+              <a class="item item-image activitycardtitle" href="#/nisit_activity/act-calendar/4">
+              <!-- <a class="item item-image" ng-click="openURL('http://nisit.kasetsart.org/WebFormMainFrame_Main.aspx?campus=4');"> -->
+                <img src="./img/sk.jpg"><br>สกลนคร
+              </a>
+            </div>
+          </div>
+          <div class="col">
+            <div class="list card activitytlistcard" style="margin:5px;padding:0px;">
+              <a class="item item-image activitycardtitle" href="#/nisit_activity/act-calendar/5">
+              <!-- <a class="item item-image" ng-click="openURL(\'http://nisit.kasetsart.org/WebFormMainFrame_Main.aspx?campus=5\');"> -->
+                <img src="./img/sp.jpg"><br>สุพรรณบุรี
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="list card activitytlistcard" style="margin:5px;padding:0px;">
+              <a class="item item-image activitycardtitle" href="#/nisit_activity/act-calendar/3">
+              <!-- <a class="item item-image" ng-click="openURL(\'http://nisit.kasetsart.org/WebFormMainFrame_Main.aspx?campus=3\');"> -->
+                <img src="./img/sri.jpg"><br>ศรีราชา
+              </a>
+            </div>
+          </div>
+          <div class="col">
+            <div class="list card activitytlistcard" style="margin:5px;padding:0px;">
+              <a class="item item-image activitycardtitle" href="#/nisit_activity/act-calendar/6">
+              <!-- <a class="item item-image" ng-click="openURL(\'http://nisit.kasetsart.org/WebFormMainFrame_Main.aspx?campus=6\');"> -->
+                <img src="./img/som.jpg"><br>สถาบันสมทบ
+              </a>
+            </div>
+          </div>
+        </div>
+
+  </ion-content>
+</ion-view>

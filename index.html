@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#00675E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="NisitKU">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>NisitKU</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="img/icon-512.png">
+  <link rel="apple-touch-icon" href="img/icon-180.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icon-180.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="img/icon-512.png">
+  <link rel="stylesheet" href="lib/ngToast/bootstrap.css" />
+  <link rel="stylesheet" href="lib/ngToast/ngToast.min.css" />
+  <link rel="stylesheet" href="lib/ngToast/ngToast-animations.min.css" />
+
+  <link rel="stylesheet" href="lib/FlexCalendar/flex-calendar.css">
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link rel='stylesheet' type="text/css" href="css/stylecard.css">
+  </link>
+  <link rel='stylesheet' type="text/css" href="css/stylepage.css">
+  </link>
+  <link href="css/font-awesome.css" rel="stylesheet">
+
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="lib/ionic/js/angular-filter.min.js"></script>
+  <script src="lib/ionic/js/angular-sanitize.js"></script>
+
+  <script src="lib/FlexCalendar/angular-translate.js"></script>
+  <script src="lib/FlexCalendar/flex-calendar.js"></script>
+  <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+
+  <script src="lib/ngToast/angular-animate.min.js"></script>
+  <script src="lib/ngToast/ngToast.min.js"></script>
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+  <script src="js/mock_notext.js"></script>
+  <script src="js/controllers.js"></script>
+
+  <script src="js/EventModule.js"></script>
+  <script src="js/EventCtl.js"></script>
+
+  <script src="js/NisitModule.js"></script>
+  <script src="js/NisitCtl.js"></script>
+
+  <script src="js/KuLibraryModule.js"></script>
+  <script src="js/KuLibraryCtl.js"></script>
+
+  <script src="js/CheckInModule.js"></script>
+  <script src="js/CheckInCtl.js"></script>
+  <script src="js/CheckInServices.js"></script>
+
+  <script src="js/notificationModule.js"></script>
+  <script src="js/notification.js"></script>
+  <script src="js/notification-service.js"></script>
+
+  <script src="js/ExamScoreModule.js"></script>
+  <script src="js/ExamScoreCtl.js"></script>
+
+  <script src="js/VoteModule.js"></script>
+  <script src="js/VoteCtl.js"></script>
+  <script src="js/VoteServices.js"></script>
+
+  <script src="js/PrModule.js"></script>
+  <script src="js/PrServices.js"></script>
+
+  <style>
+    html, body {
+      background-color: #04655e;
+      /* ใส่รหัสสีเดียวกับที่ตั้งไว้ใน theme-color */
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+
+    }
+
+
+    .my-toast {
+      font-family: 'Quark';
+      background-color: #FFFFFF;
+      border-radius: 4px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .my-toast .alert {
+      margin-bottom: 0px;
+      width: 90vw;
+      text-align: left;
+    }
+
+    .my-toast .item {
+      border-width: 0px;
+      background: none;
+    }
+
+    .slide-in-down {
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+    }
+
+    .slide-in-down.ng-enter,
+    .slide-in-down>.ng-enter {
+      -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+      transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+    }
+
+    .slide-in-down.ng-enter-active,
+    .slide-in-down>.ng-enter-active {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+
+    .slide-in-down.ng-leave,
+    .slide-in-down>.ng-leave {
+      -webkit-transition: all ease-in-out 250ms;
+      transition: all ease-in-out 250ms;
+    }
+
+    a:link {
+      text-decoration: none;
+    }
+
+    a:visited {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    a:active {
+      text-decoration: none;
+    }
+
+    .remove-blur {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 12px;
+      z-index: 2147483647;
+      pointer-events: none;
+      background-color: #04655e;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+    * {
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+    }
+
+    /* Login overlay */
+    #ku-login-overlay {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #00675E;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    }
+    #ku-login-overlay img { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 18px; }
+    #ku-login-overlay h2 { color: #fff; font-size: 1.5em; margin: 0 0 6px; font-weight: 700; }
+    #ku-login-overlay p  { color: rgba(255,255,255,0.75); font-size: 0.9em; margin: 0 0 28px; }
+    #ku-login-overlay input {
+      width: 260px; padding: 14px 16px; border-radius: 12px; border: none;
+      font-size: 1em; outline: none; margin-bottom: 12px;
+      background: rgba(255,255,255,0.15); color: #fff;
+    }
+    #ku-login-overlay input::placeholder { color: rgba(255,255,255,0.6); }
+    #ku-login-overlay button {
+      width: 292px; padding: 14px; border-radius: 12px; border: none;
+      background: #fff; color: #00675E; font-size: 1em; font-weight: 700;
+      cursor: pointer;
+    }
+    #ku-login-overlay .ku-err { color: #ffcccc; font-size: 0.85em; margin-top: 8px; min-height: 20px; }
+
+    /* PWA Force Home Screen Gate */
+    #pwa-install-gate {
+      position: fixed; inset: 0; z-index: 2147483647;
+      background: #00675E;
+      color: white;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    #pwa-install-gate img {
+      width: 86px; height: 86px; border-radius: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    #pwa-install-gate h2 {
+      color: #fff; font-size: 1.5rem; font-weight: 700; margin-bottom: 6px;
+    }
+    .pwa-instruction-card {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 18px 20px;
+      max-width: 320px;
+      margin-top: 18px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.95);
+      text-align: left;
+    }
+    .pwa-arrow-down {
+      position: absolute;
+      bottom: 24px;
+      font-size: 28px;
+      animation: bounce 1.4s infinite ease-in-out;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+  </style>
+</head>
+
+<body ng-app="starter" ng-controller="AppCtrl">
+  <!-- PWA Install Enforcement Gate -->
+  <div id="pwa-install-gate" style="display:none;">
+    <img src="img/icon-180.png" alt="NisitKU Logo">
+    <h2>NisitKU</h2>
+    <span style="font-size:0.85rem; color:rgba(255,255,255,0.7); letter-spacing:0.5px;">KASETSART UNIVERSITY</span>
+
+    <div class="pwa-instruction-card" id="pwa-instruction-text">
+      กรุณาเพิ่มแอปไปยังหน้าจอโฮมเพื่อเข้าใช้งาน
+    </div>
+
+    <!-- Android Install Button -->
+    <button id="pwa-android-btn" style="display:none; margin-top:20px; width:280px; padding:14px; border-radius:12px; border:none; background:#fff; color:#00675E; font-size:1rem; font-weight:700; cursor:pointer;">
+      📲 เพิ่มไปยังหน้าจอโฮม
+    </button>
+
+    <!-- iOS Arrow indicator -->
+    <div class="pwa-arrow-down" id="pwa-ios-arrow" style="display:none;">
+      ⬇️ แตะปุ่มแชร์ด้านล่าง
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // 1. Check if running standalone from home screen
+      var isStandalone = (window.navigator.standalone === true) || 
+                         (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+                         (window.location.search.indexOf('dev=1') !== -1);
+
+      if (!isStandalone) {
+        // Enforce Install: Show gate and prevent angular boot
+        document.body.removeAttribute('ng-app');
+        var gate = document.getElementById('pwa-install-gate');
+        var text = document.getElementById('pwa-instruction-text');
+        var btn = document.getElementById('pwa-android-btn');
+        var arrow = document.getElementById('pwa-ios-arrow');
+        gate.style.display = 'flex';
+
+        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        if (isIOS) {
+          text.innerHTML = '<b>วิธีเปิดใช้งาน:</b><br>' +
+            '1. แตะปุ่ม <b>แชร์</b> (ไอคอนสี่เหลี่ยมลูกศรชี้ขึ้น <b>⎋</b>) ที่แถบด้านล่างของ Safari<br>' +
+            '2. เลื่อนลงแล้วเลือก <b>"เพิ่มไปยังหน้าจอโฮม"</b> (Add to Home Screen)<br>' +
+            '3. เข้าใช้งานผ่านไอคอนบนหน้าจอโฮม';
+          arrow.style.display = 'block';
+        } else {
+          // Android / Chrome PWA prompt
+          var deferredPrompt = null;
+          text.innerHTML = '<b>ระบบบังคับเปิดผ่านหน้าจอโฮม</b><br>แตะปุ่มด้านล่างเพื่อเพิ่ม NisitKU ไปยังหน้าจอโฮมของอุปกรณ์';
+          window.addEventListener('beforeinstallprompt', function (e) {
+            e.preventDefault();
+            deferredPrompt = e;
+            btn.style.display = 'block';
+            btn.onclick = function () {
+              if (deferredPrompt) {
+                deferredPrompt.prompt();
+              }
+            };
+          });
+          // Show button even if beforeinstallprompt is delayed
+          setTimeout(function() {
+            btn.style.display = 'block';
+          }, 800);
+          btn.onclick = function() {
+            if (deferredPrompt) {
+              deferredPrompt.prompt();
+            } else {
+              alert('กรุณากดเมนู 3 จุดของเบราว์เซอร์ แล้วเลือก "เพิ่มลงในหน้าจอหลัก" (Add to Home screen)');
+            }
+          };
+        }
+        return;
+      }
+
+      // 2. If standalone: Check if card_slug is set
+      var slug = localStorage.getItem('card_slug');
+      if (!slug) {
+        var overlay = document.getElementById('ku-login-overlay');
+        overlay.style.display = 'flex';
+        document.body.removeAttribute('ng-app');
+        document.getElementById('ku-login-btn').addEventListener('click', function () {
+          var val = (document.getElementById('ku-card-input').value || '').trim().toLowerCase().replace(/\s+/g, '_');
+          var errEl = document.getElementById('ku-login-err');
+          errEl.textContent = '';
+          if (!val) { errEl.textContent = 'กรุณาใส่ชื่อการ์ด'; return; }
+          var found = false;
+          var candidates = ['cards/' + val + '.json', 'img/' + val + '.json'];
+          for (var i = 0; i < candidates.length; i++) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', candidates[i], false);
+            try { xhr.send(); } catch(e) {}
+            if (xhr.status === 200 || xhr.status === 0) { found = true; break; }
+          }
+          if (!found) { errEl.textContent = 'ไม่พบการ์ดชื่อ "' + val + '"'; return; }
+          localStorage.setItem('card_slug', val);
+          window.location.reload();
+        });
+        document.getElementById('ku-card-input').addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') document.getElementById('ku-login-btn').click();
+        });
+      }
+    })();
+  </script>
+  <div class="remove-blur" aria-hidden="true"></div>
+  <toast></toast>
+  <ion-header-bar align-title="left" class="bar-dark" style="background-color:#00675E">
+    <div class="buttons" side="left">
+      <a ng-click="backHome()" class="button button-icon" style="display:inline-flex; align-items:center;">
+        <img class="home-img" src="./img/home_logo.png">
+      </a>
+    </div>
+    <div class="title">
+    </div>
+    <div class="buttons" side="right">
+      <a class="button button-icon" ng-click="login()" ng-if="iconLogin">Login</a>
+
+      <button class="button button-icon ion-ios-bell-outline" ng-click="goNotification()" ng-if="!iconLogin">
+        <span class="badge badge-assertive header-badge" ng-If="Badge">{{Badge}}</span>
+      </button>
+
+      <a href="#/nisit/card" ng-show="iconProfile" style="display:inline-flex; align-items:center;">
+        <img class="header-img" ng-src="{{img_profile}}">
+        <font style="color:white;font-size:19px; margin-left:6px;"> {{name_en}}</font>
+      </a>
+
+      <a ng-click="openMoreModal();" ng-show="iconProfile" style="display:inline-flex; align-items:center;">
+        <i class="icon ion-navicon"
+          style="color:white;font-size:36px;padding-right:10px;padding-left:12px;"></i>
+      </a>
+    </div>
+  </ion-header-bar>
+
+  <ion-nav-view>
+
+  </ion-nav-view>
+</body>
+
+</html>

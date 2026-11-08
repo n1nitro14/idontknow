@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#04655e">
+  <link rel="icon" type="image/png" href="img/icco.png">
+  <link rel="apple-touch-icon" href="img/icco.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icco.png">
+  <meta charset="UTF-8">
+  <title>NisitKU - Student Card</title>
+  <style>
+    @font-face {
+      font-family: kufont;
+      src: url('css/kubd.ttf'); 
+    }
+    @font-face {
+      font-family: ku2font;
+      src: url('css/kumed.ttf'); 
+    }
+    @font-face {
+      font-family: ku3font;
+      src: url('css/kuli.ttf'); 
+    }
+    html, body {
+      background-color: #04655e;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('img/bc.png') no-repeat center center/cover;
+      font-family: sans-serif;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    .flip-card {
+      background-color: transparent;
+      width: 85%;
+      max-width: 380px;
+      height: 62%;
+      max-height: 560px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flip-card-inner {
+      position: relative;
+      top: -6%;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+    .flip-card-front {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .flip-card-front img.bg-front,
+    .flip-card-back img.bg-back {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .idcard {
+      font-family: ku2font, sans-serif;
+      position: absolute;
+      top: 21.6%;
+      left: 48%;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #111;
+      text-align: left;
+    }
+    .name {
+      text-align: left;
+      font-family: kufont, sans-serif;
+      line-height: 22px;
+      position: absolute;
+      top: 29.2%;
+      left: 48%;
+      font-size: 1.15rem;
+      color: #111;
+      white-space: pre-line;
+    }
+    .name2 {
+      text-align: left;
+      font-family: ku2font, sans-serif;
+      line-height: 22px;
+      position: absolute;
+      top: 40.5%;
+      left: 48%;
+      font-size: 1.12rem;
+      color: #111;
+      white-space: pre-line;
+    }
+    .kana {
+      text-align: left;
+      font-family: kufont, sans-serif;
+      line-height: 21px;
+      position: absolute;
+      top: 51.5%;
+      left: 48%;
+      font-size: 1.05rem;
+      color: #111;
+      white-space: pre-line;
+    }
+    .profile {
+      position: absolute;
+      top: 26.2%;
+      left: 6.8%;
+      height: 31.5%;
+      width: auto;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .profile img {
+      height: 100%;
+      width: auto;
+      display: block;
+      object-fit: cover;
+    }
+    .toppf {
+      color: white;
+      font-size: 24px;
+      font-family: ku3font, sans-serif;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+    }
+    .toppff {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .toppff img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 8px;
+      object-fit: cover;
+    }
+
+    .remove-blur {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 12px;
+      z-index: 2147483647;
+      pointer-events: none;
+      background-color: #fff;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+    * {
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="remove-blur" aria-hidden="true"></div>
+
+  <div class="flip-card" id="card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="img/f_bc.jpg" class="bg-front" alt="Front Image">
+        <div class="profile" id="profile"></div>
+        <div class="idcard" id="idcardnum"></div>
+        <div class="name" id="namethai"></div>
+        <div class="name2" id="nameen"></div>
+        <div class="kana" id="services"></div>
+      </div>
+      <div class="flip-card-back">
+        <img src="img/b_bc.png" class="bg-back" alt="Back Image">
+      </div>
+    </div>
+  </div>
+
+  <div class="toppf">
+    <div class="toppff">
+      <img src="img/71E92FFB-338F-493A-AEB1-77DDDC83F62F.jpeg" id="profilex" alt="Profile Picture">
+      <span class="user-name" id="onlyname"></span>
+    </div>
+  </div>
+
+  <script>
+    const card = document.getElementById('card');
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+    
+    const url = new URL(window.location.href);
+    const cardParam = url.searchParams.get("card");
+    let cardJson = null;
+
+    if (cardParam) {
+      const candidates = ["cards/" + cardParam + ".json", "img/" + cardParam + ".json", cardParam + ".json"];
+      for (let i = 0; i < candidates.length; i++) {
+        try {
+          const xhr = new XMLHttpRequest();
+          xhr.open("GET", candidates[i], false);
+          xhr.send();
+          if (xhr.status === 200 || xhr.status === 0) {
+            cardJson = JSON.parse(xhr.responseText);
+            break;
+          }
+        } catch (e) {}
+      }
+    }
+
+    const namethai = (cardJson && (cardJson.nameTh || cardJson.name_th)) || url.searchParams.get("namethai") || "ธนภัทร<br>ยิ่งคงพัฒนา";
+    const nameen = (cardJson && (cardJson.nameEn || cardJson.name_en)) || url.searchParams.get("nameen") || "Thanapat<br>Yingkhongphattana";
+    const service = (cardJson && (cardJson.service || cardJson.faculty)) || url.searchParams.get("service") || "Management<br>Sciences";
+    const onlyn = (cardJson && (cardJson.nameEn || cardJson.name_en)) || url.searchParams.get("onlyname") || "Thanapat";
+    const idcardnum = (cardJson && (cardJson.id || cardJson.idcard)) || url.searchParams.get("idcard") || "6896341736";
+    let imgprofile = (cardJson && (cardJson.imgProfile || cardJson.img_profile)) || url.searchParams.get("imgprofile") || "img/71E92FFB-338F-493A-AEB1-77DDDC83F62F.jpeg";
+
+    if (!imgprofile.startsWith("http") && !imgprofile.startsWith("img/")) {
+      imgprofile = "img/" + imgprofile;
+    }
+
+    document.getElementById("namethai").innerHTML = namethai.replace(/\\n/g, '<br>');
+    document.getElementById("nameen").innerHTML = nameen.replace(/\\n/g, '<br>');
+    document.getElementById("services").innerHTML = service.replace(/\\n/g, '<br>');
+    document.getElementById("onlyname").innerHTML = onlyn;
+    document.getElementById("idcardnum").innerHTML = "ID " + idcardnum;
+    document.getElementById("profile").innerHTML = '<img src="' + imgprofile + '" alt="Profile">';
+    document.getElementById("profilex").src = imgprofile;
+  </script>
+</body>
+</html>
+

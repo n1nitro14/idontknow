@@ -1,0 +1,285 @@
+<style>
+  .ion-nifty-modal {
+    background-color: transparent;
+  }
+
+  .ion-nifty-modal .ion-modal-content-custom {
+    width: 100%;
+    height: 100%;
+    color: #FFF;
+    background-color: transparent;
+  }
+
+  .active .modal-backdrop-bg {
+    opacity: .8;
+  }
+
+  .modal-backdrop-bg {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0;
+  }
+
+  .transparent {
+    background: transparent !important;
+  }
+
+  .social-share-icon {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    -webkit-filter: url(#goo);
+    filter: url(#goo);
+  }
+
+  .social-share-icon ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+  }
+
+  .social-share-icon li {
+    line-height: 48px;
+    font-size: 20px;
+    color: #FFF;
+  }
+
+  .social-share-icon li.a {
+    z-index: 123;
+  }
+
+  .social-share-icon a {
+    text-decoration: none;
+    color: #212121;
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    display: inline-block;
+    background-color: #ccc;
+    line-height: 40px;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)
+  }
+
+  .social-share-icon a:hover {
+    background-color: #DDD;
+  }
+
+  .social-share-icon a i {
+    line-height: inherit;
+  }
+
+  .social-share-icon a.closex {
+    /* font-size: 30px; */
+    color: #ffffff;
+    background-color: #181818;
+  }
+
+  .social-share-icon li.a1 {
+    animation: a1 1s;
+  }
+
+
+  @keyframes a1 {
+    from {
+      transform: translateY(-200px);
+      transition: all ease-in-out 1000ms;
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      transition: all ease-in-out 200ms;
+      opacity: 1;
+    }
+  }
+
+  .social-share-icon li.a2 {
+    animation: a2 1s;
+  }
+
+  @keyframes a2 {
+    from {
+      transform: translateY(-249px);
+      transition: all ease-in-out 1000ms;
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      transition: all ease-in-out 200ms;
+      opacity: 1;
+    }
+  }
+
+  .social-share-icon li.a3 {
+    animation: a3 1s;
+  }
+
+  @keyframes a3 {
+    from {
+      transform: translateY(-298px);
+      transition: all ease-in-out 1000ms;
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      transition: all ease-in-out 200ms;
+      opacity: 1;
+    }
+  }
+
+  .social-share-icon li.a4 {
+    animation: a4 1s;
+  }
+
+  @keyframes a4 {
+    from {
+      transform: translateY(-347px);
+      transition: all ease-in-out 1000ms;
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      transition: all ease-in-out 200ms;
+      opacity: 1;
+    }
+  }
+
+  .social-share-icon li.a5 {
+    animation: a5 1s;
+  }
+
+  @keyframes a5 {
+    from {
+      transform: translateY(-396px);
+      transition: all ease-in-out 1000ms;
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      transition: all ease-in-out 200ms;
+      opacity: 1;
+    }
+  }
+
+  .social-share-icon li.a6 {
+    animation: a6 1s;
+  }
+
+  @keyframes a6 {
+    from {
+      transform: translateY(-445px);
+      transition: all ease-in-out 1000ms;
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      transition: all ease-in-out 200ms;
+      opacity: 1;
+    }
+  }
+
+  .social-share-icon li.a7 {
+    animation: a7 1s;
+  }
+
+  @keyframes a7 {
+    from {
+      transform: translateY(-494px);
+      transition: all ease-in-out 1000ms;
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      transition: all ease-in-out 200ms;
+      opacity: 1;
+    }
+  }
+
+  .social-share-icon li.a8 {
+    animation: a8 1s;
+  }
+
+  @keyframes a8 {
+    from {
+      transform: translateY(-543px);
+      transition: all ease-in-out 1000ms;
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      transition: all ease-in-out 200ms;
+      opacity: 1;
+    }
+  }
+
+  .social-share-icon li.a0 {
+    animation: a0 1s;
+  }
+
+  @keyframes a0 {
+    from {
+      transform: translateY(-592px);
+      transition: all ease-in-out 1000ms;
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      transition: all ease-in-out 200ms;
+      opacity: 1;
+    }
+  }
+
+  .moremenu-font {
+    background: transparent !important;
+    border: 0px;
+    color: white;
+    text-align: right;
+  }
+
+</style>
+<ion-modal-view class="ion-nifty-modal">
+  <ion-content class="padding">
+
+    <div class="social-share-icon">
+      <ul style="font-family: 'Quark';">
+        <li class="a1" ng-click="goToState('main');closeMoreModal();">Home&nbsp;<a><i
+              class="fa fa-home"></i></a></li>
+        <li class="a2" ng-click="goToState('nisit');closeMoreModal();">Main Menu &nbsp;<a><i
+              class="fa fa-th"></i></a></li>
+        <li class="a3" ng-click="closeMoreModal();goToState('nisit_profile')">Nisit Info &nbsp;<a><i
+              class="fa fa-user-circle-o"></i></a></li>
+        <li class="a4" ng-click="closeMoreModal();goToState('nisit_card')">Nisit Card &nbsp;<a><i
+              class="fa fa-id-card-o"></i></a></li>
+        <li class="a4" ng-click="closeMoreModal();goToState('nisit_cs_time')">Class Schedule &nbsp;<a><i
+              class="fa fa-calendar-o"></i></a></li>
+        <li class="a5" ng-click="closeMoreModal();goToState('nisit_score')">Exam Score &nbsp;<a><i
+            class="fa fa-file-text-o"></i></a></li>
+        <li class="a6" ng-click="closeMoreModal();goToState('nisit_checkin')">Check In &nbsp;<a><i
+              class="fa fa-map-marker"></i></a></li>
+        <li class="a7" ng-click="closeMoreModal();goToState('nisit_vote')">Vote &nbsp;<a><i
+            class="fa fa-check-square-o"></i></a></li>
+        <li class="a7" ng-click="closeMoreModal();goToState('nisit_policy')">Policy &nbsp;<a><i
+          class="fa fa-info-circle"></i></a></li>
+        <li class="a7" ng-click="closeMoreModal();goToState('nisit_term')">Term of use &nbsp;<a><i
+            class="fa fa-exclamation"></i></a></li>
+        <li class="a8" ng-click="closeMoreModal();logout();">Logout &nbsp;<a><i
+            class="fa fa-sign-out"></i></a></li>
+        <li class="a0" ng-click="closeMoreModal();">Close &nbsp;<a class="closex"><i class="ion-close"></i></a>
+        </li>
+      </ul>
+    </div>
+
+  </ion-content>
+
+</ion-modal-view>

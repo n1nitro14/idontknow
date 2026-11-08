@@ -1,0 +1,126 @@
+<style>
+  .indicator-wrapper {
+    transition: height 1s linear;
+    width: 100%;
+    height: 2px;
+  }
+
+  .indicator-wrapper #slide-tab-indicator {
+    height: 100%;
+    width: 0%;
+    background-color: #6fdab3;
+    position: relative;
+    transform: translate(0%, 0);
+    transition: width 0.3s, transform 0.2s linear !important;
+  }
+
+  .profilecard {
+    /* box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0); */
+    margin-top: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 12px;
+    /* background-color: #fbfbfb; */
+  }
+
+  .greenhead {
+    height: 16px;
+    background-color: rgba(12, 150, 145, 0.8);
+  }
+
+</style>
+<ion-view title='Student Information'>
+  <!-- <ion-nav-bar class="bar-me bar-subheader">
+    <ion-nav-buttons side="left">
+      <button class="button-icon icon ion-ios-arrow-back greyicon"  ng-click="backHome()"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar> -->
+
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader has-footer no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"></a>
+  </div>
+
+  <ion-content class="bgcontent2 has-subheader" ng-init="getProfile27();">
+
+    <!-- BANNER -->
+    <!-- <div>
+      <img ng-src="./img/1.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div> -->
+    <!--
+      <div class="row">
+        <div class="col">
+          <div class="item tableheader">
+            <h2>QR CODE</h2>
+            <span>คิวอาร์โค้ดนิสิต</span>
+          </div>
+        </div>
+      </div> -->
+      <div class="row" style="padding-top: 24px; padding-bottom:0px;">
+        <div class="col">
+          <div class="item tableheader">
+            <h2>STUDENT INFORMATION</h2>
+            <span>ข้อมูลนิสิต</span>
+          </div>
+        </div>
+      </div>
+
+    <div class="greycard2 hovercard">
+      <div class="cardheader">
+      </div>
+      <div class="avatar">
+        <img ng-src="{{img_profile}}">
+      </div>
+      <div class="info">
+        <div class="title">
+          {{nisit.name_th}}
+        </div>
+        <div class="desc">{{nisit.name_en}}</div>
+        <div class="desc">{{nisit.id}}</div>
+      </div>
+      <div class="row " style="border: none;padding: 10px;" ng-if="img_std_qrcode==''" style="padding:30px;">
+        <div class="col"></div>
+      </div>
+      <div>
+        <div ng-if="img_std_qrcode!=''" style="padding:30px;">
+          <img ng-src="{{img_std_qrcode}}" style="width: 60%;">
+        </div>
+      </div>
+      <div ng-if="stdInfo.length > 0">
+        <div ng-repeat="item in stdInfo">
+          <div class="row" style="border: none;padding-left: 10px;padding-right: 10px;padding-top: 0px;padding-bottom: 0px;">
+            <div class="col datafont16 contentFont" style="text-align: left;">{{item.label}}</div>
+            <div class="col datafont18 contentFont " style="text-align: right;">{{item.value}}</div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <div class="row" style="padding-top: 12px; padding-bottom:0px;">
+      <div class="col">
+        <div class="item tableheader">
+          <h2>ADVISOR INFORMATION</h2>
+          <span>อาจารย์ที่ปรึกษา</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="list card" ng-if="advInfo.length > 0" style="margin-top: 12px; border-radius: 8px;">
+      <div class="item item-input item-energized" style="height:1.25em;">Advisor Information</div>
+      <div class="item item-avatar">
+        <img src="./img/kulogo.png">
+        <div ng-repeat="adv in advInfo">
+          <div class="item" style="padding-top:8px;padding-bottom:8px;padding-right:10px;">
+            <span style="color:#333333;">{{adv.label}}</span>
+            <span class="item-note datafont18 contentFont" ng-bind-html="renderHtml(adv.value)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+
+  </ion-content>
+</ion-view>

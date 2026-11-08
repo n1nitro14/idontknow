@@ -1,0 +1,26 @@
+<ion-view>
+  <ion-nav-bar> 
+  </ion-nav-bar>
+  <div class="bar bar-subheader no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+    <div class="title">
+      <h4 class="headtitle">Terms of Use</h4>
+    </div>
+  </div>
+
+  <ion-content class="has-subheader" ng-init="getEula()" style="color:#666;">
+    <div>
+      <!-- <ion-slide-box show-pager="true" ng-show="eula.length!=0" > -->
+      <!-- <ion-slide ng-repeat="eulaList in eula"> -->
+      <!-- <h4 style="margin-top:20px;margin-bottom:-5px;">{{eula[0].title}}</h4><br> -->
+      <div class="row" style="color:#666;">
+        <div class="col">
+          <div ng-bind-html="renderHtml(eula[0].html_content)"></div>
+        </div>
+      </div>
+      <!-- </ion-slide> -->
+      <!-- </ion-slide-box> -->
+    </div>
+    <br>
+  </ion-content>
+</ion-view>

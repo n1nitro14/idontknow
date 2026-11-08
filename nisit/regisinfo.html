@@ -1,0 +1,177 @@
+<style>
+  .regislistcard {
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+      margin-top:16px;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-left: 12px;
+      margin-right: 12px;
+      margin-bottom: 18px;
+  }
+  .regiscardtitle {
+      font-size: 18px;
+  }
+</style>
+<ion-view>
+  <!-- <ion-nav-bar class="bar-subheader bar-light">
+    <ion-nav-back-button class="button icon ion-ios-arrow-back stylesec2">
+    </ion-nav-back-button>
+  </ion-nav-bar> -->
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+  <ion-content class="bgcontent" ng-init="getRegisInfo()">
+    <!-- BANNER START -->
+    <div>
+      <img src="./img/nontri2.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div>
+    <!-- BANNER END -->
+
+    <div class="row">
+      <div class="col">
+        <div class="item tableheader bgcontent">
+            <h2>REGISTRATION INFORMATION</h2>
+            <span style="color: #006664;">ข้อมูลการลงทะเบียนเรียน</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- <pre ng-bind="regisInfoNisit | json"></pre> -->
+    <!-- สถานะการมีสิทธิ์ลงทะเบียน -->
+    <div class="list card regislistcard regiscardtitle">
+      <div class="item item-input" style="background-color:rgba(12, 150, 145, 1);color:white;">สิทธิ์การลงทะเบียนเรียน</div>
+      <div class="row">
+        <div class="col">สถานะ</div>
+        <div class="col warningfont">{{regisInfoNisit.regis_active}}</div>
+      </div>
+    </div>
+    <!-- ตารางกำหนดการลงทะเบียนเรียน -->
+    <div class="list card regislistcard">
+      <div class="item item-input" style="background-color:rgba(12, 150, 145, 0.5);color:#444444;">กำหนดการลงทะเบียนเรียน</div>
+
+      <div class="row">
+        <div class="col">พิมพ์ใบแจ้งหนี้ [KU9]
+        </div>
+        <div class="col iosfont">{{regisInfoNisit.start_date_ku9}}
+          <div ng-show="regisInfoNisit.end_date_ku9!=0">
+            ถึง
+            {{regisInfoNisit.end_date_ku9}}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="col">กำหนดการลงทะเบียน
+        </div>
+        <div class="col iosfont">{{regisInfoNisit.start_date_regis}}
+          <div ng-show="regisInfoNisit.end_date_regis!=0">
+            ถึง
+            {{regisInfoNisit.end_date_regis}}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">เวลา</div>
+        <div class="col iosfont">{{regisInfoNisit.time_regis}}</div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="col">กำหนดการลงทะเบียนล่าช่้า (ผ่านเว็บ)
+        </div>
+        <div class="col iosfont">{{regisInfoNisit.start_date_regis_late}}
+          <div ng-show="regisInfoNisit.end_date_regis_late!=0">
+            ถึง
+            {{regisInfoNisit.end_date_regis_late}}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">เวลา</div>
+        <div class="col iosfont">{{regisInfoNisit.time_regis_late}}</div>
+      </div>
+    </div>
+
+    <!-- สิทธิ์การลงทะเบียนในเวลากำหนด -->
+    <div class="list card regislistcard" style="margin-top:0.3125em;">
+      <div class="item item-input" style="background-color:rgb(113, 213, 181);color:#444444;">ข้อมูลตรวจสอบสิทธิ์การลงทะเบียนเรียน</div>
+      <div class="row">
+        <div class="col">สถานภาพนิสิต</div>
+        <div class="col iosfont">{{regisInfoNisit.std_status}}</div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="col">การมีหนี้ค้างชำระ</div>
+        <div class="col warningfont">{{regisInfoNisit.debt_cond}}</div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="col">การถูกล็อค</div>
+        <div class="col warningfont">{{regisInfoNisit.lock_cond}}</div>
+      </div>
+
+      <div class="row" ng-repeat="lockList in regisInfoNisit.lock_list">
+        <div class="col-10"></div>
+        <div class="col warningfont">{{$index+1}}. {{lockList.debt_desc}} {{lockList.debt_amount}} <br>
+        {{lockList.debt_remark}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="col">ผลการเรียน</div>
+        <div class="col warningfont">{{regisInfoNisit.probation_name}}</div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="col col-50">
+        <div class="item item-input"
+          style="background-color:rgb(181, 217, 106);color:#444444;">
+          ข้อมูลการชำระเงิน</div>
+      </div>
+      <div class="col"></div>
+      </div>
+      <div class="row">
+        <div class="col col-10"></div>
+        <div class="col">การชำระเงินผ่านธนาคาร</div>
+        <div class="col iosfont" >{{regisInfoNisit.bank_name}}
+          <div ng-show="regisInfoNisit.bank_name!='-'">
+            {{regisInfoNisit.bank_money}}<br>{{regisInfoNisit.bank_date}}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-10"></div>
+        <div class="col">การได้รับยกเว้น</div>
+        <div class="col iosfont">{{regisInfoNisit.fee_name}}</div>
+      </div>
+      <div class="row">
+        <div class="col col-10"></div>
+        <div class="col">การขอผ่อนผัน</div>
+        <div class="col iosfont">{{regisInfoNisit.late_name}}</div>
+      </div>
+      <div class="row">
+        <div class="col col-10"></div>
+        <div class="col">กองทุน/ทุน/อื่นๆ</div>
+        <div class="col iosfont">{{regisInfoNisit.payment_name}}</div>
+      </div>
+    </div>
+    <br><br>
+
+  </ion-content>
+</ion-view>

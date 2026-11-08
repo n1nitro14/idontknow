@@ -1,0 +1,101 @@
+<style>
+  .regisreportlistcard {
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+      margin-top:16px;
+      border-radius: 8px;
+      font-size: 18px;
+      margin-left: 12px;
+      margin-right: 12px;
+      margin-bottom: 18px;
+  }
+  .gradecardtitle {
+      font-size: 18px;
+      font-weight: 600;
+  }
+</style>
+<ion-view title='Register Report'>
+  <!-- <ion-nav-bar class="bar-subheader bar-light">
+    <ion-nav-back-button class="button icon ion-ios-arrow-back stylesec2">
+    </ion-nav-back-button>
+  </ion-nav-bar> -->
+  <ion-nav-bar>
+  </ion-nav-bar>
+  <div class="bar bar-subheader no-bar">
+    <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+  </div>
+  <ion-content class="bgcontent" ng-init="getRegister()">
+    <!-- BANNER START -->
+    <div>
+      <img src="./img/bg3.jpg" class="radiusBanner" style="width: 100%; transition: opacity 1s ease-in-out;">
+    </div>
+    <!-- BANNER END -->
+    <div class="row">
+      <div class="col">
+        <div class="item tableheader bgcontent">
+            <h2>REGISTRATION REPORT</h2>
+            <span style="color: #006664;">รายงานการลงทะเบียนเรียน</span>
+        </div>
+      </div>
+    </div>
+
+    <ion-list>
+      <div class="list card regisreportlistcard">
+        <div class="item item-input" style="height:1.25em;background-color:rgba(12, 150, 145, 0.6);"></div>
+        <ion-list ng-if="$last" ng-repeat="registerList in registerNisit">
+          <div class="row">
+            <div class="col col-75">หน่วยกิตสะสม
+            </div>
+            <div class="col">{{registerList.total_credit}}
+              หน่วยกิต
+            </div>
+          </div>
+        </ion-list>
+      </div>
+      <div class="list card regisreportlistcard" style="margin-top:0.3125em;">
+        <!-- Header-->
+        <div class="item item-input" style="height:1.25em;background-color:rgba(12, 150, 145, 0.3);"></div>
+        <!-- List -->
+        <div ng-repeat="registerList in registerNisit | orderBy: ['-year','-semester'] ">
+          <ion-item class="item-stable item-icon-right" ng-class="{active: isGroupShown(registerList)}" ng-click="toggleGroup(registerList)">
+            <i class="icon custom-icon" ng-class="isGroupShown(registerList) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
+            25{{registerList.year}}
+            :
+            {{registerList.sem_name}}
+          </ion-item>
+
+          <div class="card" ng-show="isGroupShown(registerList)">
+            <div class="row" style="background-color:rgb(75, 166, 137);text-align:center;color:white;">
+              <div class="col col-50">รายวิชา
+              </div>
+              <div class="col">หมู่เรียน
+              </div>
+              <div class="col">จำนวน
+              </div>
+            </div>
+            <div class="row" ng-repeat="item in registerList.courses">
+              <div class="col col-50" style="color:#006664;">
+                <font >{{item.course_id}}<br>{{item.course_name}}</font>
+              </div>
+              <div class="col" style="text-align:center;">
+                <p ng-show="item.lab_section==0">{{item.lec_section}}<br>(บรรยาย)</p>
+                <p ng-show="item.lab_section!=0">{{item.lab_section}}<br>(ปฏิบัติการ)</p>
+              </div>
+              <div class="col" style="text-align:center;">
+                <p>{{item.credit}}
+                  หน่วยกิต</p>
+              </div>
+            </div>
+            <div class="row" style="background-color:rgb(186, 246, 194);">
+              <div class="col col-50">รวม</div>
+              <div class="col" style="text-align: right;">{{registerList.term_credit}}&nbsp;หน่วยกิต</div>
+            </div>
+            <div class="row" style="background-color:rgb(113, 213, 181);">
+              <div class="col col-50">หน่วยกิตสะสม</div>
+              <div class="col" style="text-align: right;">{{registerList.total_credit}}&nbsp;หน่วยกิต</div>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+      <!-- <pre ng-bind="registerNisit | json"></pre> -->
+    </ion-content>
+  </ion-view>

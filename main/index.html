@@ -1,0 +1,386 @@
+<style>
+  .twPc-div {
+      background: rgba(133, 133, 133, 0.8) none repeat scroll 0 0;
+      height: 149px;
+      max-width: 100%;
+      color: #333;
+  }
+
+  .twPc-bg {
+      background-image: url("img/img_cover1.png");
+      background-position: 0 50%;
+      background-size: 100% auto;
+      border-bottom: 1px solid #e1e8ed;
+      /* border-radius: 4px 4px 0 0; */
+      height: 149px;
+      width: 100%;
+  }
+
+  .twPc-block {
+      display: block !important;
+  }
+
+  .twPc-avatarLink {
+      border-radius: 6px;
+      display: inline-block !important;
+      float: left;
+      margin: -25px 7px 0 10px;
+      max-width: 100%;
+      padding: 1px;
+      vertical-align: bottom;
+  }
+
+  .twPc-avatarImg {
+      /*
+        border: 2px solid #fff;
+        border-radius: 7px;
+        box-sizing: border-box;
+    */
+      color: #fff;
+      height: 70px;
+      width: 70px;
+
+      /*
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+    */
+  }
+
+  .twPc-divUser {
+      margin: -55px 0 0;
+  }
+
+  .twPc-divName {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 26px;
+  }
+
+  .container-icon-home-menu {
+      padding: 0.5em;
+      padding-top: 0px;
+      text-align: center;
+      height: 100%;
+  }
+
+  .container-icon-home-menu .button {
+      text-align: center;
+      vertical-align: middle;
+      font-size: 14px;
+      color: #666666;
+      line-height: 26px;
+      font-weight: 600;
+  }
+
+  .picon4 {
+      text-decoration: none;
+      /* color: #626168; */
+      color: white;
+      font-size: 30px;
+      height: 50px;
+      width: 50px;
+      display: inline-block;
+      /* background-color: #F0EFF6; */
+      background-color: #0c9691;
+      border-radius: 50%;
+      line-height: 55px;
+      text-align: center;
+  }
+
+  .active-picon4 {
+      text-decoration: none;
+      color: #0c9691;
+      font-size: 30px;
+      height: 50px;
+      width: 50px;
+      line-height: 55px;
+      text-align: center;
+  }
+
+  .piconfa {
+      text-decoration: none;
+      /* color: #626168; */
+      color: white;
+      font-size: 25px;
+      height: 50px;
+      width: 50px;
+      display: inline-block;
+      /* background-color: #F0EFF6; */
+      background-color: #0c9691;
+      border-radius: 50%;
+      line-height: 50px;
+      text-align: center;
+  }
+
+  .active-piconfa {
+      text-decoration: none;
+      color: #0c9691;
+      font-size: 25px;
+      height: 50px;
+      width: 50px;
+      line-height: 50px;
+      text-align: center;
+  }
+
+  .homecard {
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      line-height: 0px;
+      border-radius: 8px;
+  }
+
+  .itemcard {
+      width: 130px;
+      margin-top: 5px;
+      border-radius: 8px;
+  }
+
+  .itemimg {
+      width:100%;
+      height:100px;
+  }
+
+  .itempadding {
+      border: 0px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 5px;
+      padding-bottom: 10px;
+  }
+
+  .bg-gradient {
+      background: rgb(12, 150, 145);
+      background: linear-gradient(-90deg, rgb(126, 184, 182) 40%, #456363 100%);
+  }
+
+
+/* ###### start scrolling ###### */
+
+.scrolling-card {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding-left:5px;
+}
+.scrolling-card .scrollmenu-card {
+  display: inline-block;
+}
+.scrolling-card .scrollingmenu-card {
+  display: inline-block;
+}
+.scrolling-card::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-bar {
+  visibility: hidden !important;
+}
+
+.no-underline::-webkit-scrollbar {
+  display: none;
+}
+
+.itemcard {
+  box-shadow: 0 3px 12px rgba(99, 99, 99, 0.2);
+  margin: 0px 0px 10px 12px; /* top right bottom left*/
+} 
+.containerImg {
+  position: relative;
+  max-width: 800px; /* Maximum width */
+  margin: 0 auto; /* Center it */
+}
+/* ###### end scrolling ###### */
+
+</style>
+<ion-view title='{{caption}}'>
+
+  <!-- <ion-content scroll="false"> -->
+  <ion-content style="background-color:#F2f2f2;" ng-init="getPR();">
+  <!-- <ion-content> -->
+    
+    <!-- start Hilight -->
+    <div class="myBanner" ng-init="getHilight()">
+      <ion-slide-box auto-play="true" class="myNews" delegate-handle="sliderBan" does-continue="true"
+        on-slide-changed="slideHasChanged(index)" show-pager="false">
+        <ion-slide ng-repeat="newsList in hilightLists">
+          <figure>
+            <a ng-click="openURL('{{newsList.url}}');">
+              <img ng-src="{{newsList.photo}}" style="width:100%" />
+              <!-- <figcaption>{{newsList.title}}</figcaption> -->
+            </a>
+          </figure>
+        </ion-slide>
+      </ion-slide-box>
+    </div>
+    <!-- end Hilight -->
+
+    <!-- Menu -->
+    <div class="myHomeSlide">
+      <ion-slide-box delegate-handle="sliderMyHome">
+        <ion-slide ng-if="iconProfile">
+          <div class="container-icon">
+            <div class="container-icon-home-menu">
+              <div class="row borderbottomgrey">
+                <div class="col">
+                  <a class="button button-icon" ng-click="goToState('nisit_cs_time')">
+                    <i ng-class="['ion-ios-calendar-outline','picon4',{'active-picon4':selectedType=='personal-info'}]"></i><br>Class Schedule</a>
+                </div>
+                <div class="col">
+                  <a class="button button-icon" ng-click="goToState('nisit_checkin')">
+                        <i ng-class="['ion-ios-location-outline','picon4',{'active-picon4':selectedType=='personal-education'}]"></i><br>Check in</a>
+                </div>
+                <div class="col">
+                  <a class="button button-icon" ng-click="goToState('nisit_card')">
+                    <i ng-class="['fa fa-address-card-o','piconfa',{'active-piconfa':selectedType=='personal-address'}]"></i><br>Student Card</a>
+                </div>
+                <div class="col">
+                  <a class="button button-icon" ng-click="goToState('nisit');">
+                    <i ng-class="['ion-grid','picon4',{'active-picon4':selectedType=='personal-info'}]"></i><br>Main Menu</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div class="container-icon">
+            <div class="container-icon-home-menu">
+              <div class="row borderbottomgrey">
+                  <div class="col">
+                    <a class="button button-icon" href="#/info">
+                      <i ng-class="['ion-ios-home-outline','picon4',{'active-picon4':selectedType=='personal-info'}]"></i><br>About KU</a>
+                  </div>
+                  <div class="col">
+                    <a class="button button-icon" ng-click="goToNews();">
+                          <i ng-class="['ion-social-rss-outline','picon4',{'active-picon4':selectedType=='personal-education'}]"></i><br>KU News</a>
+                  </div>
+                  <div class="col">
+                    <a class="button button-icon" href="#/event">
+                          <i ng-class="['ion-ios-calendar-outline','picon4',{'active-picon4':selectedType=='personal-address'}]"></i><br>KU Calendar</a>
+                  </div>
+                  <div class="col">
+                    <a class="button button-icon" href="#/quicklink">
+                          <i ng-class="['ion-ios-world-outline','picon4',{'active-picon4':selectedType=='personal-address'}]"></i><br>Quick
+                          Link</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <div class="container-icon">
+            <div class="container-icon-home-menu">
+              <div class="row borderbottomgrey">
+                  <div class="col">
+                    <a class="button button-icon" ng-click="showManual();">
+                      <i ng-class="['ion-ios-bookmarks-outline','picon4',{'active-picon4':selectedType=='personal-info'}]"></i><br>StudentGuide</a>
+                  </div>
+                  <div class="col">
+                    <a class="button button-icon" ng-click="openURL('https://kuappstore.ku.ac.th/review/');">
+                          <i ng-class="['ion-ios-star-outline','picon4',{'active-picon4':selectedType=='personal-education'}]"></i><br>Rating</a>
+                  </div>
+                  <div class="col"></div>
+                  <div class="col"></div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+    </div>
+    
+    <!-- start Hotnews -->
+    <div ng-init="getHotnews();">
+      <ion-slide-box auto-play="true" class="myHotnews" delegate-handle="sliderBanNisit" does-continue="true"
+        on-slide-changed="slideNisitHasChanged(index)" show-pager="false">
+        <ion-slide ng-repeat="hotnewsList in HotnewsLists">
+            <div class="card homecard" style="margin:12px;" ng-click="openURL('{{hotnewsList.url_link}}');">
+              <img ng-src="{{hotnewsList.url_img}}" style="width:100%;">
+            </div>
+        </ion-slide>
+      </ion-slide-box>
+    </div>
+    <!-- end Hotnews -->
+
+    <!-- ##### START NEWS ##### -->
+    <div class="row" style="padding-left: 10px;">
+      <div class="col">
+        <div class="item tableheader" style="background-color: #f2f2f2;">
+          <a href="#/pr">
+            <h2>Press Release</h2>
+            <span style="color: #006664;">ข่าวประชาสัมพันธ์</span>
+          </a>
+        </div>
+      </div>
+      <div class="col" style="padding-left: 0px;">
+        <div class="item tableheader-right" style="background-color: #f2f2f2;">
+            <h2>&nbsp;</h2>
+            <a style="color: #006664;" href="#/pr">ทั้งหมด ></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="scrolling-card">
+      <ion-scroll direction="x" style="width: 100%;" class="no-underline">
+          <div class="scrollmenu-card" ng-repeat="prList in prContent" ng-click="goToPrDetail(prList)">
+              <div class="card itemcard ">
+                  <div class="containerImg ">
+                      <img class="itemimg" ng-src={{prList.photo}} style="width:100%;">
+                      <div class="content"></div>
+                  </div>
+                  <div class="item" style="border-width:0px;">{{prList.title}}</div>
+              </div>
+          </div>
+      </ion-scroll>
+    </div>
+    <!-- ##### END NEWS ##### -->
+
+    <!-- Start Calendar -->
+    <div class="myEvent" ng-init="getEvents()" style="padding-bottom: 0px;margin-bottom: 0px;">
+      <div class="list">
+        <!-- <div class="item item-divider hotevent">
+          <a style="color:white;font-size: 18px;" href="#/event">ข่าวสาร/กิจกรรม</a>
+        </div> -->
+        <!-- <ion-scroll class="main-event"> -->
+
+          <div class="row" style="padding-left: 10px;">
+            <div class="col">
+              <div class="item tableheader" style="background-color: #f2f2f2;">
+                <a href="#/event">
+                  <h2>KU Calendar</h2>
+                  <span style="color: #006664;">ปฏิทิน</span>
+                </a>
+              </div>
+            </div>
+            <div class="col" style="padding-left: 0px;">
+              <div class="item tableheader-right" style="background-color: #f2f2f2;">
+                  <h2>&nbsp;</h2>
+                  <a style="color: #006664;" href="#/event">ทั้งหมด ></a>
+              </div>
+            </div>
+          </div>
+
+        <div class="card newslistHomecard" ng-repeat="eventsList in eventsLists">
+          <div class="item item-divider subdivider" id="{{eventsList.name}}"
+            style=" background-color: rgba(12, 150, 145, 0.2); padding-top: 8px;padding-bottom: 8px;">{{eventsList.name}}
+          </div>
+          <a class="item item-avatar-left" ng-repeat="item in eventsList.events" ng-click="openURL('{{item.url}}');">
+            <img ng-src="{{item.photo}}">
+            <span class="newscardtitle item-text-wrap">{{item.event_name}}</span>
+            <p ng-if="item.detail.lenght==1">{{item.detail}}</p>
+            <p ng-if="item.start_event!=item.end_event">{{item.start_event}}
+              -
+              {{item.end_event}}</p>
+            <p ng-if="item.start_event==item.end_event">{{item.start_event}}</p>
+            <p ng-if="item.url!=''" style="color:#13706D;">ข้อมูลเพิ่มเติม</p>
+          </a>
+        </div>
+        <!-- </ion-scroll> -->
+      </div>
+    </div>
+    <!-- END Calendar -->
+    <br><br>
+
+  </ion-content>
+</ion-view>

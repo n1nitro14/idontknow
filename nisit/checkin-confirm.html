@@ -1,0 +1,53 @@
+<style>
+  .checkinModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .active .modal-backdrop-bg {
+    opacity: .5;
+  }
+
+  .modal-backdrop-bg {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0;
+  }
+
+</style>
+<ion-modal-view style="background-color: transparent;">
+  <!-- <ion-modal-view class="ion-nifty-modal">
+  <div class="ion-modal-content-custom"> -->
+  <ion-content class="padding">
+    <div class="checkinModal">
+      <div style="text-align:right;">
+        <button class="button button-icon icon ion-ios-close-outline" style="color:white"
+          ng-click="closePosterModal()"></button>
+      </div>
+
+      <div class="item item-input greenhead borderradiustop"></div>
+      <div class="item borderradiusbottom">
+        <ion-item class="item-remove-animate item-avatar-left item-text-wrap borderradiustop borderradiusbottom">
+          <img src="./img/ku.jpg">
+          <h3 style="font-size:20px;color:#333;">{{content.activity_date}}</h3>
+          <h3 style="font-size:20px;color:#1A716E;padding-bottom: 12px;">{{content.activity_name}}</h3>
+          <p style="font-size:18px;color:#333;">{{content.activity_location}}</p>
+          <p style="font-size:18px;color:#333;">{{content.activity_time}}</p>
+        </ion-item>
+        <div style="padding-top:12px;">
+          <button class="button button-block ion-ios-location scanbutton" ng-click="CheckInActivity();">
+            <span class="padding" style="color:white;">Check In</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+  <!-- </div> -->
+</ion-modal-view>

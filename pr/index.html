@@ -1,0 +1,62 @@
+<style>
+    .greennewslistcard {
+        box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+        margin-top:8px;
+        border-radius: 8px;
+        font-size: 16px;
+        margin: 12px;
+    }
+    .radiusimg {
+        border-radius: 8px;
+    }
+    .newscardtitle {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .fixbgcontent {
+        /* background-color:  rgba(0, 179, 116, 1) !important; */
+        background: linear-gradient(180deg,#00756E 30%, #f4f4f4 30%);
+        background-attachment: fixed;
+    }
+
+</style>
+<ion-view>
+    <ion-nav-bar>
+
+    </ion-nav-bar>
+
+    <div class="bar bar-subheader has-footer no-bar">
+      <a ng-click="goBack()" class="button icon ion-ios-arrow-back stylesec2"> </a>
+    </div>
+
+    <ion-content class="fixbgcontent" ng-init="getPRInit();">
+      <ion-refresher pulling-text="Pull to refresh..." on-refresh="getPRInit(searchTxt)"></ion-refresher>
+
+        <div class="row"><div class="col">
+        <div >
+            <div class="item" style="border:0px;padding-top: 45px;padding-bottom:0px;background-color: #00756E;">
+                <span style="font-size:20px;font-weight: 600;color: white;;">ข่าวประชาสัมพันธ์</span>
+            </div>
+
+            <div class="item item-input-inset " style="border:0px;background-color: #00756E;">
+            <la bel class="item-input-wrapper borderradius2" style="padding:3px;">
+                <i class="icon ion-ios-search placeholder-icon" style="font-size:20px;padding-left:20px;"></i>
+                <input type="search" style="font-family:'Quark'; color:#333; font-size:20px;line-height:30px;" ng-model="searchTxt" placeholder="ค้นหา..">
+            </la bel>
+            <a class="button button-icon icon ion-ios-search" style="color:white;" ng-click="getPRInit(searchTxt);"></a>
+            </div>
+        </div>
+
+                <div class="card greennewslistcard" ng-repeat="prList in prContent" >
+                    <a class="item item-thumbnail-left item-icon-right " ng-click="goToPrDetail(prList)" >
+                        <img class="radiusimg" ng-src="{{prList.photo}}">
+                        <span class="newscardtitle">{{prList.title}}</span><br>
+                        <span class="font16 contentFont">{{prList.detail}}</span><br><br>
+                        <p>{{prList.post_date}}</p>
+                    </a>
+                </div>
+            <ion-infinite-scroll ng-if="!noMoreItemsAvailable" icon="ion-loading-c" on-infinite="prMore(searchTxt)"></ion-infinite-scroll>
+        </div></div>
+    </ion-content>
+</ion-view>

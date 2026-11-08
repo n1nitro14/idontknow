@@ -1,0 +1,121 @@
+<style>
+  .greennewslistcard {
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+    margin-top: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 12px;
+  }
+
+  .radiusimg {
+    border-radius: 8px;
+  }
+
+  .newscardtitle {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  /* .fixbgcontent {
+      background: linear-gradient(180deg,#006664 30%, #f4f4f4 30%);
+      background-attachment: fixed;
+  } */
+
+  .icon-badge {
+    position: absolute;
+    left: 38px;
+    top: 17px;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: #E84D39;
+    border: 1px solid white;
+  }
+
+  /* ion-option-button.button {
+    display: -webkit-inline-flex;
+    -webkit-align-items: center;
+  } */
+  ion-option-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    /* optional */
+  }
+
+  .item-options .button {
+    line-height: 0;
+  }
+
+  .item-options .button:before {
+    content: " ";
+    height: 50%;
+    display: block;
+  }
+
+</style>
+<ion-view title='NOTIFICATIONS'>
+
+  <ion-nav-bar class="bar-subheader bar-light">
+    <ion-nav-back-button class="button icon ion-ios-arrow-back stylesec2">
+      <!-- <i class="ion-chevron-left"></i> -->
+    </ion-nav-back-button>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear" ng-click="changeSetting();">
+        <i class="ion-ios-gear-outline" style="font-size:24px;"></i></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content class="has-header has-subheader" ng-init="getNotifications()">
+    <!-- <div class="item" style="border:0px;padding-top:15px;padding-bottom:15px;">&nbsp;
+    </div> -->
+    <div ng-if="Notifications.length==0" style="padding-top:30px;text-align:center;">
+      เมื่อได้รับข้อความใหม่ นิสิตสามารถดูข้อความทั้งหมดได้ที่นี่
+    </div>
+
+    <ion-list ng-if="Notifications.length>0">
+      <div class="item item-divider">
+        <div style="padding-top:20px;text-align: right;">
+          <span style="color:#888888;" ng-if="!Badge">อ่านทั้งหมด</span>
+          <span style="color:#E84D39;" ng-if="Badge" ng-click="readAll(Notifications)">อ่านทั้งหมด
+            {{'('+Badge+')'}}</span>&nbsp;&nbsp;
+          <i class="icon ion-trash-b" style="color:#E84D39;" ng-click="deleteAll(Notifications)"></i>
+        </div>
+      </div>
+
+      <ion-item ng-repeat="item in Notifications track by item.id" class="item-remove-animate item-avatar-left item-icon-right"
+        ng-click="goToNotiDetail(item);onItemRead($index)">
+
+        <img style="width:30px;height: 30px;" ng-src="{{item.noticon+'?v='+amptime}}">
+        <span class="icon-badge" ng-if="item.read==0"></span>
+
+        <div class="row" style="padding: 0px;">
+          <div class="col" style="padding: 0px;">
+            <h3>{{item.msg_type_txt}}</h3>
+          </div>
+          <div class="col" style="padding: 0px;text-align: right;">
+            <p style="font-size:12px;">{{item.post_date}}</p>
+          </div>
+        </div>
+        <h4>{{item.title}}</h4>
+        <p ng-bind-html="item.message"></p>
+        <p style="font-size:12px;">{{item.post_by}}</p>
+
+        <ion-option-button ng-if="item.read==0" class="button-stable" ng-click="onItemRead($index)">
+          <i class="icon ion-ios-bookmarks-outline"></i>
+          <span>อ่าน</span>
+        </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="onItemDelete(item)">
+          <i class="icon ion-ios-trash-outline"></i>
+          <span>ลบ</span>
+        </ion-option-button>
+        <i class="icon arrow-right-icon ion-ios-arrow-right"></i>
+
+      </ion-item>
+
+    </ion-list>
+
+  </ion-content>
+
+</ion-view>

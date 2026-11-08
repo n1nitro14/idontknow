@@ -1,0 +1,378 @@
+/* ########################## */
+/*  START -- GREY CARD HEADER */
+.greycard {
+  margin: 0px 0 15px 0;
+  /* background-color: rgba(214, 224, 226, 0.2); */
+  border-top-width: 0;
+  border-bottom-width: 2px;
+  /* -webkit-border-radius: 3px; */
+  -moz-border-radius: 3px;
+  /* border-radius: 3px; */
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* box-shadow: none; */
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+  /* margin-top: 8px; */
+  /* border-radius: 8px; */
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  font-size: 16px;
+  /* margin: 12px; */
+}
+
+.greycard.hovercard {
+  position: relative;
+  padding-top: 0;
+  overflow: hidden;
+  text-align: center;
+  background-color: #fbfbfb;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.greycard.hovercard .cardheader {
+  background: url("../img/1.jpg");
+  background-size: cover;
+  height: 135px;
+}
+
+.greycard.hovercard .avatar {
+  position: relative;
+  top: -50px;
+  margin-bottom: -50px;
+}
+
+.greycard.hovercard .avatar img {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.greycard.hovercard .info {
+  padding: 4px 8px 10px;
+}
+
+.greycard.hovercard .info .title {
+  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  color: #333333;
+  vertical-align: middle;
+}
+
+.greycard.hovercard .info .desc {
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 20px;
+  color: #333333;
+  text-overflow: ellipsis;
+}
+
+.greycard.hovercard .bottom {
+  padding: 0 20px;
+  margin-bottom: 17px;
+}
+
+/*  END -- GREY CARD HEADER */
+/* ########################## */
+
+/* ########################## */
+/* START -- GREEN CARD HEADER */
+
+.greencard {
+  margin: 0px 0 15px 0;
+  background-color: rgba(214, 224, 226, 0.2);
+  border-top-width: 0;
+  border-bottom-width: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.greencard.hovercard {
+  position: relative;
+  padding-top: 0;
+  overflow: hidden;
+  text-align: center;
+  background: #66cc99;
+  background: linear-gradient(-60deg, #66cc99 0%, #339999, rgba(252, 176, 69, 1) 100%);
+
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.greencard.hovercard .cardheader {
+  background: url("../img/bg22.jpg");
+  background-size: cover;
+  height: 135px;
+}
+
+.greencard.hovercard .avatar {
+  position: relative;
+  top: -50px;
+  margin-bottom: -50px;
+}
+
+.greencard.hovercard .avatar img {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.greencard.hovercard .info {
+  padding: 4px 8px 10px;
+}
+
+.greencard.hovercard .info .title {
+  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  color: white;
+  vertical-align: middle;
+}
+
+.greencard.hovercard .info .desc {
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 20px;
+  color: whitesmoke;
+  text-overflow: ellipsis;
+}
+
+.greencard.hovercard .bottom {
+  padding: 0 20px;
+  margin-bottom: 17px;
+}
+
+/*  END -- GREEN CARD HEADER */
+/* ########################## */
+
+.kucard {
+  margin: 0px 0 0px 0;
+  background: rgb(12, 150, 145);
+  background: linear-gradient(-90deg, rgba(12, 150, 145, 1) 40%, rgb(35, 68, 67, 1) 100%);
+  border-top-width: 0;
+  border-bottom-width: 2px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  height: 135px;
+}
+
+
+/* ########################## */
+/*  START -- Vote CARD */
+
+.greenvotelistcard {
+  /* box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0); */
+  margin-top: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin: 12px;
+}
+
+.radiusimg {
+  border-radius: 8px;
+}
+
+.votecardtitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
+}
+
+/* .fixbgcontent {
+      background: linear-gradient(180deg,#006664 30%, #f4f4f4 30%);
+      background-attachment: fixed;
+  } */
+
+.vote-active {
+  border-bottom-width: 3px !important;
+  border-bottom-style: solid !important;
+  border-bottom-color: #0c9691 !important;
+}
+
+.votecard {
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+  margin-top: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/*  End -- Vote CARD */
+/* ########################## */
+
+
+/* ########################## */
+/*  START -- Survey CARD */
+
+.greensurveylistcard {
+  /* box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0); */
+  margin-top: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin: 12px;
+}
+
+/* .radiusimg {
+  border-radius: 8px;
+} */
+.surveycardtitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
+}
+
+/* .fixbgcontent {
+  background: linear-gradient(180deg,#006664 30%, #f4f4f4 30%);
+  background-attachment: fixed;
+} */
+
+.survey-active {
+  border-bottom-width: 3px !important;
+  border-bottom-style: solid !important;
+  border-bottom-color: #0c9691 !important;
+}
+
+.surveycard {
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+  margin-top: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.container-icon-survey-menu {
+  padding: 0.5em;
+  padding-top: 0px;
+  text-align: center;
+}
+
+.container-icon-survey-menu .button {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #666666;
+  line-height: 26px;
+  font-weight: 600;
+  /* padding-bottom: 20px; */
+}
+
+.redheader {
+  font-size: 1em;
+  border: 0px;
+  font-weight: 600;
+  color: #f57a45;
+  border-left: 8px solid #f7966c !important;
+  padding-left: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/*  End -- Survey CARD */
+/* ########################## */
+
+
+/* ########################## */
+/*  START -- GREY CARD HEADER */
+.greycard2 {
+  margin: 12px;
+  border-top-width: 0;
+  border-bottom-width: 2px;
+  -moz-border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* box-shadow: 10 1px 1px 20 rgba(0, 0, 0, 0.1); */
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.greycard2.hovercard {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background-color: #fbfbfb;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.greycard2.hovercard .cardheader {
+  /* background: url("../img/bg22.jpg"); */
+  background: url("../img/1.jpg");
+  background-size: cover;
+  height: 135px;
+}
+
+.greycard2.hovercard .avatar {
+  position: relative;
+  top: -60px;
+  margin-bottom: -60px;
+}
+
+.greycard2.hovercard .avatar img {
+  width: 120px;
+  height: 120px;
+  max-width: 120px;
+  max-height: 120px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.greycard2.hovercard .info {
+  padding: 8px 0px 0px;
+}
+
+.greycard2.hovercard .info .title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333333;
+  vertical-align: middle;
+  padding-bottom: 5px;
+}
+
+.greycard2.hovercard .info .desc {
+  font-size: 18px;
+  color: #333333;
+  padding-top: 5px;
+}
+
+/* .greycard2.hovercard .bottom {
+  padding: 0 18px;
+  margin-bottom: 17px;
+} */
+
+/*  END -- GREY CARD HEADER */

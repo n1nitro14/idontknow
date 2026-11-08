@@ -1,0 +1,26 @@
+<ion-modal-view>
+  <ion-content>
+    <form>
+      <center>
+        <div class="LoginForm">
+          <div class="row">
+            <div class="col col-90"></div>
+            <div class="col col-10">
+              <button class="button button-clear" ng-click="closeLogin()" style="font-weight:bold;color: #0c9691;"><i
+                  class="icon ion-ios-close-outline"></i></button>
+            </div>
+          </div>
+
+          <p class=" login-header">NisitKU<br>
+            <span class="login-header-span">ใส่ชื่อการ์ดของคุณ</span>
+          </p>
+
+          <input class="login-input" ng-model="loginData.username" placeholder="ชื่อการ์ด เช่น apiwit" type="text" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+          <button class="login-input login-btn" ng-click="doLogin(loginData)">เข้าใช้งาน</button>
+
+          <p style="font-size:0.8em; color:#888; margin-top:12px;">ระบบจะจำการ์ดนี้บนอุปกรณ์ของคุณ</p>
+        </div>
+      </center>
+    </form>
+  </ion-content>
+</ion-modal-view>

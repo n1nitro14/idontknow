@@ -10,15 +10,39 @@
   <style>
     @font-face {
       font-family: 'kufont';
-      src: url('css/kubd.ttf');
+      src: url('css/kubd.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'kufont';
+      src: url('css/kubd.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'kufont';
+      src: url('css/kubd.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
     }
     @font-face {
       font-family: 'ku2font';
-      src: url('css/kumed.ttf');
+      src: url('css/kumed.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'ku2font';
+      src: url('css/kumed.ttf') format('truetype');
+      font-weight: 600;
+      font-style: normal;
     }
     @font-face {
       font-family: 'ku3font';
-      src: url('css/kuli.ttf');
+      src: url('css/kuli.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
     }
 
     * {
@@ -612,8 +636,7 @@
 
     // High-Resolution 2072 x 3276 Card Renderer
     async function renderHiResCard() {
-      await document.fonts.load('160px "ku2font"');
-      await document.fonts.load('158px "kufont"');
+      await document.fonts.ready;
       
       const ctx = hiResCanvas.getContext('2d');
       ctx.clearRect(0, 0, 2072, 3276);
@@ -621,35 +644,50 @@
       // 1. Background
       ctx.drawImage(bgCardImg, 0, 0, 2072, 3276);
 
-      // 2. Photo
+      // 2. Photo (Smart Aspect-Ratio Cover Crop to prevent face distortion)
       if (photoImgElement && photoImgElement.complete) {
-        // px = 72, py = 875, pw = 783, ph = 990
-        ctx.drawImage(photoImgElement, 72, 875, 783, 990);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        const targetW = 783;
+        const targetH = 990;
+        const targetRatio = targetW / targetH;
+        const nw = photoImgElement.naturalWidth || targetW;
+        const nh = photoImgElement.naturalHeight || targetH;
+        const imgRatio = nw / nh;
+        let sx = 0, sy = 0, sw = nw, sh = nh;
+        if (imgRatio > targetRatio) {
+          sw = nh * targetRatio;
+          sx = (nw - sw) / 2;
+        } else {
+          sh = nw / targetRatio;
+          sy = (nh - sh) / 2;
+        }
+        ctx.drawImage(photoImgElement, sx, sy, sw, sh, 72, 875, targetW, targetH);
       }
 
       // 3. Text Layers (Calibrated pixel-perfect to official spec)
-      ctx.fillStyle = '#141414';
+      ctx.fillStyle = '#111111';
       ctx.textBaseline = 'top';
       const textX = 978;
 
       // Group 1: ID
       ctx.font = '600 160px "ku2font", sans-serif';
-      ctx.fillText('ID ' + inputId.value.trim(), textX, 716);
+      ctx.fillText('ID ' + inputId.value.trim(), textX, 722);
 
       // Group 2: Thai Name
       ctx.font = '700 158px "kufont", sans-serif';
-      ctx.fillText(inputNameTh.value.trim(), textX, 934);
-      ctx.fillText(inputSurnameTh.value.trim(), textX, 1064);
+      ctx.fillText(inputNameTh.value.trim(), textX, 940);
+      ctx.fillText(inputSurnameTh.value.trim(), textX, 1070);
 
       // Group 3: English Name
       ctx.font = '600 158px "ku2font", sans-serif';
-      ctx.fillText(inputNameEn.value.trim(), textX, 1273);
-      ctx.fillText(inputSurnameEn.value.trim(), textX, 1405);
+      ctx.fillText(inputNameEn.value.trim(), textX, 1268);
+      ctx.fillText(inputSurnameEn.value.trim(), textX, 1400);
 
       // Group 4: Faculty / Service
       ctx.font = '700 152px "kufont", sans-serif';
-      ctx.fillText(inputFaculty1.value.trim(), textX, 1608);
-      ctx.fillText(inputFaculty2.value.trim(), textX, 1728);
+      ctx.fillText(inputFaculty1.value.trim(), textX, 1602);
+      ctx.fillText(inputFaculty2.value.trim(), textX, 1725);
     }
 
     function updatePreview() {

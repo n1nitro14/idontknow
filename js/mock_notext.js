@@ -334,11 +334,37 @@
                         // =====================================
                         // J. News, Events, Hilights & Banners
                         // =====================================
-                        else if (action === "hotnews" || action === "news" || action === "list" || action === "banner" || url.indexOf("news") !== -1 || url.indexOf("event") !== -1) {
+                        else if (action === "list") {
+                            // Hilight Carousel at top of Home Screen
                             mockData = [
-                                { id: "1", title: "NOTEXT", detail: "NOTEXT", date: "NOTEXT", photo: "img/bg2.jpg", url: "#", post_by: "NOTEXT" },
-                                { id: "2", title: "NOTEXT", detail: "NOTEXT", date: "NOTEXT", photo: "img/bg2.jpg", url: "#", post_by: "NOTEXT" }
+                                {
+                                    status: "true",
+                                    news: [
+                                        { id: "1", title: "KU Announcement", detail: "KU Smart University", date: "2026-11-01", photo: "img/bg1.jpg", url: "#", post_by: "Kasetsart" },
+                                        { id: "2", title: "KU Highlight", detail: "Welcome to NisitKU", date: "2026-11-05", photo: "img/bg2.jpg", url: "#", post_by: "Kasetsart" },
+                                        { id: "3", title: "KU Activities", detail: "Campus Updates", date: "2026-11-08", photo: "img/bg5.jpg", url: "#", post_by: "Kasetsart" }
+                                    ]
+                                }
                             ];
+                        }
+                        else if (action === "hotnews") {
+                            // Hotnews Carousel at bottom of Home Screen
+                            mockData = {
+                                status: "true",
+                                data: [
+                                    { url_img: "img/bg3.jpg", url_link: "#" },
+                                    { url_img: "img/bg4.jpg", url_link: "#" }
+                                ]
+                            };
+                        }
+                        else if (action === "news" || action === "banner" || url.indexOf("news") !== -1 || url.indexOf("event") !== -1) {
+                            mockData = {
+                                status: "true",
+                                data: [
+                                    { id: "1", title: "KU News", detail: "General KU News", date: "2026-11-01", photo: "img/bg2.jpg", url: "#", post_by: "Kasetsart" },
+                                    { id: "2", title: "Campus Update", detail: "Campus Information", date: "2026-11-05", photo: "img/bg3.jpg", url: "#", post_by: "Kasetsart" }
+                                ]
+                            };
                         }
 
                         // =====================================

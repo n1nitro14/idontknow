@@ -579,9 +579,8 @@
       const text = inputBarcode.value.trim() || "20068218617143";
       const bitString = getCode128BitString(text);
       const canvas = hiResBarcodeCanvas;
-      // Exact aspect ratio (392 x 130 scaled up by 1.8x = 705 x 234)
-      canvas.width = 705;
-      canvas.height = 234;
+      canvas.width = 754;
+      canvas.height = 230;
 
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = '#ffffff';
@@ -589,17 +588,17 @@
 
       // 1. Draw Centered Number
       ctx.fillStyle = '#111111';
-      ctx.font = '600 25px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+      ctx.font = '700 28px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
-      ctx.fillText(text, canvas.width / 2, 28);
+      ctx.fillText(text, canvas.width / 2, 22);
 
-      // 2. Draw Code 128 Bars (Takes 87.5% of width, exactly 96%+ matching original)
-      const mw = 5.02;
-      const h = 82;
+      // 2. Draw Code 128 Bars (Takes 91% of width matching official app)
+      const mw = 5.58;
+      const h = 112;
       const totalBarsWidth = bitString.length * mw;
       let startX = (canvas.width - totalBarsWidth) / 2;
-      const barY = 74;
+      const barY = 66;
 
       ctx.fillStyle = '#000000';
       let x = startX;

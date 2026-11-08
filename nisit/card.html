@@ -13,7 +13,7 @@
       <!-- <pre ng-bind="profileNisit | json"></pre> -->
       <!-- <img src="./img/bg6.jpg" style="margin-bottom:0em;" width="100%"> -->
 
-      <div style="text-align: center; padding-top:30px;" ng-if="profileNisit.student_card!=''">
+      <div style="text-align: center; padding-top:22px;" ng-if="profileNisit.student_card!=''">
         <div class="flip" ng-class="{'is-flipped':toggle}" ng-click="toggle = !toggle">
           <div class="front">
             <img ng-src="{{profileNisit.student_card}}" width="80%">
@@ -28,7 +28,7 @@
         <center>
         <div class="list card" ng-if="profileNisit.img_barcode!=''" style="width:80%;">
             <div class="item item-input item-balanced" style="height:1.25em;">KULINET</div>
-            <div class="item" style="text-align: center;">
+            <div class="item" style="text-align: center; padding: 0;">
             <img ng-src="{{profileNisit.img_barcode}}" width="100%" >
             </div>
         </div>

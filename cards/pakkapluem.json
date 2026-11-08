@@ -1,0 +1,16 @@
+{
+  "cardSlug": "pakkapluem",
+  "id": "6819892566",
+  "idcard": "6819892566",
+  "nameTh": "อภิวิชญ์ นิตย์ประเสริฐ",
+  "name_th": "อภิวิชญ์",
+  "surname_th": "นิตย์ประเสริฐ",
+  "nameEn": "Apiwit",
+  "name_en": "Apiwit",
+  "service": "Hospitality\nIndustry",
+  "barcode": "20068198925662",
+  "student_card": "cards/pakkapluem.jpg",
+  "student_card_b": "img/b_bc.png",
+  "img_barcode": "cards/pakkapluem_barcode.png",
+  "imgProfile": "cards/pakkapluem_img.jpg"
+}

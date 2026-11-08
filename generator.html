@@ -367,20 +367,39 @@
         </div>
       </div>
 
+      <!-- TEMPLATE SELECTOR FOR FACULTY / SERVICE -->
+      <div style="margin-bottom: 12px; background: #f7fafc; padding: 10px; border-radius: 8px; border: 1px dashed #cbd5e0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <label style="font-weight:700; color:#2d3748; font-size:0.88rem; margin-bottom:0;">📋 เลือก Template คณะ / สังกัด (จากไฟล์ JSON)</label>
+          <label for="inputTemplateFile" style="cursor:pointer; background:#e2e8f0; color:#4a5568; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:600;">
+            📂 โหลดไฟล์ JSON เพิ่ม
+          </label>
+          <input type="file" id="inputTemplateFile" accept=".json" style="display:none;">
+        </div>
+        <select id="selectFacultyTemplate" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid #cbd5e0; font-size:0.92rem; background:#fff; color:#2d3748;">
+          <option value="">-- เลือกคณะ / สังกัด เพื่อกรอกอัตโนมัติ --</option>
+        </select>
+      </div>
+
       <div class="form-row">
         <div class="form-group">
           <label>คณะ / สังกัด บรรทัดที่ 1</label>
-          <input type="text" id="inputFaculty1" value="Management">
+          <input type="text" id="inputFaculty1" value="Hospitality">
         </div>
         <div class="form-group">
           <label>คณะ / สังกัด บรรทัดที่ 2</label>
-          <input type="text" id="inputFaculty2" value="Sciences">
+          <input type="text" id="inputFaculty2" value="Industry">
         </div>
       </div>
 
       <div class="form-group">
-        <label>รหัสบาร์โค้ด KULINET</label>
-        <input type="text" id="inputBarcode" value="20068301560507">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <label style="margin-bottom:0;">รหัสบาร์โค้ด KULINET</label>
+          <button type="button" id="btnGenBarcode" style="background:#edf2f7; color:#00675E; border:1px solid #cbd5e0; border-radius:6px; padding:4px 10px; font-size:0.82rem; font-weight:600; cursor:pointer;">
+            ⚡ Generate Code จากรหัสนิสิต
+          </button>
+        </div>
+        <input type="text" id="inputBarcode" value="20068218617143">
       </div>
 
       <div class="form-group">
@@ -400,9 +419,6 @@
         </button>
         <button class="btn-secondary" id="btnDownloadJson" style="font-size:0.95rem; padding:10px;">
           📄 4. ดาวน์โหลดไฟล์ข้อมูล (<span class="slug-label">apiwit</span>.json)
-        </button>
-        <button class="btn-secondary" id="btnOpenApp" style="background:#edf2f7; color:#2b6cb0; border:1px solid #cbd5e0; margin-top:6px;">
-          📱 ดูตัวอย่างในแอปทันที
         </button>
       </div>
 
@@ -742,20 +758,112 @@
       downloadBlob(blob, slug + '.json');
     });
 
-    // 5. Open in App with instant LocalStorage sync
-    document.getElementById('btnOpenApp').addEventListener('click', async function() {
-      const slug = (inputSlug.value.trim() || 'natthapol').toLowerCase();
-      const idVal = inputId.value.trim();
-      const profilePath = "cards/" + idVal + "_img." + photoExt;
-      localStorage.setItem('card_slug', slug);
-      localStorage.setItem('name_en', inputNameEn.value.trim());
-      localStorage.setItem('id', idVal);
-      if (photoBase64) {
-        localStorage.setItem('imgProfile', photoBase64);
-      } else {
-        localStorage.setItem('imgProfile', profilePath);
+    // Barcode Generator from Student ID (KULINET: 200 + ID + CheckDigit)
+    function generateKulinetBarcode(id) {
+      const cleanId = (id || '').replace(/\D/g, '');
+      if (!cleanId) return '20068218617143';
+      const prefix = '200' + cleanId;
+      let sum = 0;
+      for (let i = 0; i < prefix.length; i++) {
+        const w = (i % 2 === 0) ? 1 : 3;
+        sum += parseInt(prefix[i], 10) * w;
       }
-      window.location.href = `index.html?dev=1&card=${slug}#/nisit/card`;
+      const checkDigit = (10 - (sum % 10)) % 10;
+      return prefix + checkDigit;
+    }
+
+    document.getElementById('btnGenBarcode').addEventListener('click', function() {
+      const idVal = inputId.value.trim();
+      if (!idVal) {
+        alert('กรุณากรอกรหัสนิสิตก่อนสร้างบาร์โค้ด');
+        return;
+      }
+      inputBarcode.value = generateKulinetBarcode(idVal);
+      updatePreview();
+    });
+
+    // Faculty Templates JSON loader
+    const selectFacultyTemplate = document.getElementById('selectFacultyTemplate');
+    const inputTemplateFile = document.getElementById('inputTemplateFile');
+    let facultyTemplates = [];
+
+    function populateFacultySelect(list) {
+      facultyTemplates = list;
+      selectFacultyTemplate.innerHTML = '<option value="">-- เลือกคณะ / สังกัด เพื่อกรอกอัตโนมัติ --</option>';
+      list.forEach((item, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = item.name || `${item.line1} / ${item.line2}`;
+        selectFacultyTemplate.appendChild(opt);
+      });
+    }
+
+    fetch('faculties.json')
+      .then(r => r.json())
+      .then(data => populateFacultySelect(data))
+      .catch(() => {
+        // Fallback embedded faculties list if running locally via file://
+        populateFacultySelect([
+          { "name": "Hospitality / Industry", "line1": "Hospitality", "line2": "Industry" },
+          { "name": "Management / Sciences", "line1": "Management", "line2": "Sciences" },
+          { "name": "Engineering / Computer Engineering", "line1": "Engineering", "line2": "Computer Engineering" },
+          { "name": "Engineering / Mechanical Engineering", "line1": "Engineering", "line2": "Mechanical Engineering" },
+          { "name": "Engineering / Civil Engineering", "line1": "Engineering", "line2": "Civil Engineering" },
+          { "name": "Engineering / Electrical Engineering", "line1": "Engineering", "line2": "Electrical Engineering" },
+          { "name": "Science / Computer Science", "line1": "Science", "line2": "Computer Science" },
+          { "name": "Science / Chemistry", "line1": "Science", "line2": "Chemistry" },
+          { "name": "Science / Microbiology", "line1": "Science", "line2": "Microbiology" },
+          { "name": "Business Administration / Marketing", "line1": "Business Administration", "line2": "Marketing" },
+          { "name": "Business Administration / Finance", "line1": "Business Administration", "line2": "Finance" },
+          { "name": "Business Administration / Accounting", "line1": "Business Administration", "line2": "Accounting" },
+          { "name": "Economics / Economics", "line1": "Economics", "line2": "Economics" },
+          { "name": "Economics / Agricultural Economics", "line1": "Economics", "line2": "Agricultural Economics" },
+          { "name": "Humanities / English", "line1": "Humanities", "line2": "English" },
+          { "name": "Humanities / Tourism", "line1": "Humanities", "line2": "Tourism" },
+          { "name": "Agriculture / Agronomy", "line1": "Agriculture", "line2": "Agronomy" },
+          { "name": "Agriculture / Animal Science", "line1": "Agriculture", "line2": "Animal Science" },
+          { "name": "Fisheries / Marine Science", "line1": "Fisheries", "line2": "Marine Science" },
+          { "name": "Forestry / Forest Management", "line1": "Forestry", "line2": "Forest Management" },
+          { "name": "Veterinary Medicine / Veterinary Science", "line1": "Veterinary Medicine", "line2": "Veterinary Science" },
+          { "name": "Agro-Industry / Food Science and Technology", "line1": "Agro-Industry", "line2": "Food Science and Tech" },
+          { "name": "Agro-Industry / Biotechnology", "line1": "Agro-Industry", "line2": "Biotechnology" },
+          { "name": "Social Sciences / Psychology", "line1": "Social Sciences", "line2": "Psychology" },
+          { "name": "Social Sciences / Sociology and Anthropology", "line1": "Social Sciences", "line2": "Sociology" },
+          { "name": "Education / Physical Education", "line1": "Education", "line2": "Physical Education" },
+          { "name": "Architecture / Architecture", "line1": "Architecture", "line2": "Architecture" },
+          { "name": "Environment / Environmental Science", "line1": "Environment", "line2": "Environmental Science" },
+          { "name": "Liberal Arts and Science / General Management", "line1": "Liberal Arts and Science", "line2": "General Management" }
+        ]);
+      });
+
+    selectFacultyTemplate.addEventListener('change', function() {
+      const idx = this.value;
+      if (idx !== '' && facultyTemplates[idx]) {
+        inputFaculty1.value = facultyTemplates[idx].line1 || '';
+        inputFaculty2.value = facultyTemplates[idx].line2 || '';
+        updatePreview();
+      }
+    });
+
+    inputTemplateFile.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          try {
+            const parsed = JSON.parse(evt.target.result);
+            if (Array.isArray(parsed)) {
+              populateFacultySelect(parsed);
+              alert('โหลด Template จากไฟล์ JSON สำเร็จ (' + parsed.length + ' รายการ)');
+            } else {
+              alert('รูปแบบไฟล์ JSON ต้องเป็น Array ของ [{ name, line1, line2 }]');
+            }
+          } catch(err) {
+            alert('ไม่สามารถอ่านไฟล์ JSON ได้: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      }
     });
   </script>
 </body>

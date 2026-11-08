@@ -558,16 +558,16 @@
     // Code128 generator for preview Canvas
     function drawCode128(text, canvas) {
       const bitString = getCode128BitString(text);
-      const mw = 2.2;
-      const h = 65;
-      const quiet = 10;
-      canvas.width = Math.ceil(bitString.length * mw + (quiet * 2));
+      const mw = 2.4;
+      const h = 42;
+      const totalWidth = bitString.length * mw;
+      canvas.width = Math.ceil(totalWidth + 30);
       canvas.height = h;
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = '#000000';
-      let x = quiet;
+      let x = (canvas.width - totalWidth) / 2;
       for (let i = 0; i < bitString.length; i++) {
         if (bitString[i] === '1') ctx.fillRect(Math.round(x), 0, Math.ceil(mw), h);
         x += mw;
@@ -578,27 +578,29 @@
     function renderHiResBarcode() {
       const text = inputBarcode.value.trim() || "20068218617143";
       const bitString = getCode128BitString(text);
-      const mw = 4.8;
-      const h = 135;
       const canvas = hiResBarcodeCanvas;
-      canvas.width = 680;
-      canvas.height = 205;
+      // Exact aspect ratio (392 x 130 scaled up by 1.8x = 705 x 234)
+      canvas.width = 705;
+      canvas.height = 234;
 
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 1. Draw Centered Number (Clean system sans-serif matching official app)
+      // 1. Draw Centered Number
       ctx.fillStyle = '#111111';
-      ctx.font = '600 28px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+      ctx.font = '600 25px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
-      ctx.fillText(text, canvas.width / 2, 14);
+      ctx.fillText(text, canvas.width / 2, 28);
 
-      // 2. Draw Code 128 Bars (Centered)
+      // 2. Draw Code 128 Bars (Takes 87.5% of width, exactly 96%+ matching original)
+      const mw = 5.02;
+      const h = 82;
       const totalBarsWidth = bitString.length * mw;
       let startX = (canvas.width - totalBarsWidth) / 2;
-      const barY = 52;
+      const barY = 74;
+
       ctx.fillStyle = '#000000';
       let x = startX;
       for (let i = 0; i < bitString.length; i++) {

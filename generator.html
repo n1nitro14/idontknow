@@ -408,18 +408,10 @@
       </div>
 
       <div class="btn-group" style="display:flex; flex-direction:column; gap:10px;">
-        <button class="btn-primary" id="btnDownloadCard" style="background:#00675E; font-size:1.05rem; padding:14px;">
-          📥 1. ดาวน์โหลดรูปหน้าบัตร (<span class="slug-label">apiwit</span>.jpg)
-        </button>
-        <button class="btn-primary" id="btnDownloadBarcode" style="background:#28a54c; font-size:1rem; padding:12px;">
-          📥 2. ดาวน์โหลดบาร์โค้ด (<span class="slug-label">apiwit</span>_barcode.png)
-        </button>
-        <button class="btn-primary" id="btnDownloadProfile" style="background:#3182ce; font-size:1rem; padding:12px;">
-          📥 3. ดาวน์โหลดรูปโปรไฟล์ (<span class="profile-file-label">6821861714_img.jpg</span>)
-        </button>
-        <button class="btn-secondary" id="btnDownloadJson" style="font-size:0.95rem; padding:10px;">
-          📄 4. ดาวน์โหลดไฟล์ข้อมูล (<span class="slug-label">apiwit</span>.json)
-        </button>
+        <button class="btn-primary" id="btnDownloadCard" style="background:#00675E; font-size:1.05rem; padding:14px;">📥 1. ดาวน์โหลดรูปหน้าบัตร (<span class="slug-label">natthapol</span>.jpg)</button>
+        <button class="btn-primary" id="btnDownloadBarcode" style="background:#28a54c; font-size:1rem; padding:12px;">📥 2. ดาวน์โหลดบาร์โค้ด (<span class="slug-label">natthapol</span>_barcode.png)</button>
+        <button class="btn-primary" id="btnDownloadProfile" style="background:#3182ce; font-size:1rem; padding:12px;">📥 3. ดาวน์โหลดรูปโปรไฟล์ (<span class="slug-label">natthapol</span>_img.<span class="photo-ext-label">jpg</span>)</button>
+        <button class="btn-secondary" id="btnDownloadJson" style="font-size:0.95rem; padding:10px;">📄 4. ดาวน์โหลดไฟล์ข้อมูล (<span class="slug-label">natthapol</span>.json)</button>
       </div>
 
       <div id="statusAlert" class="status-alert"></div>
@@ -633,9 +625,8 @@
 
     function updatePreview() {
       const slug = (inputSlug.value.trim() || 'card').toLowerCase();
-      const idVal = inputId.value.trim() || 'student';
       document.querySelectorAll('.slug-label').forEach(el => el.textContent = slug);
-      document.querySelectorAll('.profile-file-label').forEach(el => el.textContent = `${idVal}_img.${photoExt}`);
+      document.querySelectorAll('.photo-ext-label').forEach(el => el.textContent = photoExt);
 
       prevId.innerText = 'ID ' + inputId.value.trim();
       prevNameTh.innerHTML = inputNameTh.value.trim() + '<br>' + inputSurnameTh.value.trim();
@@ -714,10 +705,10 @@
       }, 'image/png');
     });
 
-    // 3. Download Profile Photo (<id>_img.<ext>)
+    // 3. Download Profile Photo (<slug>_img.<ext>)
     document.getElementById('btnDownloadProfile').addEventListener('click', async function() {
-      const idVal = inputId.value.trim() || 'student';
-      const filename = `${idVal}_img.${photoExt}`;
+      const slug = (inputSlug.value.trim() || 'card').toLowerCase();
+      const filename = `${slug}_img.${photoExt}`;
       if (uploadedPhotoFile) {
         downloadBlob(uploadedPhotoFile, filename);
       } else {
@@ -735,7 +726,7 @@
     document.getElementById('btnDownloadJson').addEventListener('click', function() {
       const slug = (inputSlug.value.trim() || 'card').toLowerCase();
       const idVal = inputId.value.trim();
-      const profilePath = "cards/" + idVal + "_img." + photoExt;
+      const profilePath = "cards/" + slug + "_img." + photoExt;
 
       const config = {
         cardSlug: slug,

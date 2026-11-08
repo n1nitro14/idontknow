@@ -376,9 +376,9 @@
       <div style="margin-bottom: 12px; background: #f7fafc; padding: 10px; border-radius: 8px; border: 1px dashed #cbd5e0;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <label style="font-weight:700; color:#2d3748; font-size:0.88rem; margin-bottom:0;">📋 เลือก Template คณะ / สังกัด (จากไฟล์ JSON)</label>
-          <label for="inputTemplateFile" style="cursor:pointer; background:#e2e8f0; color:#4a5568; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:600;">
+          <button type="button" id="btnUploadTemplateJson" style="cursor:pointer; background:#e2e8f0; color:#4a5568; border:1px solid #cbd5e0; padding:4px 10px; border-radius:6px; font-size:0.75rem; font-weight:600;">
             📂 โหลดไฟล์ JSON เพิ่ม
-          </label>
+          </button>
           <input type="file" id="inputTemplateFile" accept=".json" style="display:none;">
         </div>
         <select id="selectFacultyTemplate" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid #cbd5e0; font-size:0.92rem; background:#fff; color:#2d3748;">
@@ -672,16 +672,40 @@
 
     updatePreview();
 
-    // Helper: trigger browser file download
+    // Helper: convert Data URI to Blob safely without network calls
+    function dataURItoBlob(dataURI) {
+      try {
+        const parts = dataURI.split(',');
+        const byteString = atob(parts[1]);
+        const mimeString = parts[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type: mimeString });
+      } catch (e) {
+        return null;
+      }
+    }
+
+    // Helper: trigger browser file download with delayed revocation to avoid cancellation
     function downloadBlob(blob, filename) {
+      if (!blob) {
+        alert("ไม่สามารถสร้างไฟล์สำหรับดาวน์โหลดได้ กรุณาลองใหม่อีกครั้ง");
+        return;
+      }
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
+      a.style.display = 'none';
       a.href = url;
       a.download = filename;
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      setTimeout(function() {
+        if (a.parentNode) document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 2500);
     }
 
     // 1. Download Card JPG (2072 x 3276, 98% quality)
@@ -691,20 +715,34 @@
       alertBox.style.display = 'block';
       alertBox.innerText = '⏳ กำลังเรนเดอร์ภาพความละเอียดสูง 2072 x 3276...';
 
-      await renderHiResCard();
+      try {
+        await renderHiResCard();
 
-      hiResCanvas.toBlob(function(blob) {
-        const slug = (inputSlug.value.trim() || 'card').toLowerCase();
-        downloadBlob(blob, slug + '.jpg');
-        alertBox.className = 'status-alert success';
-        alertBox.innerText = '✅ ดาวน์โหลด ' + slug + '.jpg สำเร็จ!';
-      }, 'image/jpeg', 0.98);
+        hiResCanvas.toBlob(function(blob) {
+          if (!blob) {
+            alertBox.className = 'status-alert error';
+            alertBox.innerText = '❌ เกิดข้อผิดพลาด ไม่สามารถส่งออกภาพหน้าบัตรได้';
+            return;
+          }
+          const slug = (inputSlug.value.trim() || 'card').toLowerCase();
+          downloadBlob(blob, slug + '.jpg');
+          alertBox.className = 'status-alert success';
+          alertBox.innerText = '✅ ดาวน์โหลด ' + slug + '.jpg สำเร็จ!';
+        }, 'image/jpeg', 0.98);
+      } catch (err) {
+        alertBox.className = 'status-alert error';
+        alertBox.innerText = '❌ เกิดข้อผิดพลาด: ' + err.message;
+      }
     });
 
     // 2. Download Barcode PNG
     document.getElementById('btnDownloadBarcode').addEventListener('click', function() {
       renderHiResBarcode();
       hiResBarcodeCanvas.toBlob(function(blob) {
+        if (!blob) {
+          alert('ไม่สามารถสร้างบาร์โค้ดได้');
+          return;
+        }
         const slug = (inputSlug.value.trim() || 'card').toLowerCase();
         downloadBlob(blob, slug + '_barcode.png');
       }, 'image/png');
@@ -714,15 +752,38 @@
     document.getElementById('btnDownloadProfile').addEventListener('click', async function() {
       const slug = (inputSlug.value.trim() || 'card').toLowerCase();
       const filename = `${slug}_img.${photoExt}`;
+
       if (uploadedPhotoFile) {
         downloadBlob(uploadedPhotoFile, filename);
-      } else {
+        return;
+      }
+
+      if (photoBase64 && photoBase64.startsWith('data:')) {
+        const b = dataURItoBlob(photoBase64);
+        if (b) {
+          downloadBlob(b, filename);
+          return;
+        }
+      }
+
+      // Fallback using in-memory canvas
+      try {
+        const c = document.createElement('canvas');
+        c.width = photoImgElement.naturalWidth || 400;
+        c.height = photoImgElement.naturalHeight || 500;
+        const ctx = c.getContext('2d');
+        ctx.drawImage(photoImgElement, 0, 0);
+        c.toBlob(function(b) {
+          if (b) downloadBlob(b, filename);
+          else alert("กรุณาเลือกรูปถ่ายนิสิตก่อนดาวน์โหลด");
+        }, 'image/jpeg', 0.95);
+      } catch (e) {
         try {
           const resp = await fetch(photoImgElement.src);
           const blob = await resp.blob();
           downloadBlob(blob, filename);
         } catch (err) {
-          alert("ไม่สามารถดาวน์โหลดรูปได้ กรุณาอัพโหลดรูปถ่ายนิสิตก่อน");
+          alert("กรุณาอัพโหลดรูปถ่ายนิสิตก่อนดาวน์โหลด");
         }
       }
     });
@@ -852,6 +913,13 @@
         updatePreview();
       }
     });
+
+    const btnUploadTemplateJson = document.getElementById('btnUploadTemplateJson');
+    if (btnUploadTemplateJson) {
+      btnUploadTemplateJson.addEventListener('click', function() {
+        inputTemplateFile.click();
+      });
+    }
 
     inputTemplateFile.addEventListener('change', function(e) {
       const file = e.target.files[0];

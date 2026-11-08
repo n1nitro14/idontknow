@@ -1,0 +1,16 @@
+{
+  "cardSlug": "nongprint",
+  "id": "6821861714",
+  "idcard": "6821861714",
+  "nameTh": "นุตประวีณ์ คงจร",
+  "name_th": "นุตประวีณ์",
+  "surname_th": "คงจร",
+  "nameEn": "Nuchpravee",
+  "name_en": "Nuchpravee",
+  "service": "Hospitality\nIndustry",
+  "barcode": "20068218617143",
+  "student_card": "cards/nongprint.jpg",
+  "student_card_b": "img/b_bc.png",
+  "img_barcode": "cards/nongprint_barcode.png",
+  "imgProfile": "img/kulogo.png"
+}

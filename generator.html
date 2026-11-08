@@ -341,8 +341,13 @@
       </div>
 
       <div class="form-group">
-        <label>รหัสนิสิต (Student ID)</label>
-        <input type="text" id="inputId" value="6627417856">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <label style="margin-bottom:0;">รหัสนิสิต (Student ID)</label>
+          <button type="button" id="btnGenStudentId" style="background:#edf2f7; color:#00675E; border:1px solid #cbd5e0; border-radius:6px; padding:4px 10px; font-size:0.82rem; font-weight:600; cursor:pointer;">
+            ⚡ สุ่มรหัส 8 ตัวหลัง
+          </button>
+        </div>
+        <input type="text" id="inputId" value="6821861714">
       </div>
 
       <div class="form-row">
@@ -419,7 +424,7 @@
 
     <!-- LIVE PREVIEW (MATCHING REFERENCE IMAGE) -->
     <div class="preview-wrapper">
-      <div style="font-weight:700; color:#4a5568; margin-bottom:12px;">👀 Live WYSIWYG Preview</div>
+      <div style="font-weight:700; color:#4a5568; margin-bottom:12px;">ปักกะปลื้ม</div>
       
       <!-- CARD PREVIEW -->
       <div class="preview-card-outer">
@@ -747,6 +752,18 @@
 
       const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
       downloadBlob(blob, slug + '.json');
+    });
+
+    // Student ID Generator (Preserve first 2 digits, randomize remaining 8 digits)
+    document.getElementById('btnGenStudentId').addEventListener('click', function() {
+      const cur = inputId.value.trim().replace(/\D/g, '');
+      const prefix = cur.length >= 2 ? cur.substring(0, 2) : '68';
+      let remaining = '';
+      for (let i = 0; i < 8; i++) {
+        remaining += Math.floor(Math.random() * 10).toString();
+      }
+      inputId.value = prefix + remaining;
+      updatePreview();
     });
 
     // Barcode Generator from Student ID (KULINET: 200 + ID + CheckDigit)

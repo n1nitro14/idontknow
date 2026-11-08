@@ -254,47 +254,52 @@
       white-space: pre-line;
     }
 
-    /* KULINET BARCODE BOX (Matching Image) */
+    /* KULINET BARCODE BOX (Matching Official NisitKU) */
     .barcode-box {
-      width: 340px;
-      margin-top: 20px;
+      width: 330px;
+      margin-top: 18px;
       background: white;
-      border-radius: 8px;
+      border-radius: 4px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     }
 
     .barcode-header {
-      background: #28a54c;
+      background: #33cd5f;
       color: white;
-      font-weight: 700;
-      font-size: 0.95rem;
-      padding: 6px 14px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 5px 12px;
+      letter-spacing: 0.3px;
     }
 
     .barcode-body {
-      padding: 12px 14px;
+      padding: 10px 12px 14px 12px;
       text-align: center;
+      background: #ffffff;
     }
 
     .barcode-number {
-      font-family: 'ku2font', monospace;
-      font-size: 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
       font-weight: 600;
-      color: #222;
-      margin-bottom: 6px;
+      color: #111;
+      margin-bottom: 8px;
       letter-spacing: 0.5px;
     }
 
     .barcode-svg-wrap {
       display: flex;
       justify-content: center;
+      align-items: center;
       width: 100%;
     }
 
     .barcode-svg-wrap canvas {
       max-width: 100%;
-      height: 75px;
+      height: 65px;
     }
 
     .status-alert {
@@ -502,8 +507,9 @@
     inputFaculty2.value = "Industry";
     inputBarcode.value = "20068218617143";
 
-    // Code128 pattern generator
+    // Official KULINET Code 128 (Start B + Code C) Barcode Generator
     function getCode128BitString(text) {
+      const cleanDigits = (text || '').replace(/\D/g, '');
       const PATTERNS = [
         "212222", "222122", "222221", "121223", "121322", "131222", "122213", "122312", "132212", "221213",
         "221312", "231212", "112232", "122132", "122231", "113222", "123122", "123221", "223211", "221132",
@@ -517,21 +523,32 @@
         "214121", "412121", "111143", "111341", "131141", "114113", "114311", "411113", "411311", "113141",
         "114131", "311141", "411131", "211412", "211214", "211232", "2331112"
       ];
-      const START_B = 104;
-      const STOP = 106;
-      let values = [START_B];
-      for (let i = 0; i < text.length; i++) values.push(text.charCodeAt(i) - 32);
+
+      // Exact NisitKU KULINET format: Start B (104) -> Code C (99) -> 2-digit pairs
+      let values = [104, 99];
+      for (let i = 0; i < cleanDigits.length; i += 2) {
+        if (i + 1 < cleanDigits.length) {
+          values.push(parseInt(cleanDigits.substring(i, i + 2), 10));
+        } else {
+          values.push(100); // Switch to Code B for odd trailing digit
+          values.push(cleanDigits.charCodeAt(i) - 32);
+        }
+      }
+
+      // Checksum mod 103
       let checksum = values[0];
-      for (let i = 1; i < values.length; i++) checksum += i * values[i];
+      for (let i = 1; i < values.length; i++) {
+        checksum += i * values[i];
+      }
       values.push(checksum % 103);
-      values.push(STOP);
+      values.push(106); // Stop pattern
 
       let bitString = "";
       for (let v of values) {
         let pat = PATTERNS[v];
         let bar = true;
         for (let c of pat) {
-          bitString += (bar ? "1" : "0").repeat(parseInt(c));
+          bitString += (bar ? "1" : "0").repeat(parseInt(c, 10));
           bar = !bar;
         }
       }
@@ -541,47 +558,53 @@
     // Code128 generator for preview Canvas
     function drawCode128(text, canvas) {
       const bitString = getCode128BitString(text);
-      const mw = 2;
-      const h = 75;
-      const quiet = 15;
-      canvas.width = bitString.length * mw + (quiet * 2);
+      const mw = 2.2;
+      const h = 65;
+      const quiet = 10;
+      canvas.width = Math.ceil(bitString.length * mw + (quiet * 2));
       canvas.height = h;
       const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#fff';
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#000';
+      ctx.fillStyle = '#000000';
       let x = quiet;
       for (let i = 0; i < bitString.length; i++) {
-        if (bitString[i] === '1') ctx.fillRect(x, 0, mw, h);
+        if (bitString[i] === '1') ctx.fillRect(Math.round(x), 0, Math.ceil(mw), h);
         x += mw;
       }
     }
 
-    // High-Resolution Standalone Barcode Generator (PNG)
+    // High-Resolution Standalone Barcode Generator (PNG - Pixel-perfect match to official NisitKU)
     function renderHiResBarcode() {
       const text = inputBarcode.value.trim() || "20068218617143";
       const bitString = getCode128BitString(text);
-      const mw = 4;
-      const h = 180;
-      const quiet = 40;
+      const mw = 4.8;
+      const h = 135;
       const canvas = hiResBarcodeCanvas;
-      canvas.width = bitString.length * mw + (quiet * 2);
-      canvas.height = 280;
+      canvas.width = 680;
+      canvas.height = 205;
 
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 1. Draw Number
+      // 1. Draw Centered Number (Clean system sans-serif matching official app)
       ctx.fillStyle = '#111111';
-      ctx.font = '600 36px "ku2font", sans-serif';
+      ctx.font = '600 28px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(text, canvas.width / 2, 50);
+      ctx.textBaseline = 'top';
+      ctx.fillText(text, canvas.width / 2, 14);
 
-      // 2. Draw Bars
-      let x = quiet;
+      // 2. Draw Code 128 Bars (Centered)
+      const totalBarsWidth = bitString.length * mw;
+      let startX = (canvas.width - totalBarsWidth) / 2;
+      const barY = 52;
+      ctx.fillStyle = '#000000';
+      let x = startX;
       for (let i = 0; i < bitString.length; i++) {
-        if (bitString[i] === '1') ctx.fillRect(x, 70, mw, h);
+        if (bitString[i] === '1') {
+          ctx.fillRect(Math.round(x), barY, Math.ceil(mw), h);
+        }
         x += mw;
       }
     }

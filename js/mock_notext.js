@@ -368,12 +368,8 @@
                         }
                         else if (url.indexOf("hotnews/api.php") !== -1 || action === "hotnews") {
                             mockData = {
-                                status: "true",
-                                data: [
-                                    { url_img: "https://www.ku.ac.th/web-upload/202611/m_banner/23/img_2ce8d82a59e75a53e36635e9cda2f964.jpg", url_link: "https://www.ku.ac.th/" },
-                                    { url_img: "https://www.ku.ac.th/web-upload/202610/m_banner/23/img_a88ada2463f880047b960a76ff100065.jpg", url_link: "https://www.ku.ac.th/" },
-                                    { url_img: "https://www.ku.ac.th/web-upload/202610/m_banner/23/img_08683c80abef2867a66d4ffef5b5aebd.jpg", url_link: "https://www.ku.ac.th/" }
-                                ]
+                                status: "false",
+                                data: []
                             };
                         }
                         else if (action === "banner" || url.indexOf("banner") !== -1) {

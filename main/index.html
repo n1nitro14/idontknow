@@ -289,19 +289,6 @@
         </ion-slide>
       </ion-slide-box>
     </div>
-    
-    <!-- start Hotnews -->
-    <div ng-init="getHotnews();">
-      <ion-slide-box auto-play="true" class="myHotnews" delegate-handle="sliderBanNisit" does-continue="true"
-        on-slide-changed="slideNisitHasChanged(index)" show-pager="false">
-        <ion-slide ng-repeat="hotnewsList in HotnewsLists">
-            <div class="card homecard" style="margin:12px;" ng-click="openURL('{{hotnewsList.url_link}}');">
-              <img ng-src="{{hotnewsList.url_img}}" style="width:100%;">
-            </div>
-        </ion-slide>
-      </ion-slide-box>
-    </div>
-    <!-- end Hotnews -->
 
     <!-- ##### START NEWS ##### -->
     <div class="row" style="padding-left: 10px;">

@@ -15,6 +15,7 @@
   <link rel="apple-touch-icon" href="img/icon-180.png">
   <link rel="apple-touch-icon" sizes="180x180" href="img/icon-180.png">
   <link rel="apple-touch-icon" sizes="512x512" href="img/icon-512.png">
+  <link rel="apple-touch-startup-image" href="img/splash.png">
   <link rel="stylesheet" href="lib/ngToast/bootstrap.css" />
   <link rel="stylesheet" href="lib/ngToast/ngToast.min.css" />
   <link rel="stylesheet" href="lib/ngToast/ngToast-animations.min.css" />
@@ -229,10 +230,41 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(10px); }
     }
+
+    /* Official iOS Launch Screen (matching ku.ipa CDVLaunchScreen.storyboard) */
+    #app-loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 2147483647;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.4s ease-out;
+      pointer-events: none;
+    }
+    #app-loading-screen img {
+      width: 251px;
+      height: 251px;
+      border-radius: 22.5%;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      object-fit: cover;
+    }
   </style>
 </head>
 
 <body ng-app="starter" ng-controller="AppCtrl">
+  <!-- Official NisitKU iOS Launch Screen (from ku.ipa CDVLaunchScreen.storyboard) -->
+  <div id="app-loading-screen">
+    <img src="img/icon-512.png" alt="NisitKU">
+  </div>
+
   <!-- PWA Install Enforcement Gate -->
   <div id="pwa-install-gate" style="display:none;">
     <img src="img/icon-180.png" alt="NisitKU Logo">
@@ -256,6 +288,20 @@
 
   <script>
     (function () {
+      var loader = document.getElementById('app-loading-screen');
+      function hideLoader(immediate) {
+        if (!loader) return;
+        if (immediate) {
+          loader.style.display = 'none';
+        } else {
+          loader.style.opacity = '0';
+          loader.style.pointerEvents = 'none';
+          setTimeout(function() {
+            if (loader.parentNode) loader.parentNode.removeChild(loader);
+          }, 450);
+        }
+      }
+
       // 1. Check if running standalone from home screen
       var isStandalone = (window.navigator.standalone === true) || 
                          (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
@@ -263,6 +309,7 @@
 
       if (!isStandalone) {
         // Enforce Install: Show gate and prevent angular boot
+        hideLoader(true);
         document.body.removeAttribute('ng-app');
         var gate = document.getElementById('pwa-install-gate');
         var text = document.getElementById('pwa-instruction-text');
@@ -310,6 +357,7 @@
       // 2. If standalone: Check if card_slug is set
       var slug = localStorage.getItem('card_slug');
       if (!slug) {
+        hideLoader(true);
         var overlay = document.getElementById('ku-login-overlay');
         overlay.style.display = 'flex';
         document.body.removeAttribute('ng-app');
@@ -333,6 +381,11 @@
         document.getElementById('ku-card-input').addEventListener('keydown', function(e) {
           if (e.key === 'Enter') document.getElementById('ku-login-btn').click();
         });
+      } else {
+        // Smoothly dismiss loading screen after app components initialize
+        setTimeout(function() {
+          hideLoader(false);
+        }, 1300);
       }
     })();
   </script>

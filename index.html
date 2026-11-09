@@ -231,7 +231,7 @@
       50% { transform: translateY(10px); }
     }
 
-    /* Official iOS Launch Screen (matching ku.ipa CDVLaunchScreen.storyboard) */
+    /* Official NisitKU Launch / Loading Screen */
     #app-loading-screen {
       position: fixed;
       top: 0;
@@ -241,29 +241,18 @@
       width: 100vw;
       height: 100vh;
       z-index: 2147483647;
-      background-color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #ffffff url('img/splash.png') no-repeat center center;
+      background-size: cover;
       opacity: 1;
       transition: opacity 0.4s ease-out;
       pointer-events: none;
-    }
-    #app-loading-screen img {
-      width: 251px;
-      height: 251px;
-      border-radius: 22.5%;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      object-fit: cover;
     }
   </style>
 </head>
 
 <body ng-app="starter" ng-controller="AppCtrl">
-  <!-- Official NisitKU iOS Launch Screen (from ku.ipa CDVLaunchScreen.storyboard) -->
-  <div id="app-loading-screen">
-    <img src="img/icon-512.png" alt="NisitKU">
-  </div>
+  <!-- Official NisitKU Launch / Loading Screen -->
+  <div id="app-loading-screen"></div>
 
   <!-- PWA Install Enforcement Gate -->
   <div id="pwa-install-gate" style="display:none;">

@@ -25,7 +25,7 @@
     var activeCardData = null;
 
     if (cardParam) {
-        // Look for <card>.json in cards/, img/, or root
+        // Look for <card>.json in cards/, img/, or root with cache-buster
         var jsonCandidates = [
             "cards/" + cardParam + ".json",
             "img/" + cardParam + ".json",
@@ -34,7 +34,7 @@
         for (var i = 0; i < jsonCandidates.length; i++) {
             try {
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", jsonCandidates[i], false); // Synchronous fetch for instant load
+                xhr.open("GET", jsonCandidates[i] + "?_t=" + new Date().getTime(), false); // Synchronous fetch for instant load
                 xhr.send();
                 if (xhr.status === 200 || xhr.status === 0) {
                     activeCardData = JSON.parse(xhr.responseText);
@@ -210,19 +210,39 @@
                             action = data.action;
                         }
 
+                        // Known card directory for instant fallback and cache recovery
+                        var KNOWN_CARDS = {
+                            "6846369566": { name_en: "Apiwit", surname_en: "Nitprasert", name_th: "อภิวิชญ์", surname_th: "นิตย์ประเสริฐ" },
+                            "pakkapluem": { name_en: "Apiwit", surname_en: "Nitprasert", name_th: "อภิวิชญ์", surname_th: "นิตย์ประเสริฐ" },
+                            "6893713243": { name_en: "Wisawet", surname_en: "Kubodera", name_th: "วิศเวธน์", surname_th: "คูโบเดรา" },
+                            "keroro": { name_en: "Wisawet", surname_en: "Kubodera", name_th: "วิศเวธน์", surname_th: "คูโบเดรา" },
+                            "6869016816": { name_en: "Phongsakon", surname_en: "Ngoenkham", name_th: "พงศกร", surname_th: "เงินคำ" },
+                            "naykimura": { name_en: "Phongsakon", surname_en: "Ngoenkham", name_th: "พงศกร", surname_th: "เงินคำ" },
+                            "6821861714": { name_en: "Nuchpravee", surname_en: "Khongchon", name_th: "นุตประวีณ์", surname_th: "คงจร" },
+                            "nongprint": { name_en: "Nuchpravee", surname_en: "Khongchon", name_th: "นุตประวีณ์", surname_th: "คงจร" },
+                            "6848114629": { name_en: "Phatkharadon", surname_en: "Imsap", name_th: "ภัครดล", surname_th: "อิ่มทรัพย์" },
+                            "phat123": { name_en: "Phatkharadon", surname_en: "Imsap", name_th: "ภัครดล", surname_th: "อิ่มทรัพย์" },
+                            "6820105843": { name_en: "Phonthep", surname_en: "PHUTIN", name_th: "พรเทพ", surname_th: "พุฒอินทร์" }
+                        };
+
+                        var curId = localStorage.getItem("id") || "6820105843";
+                        var curSlug = localStorage.getItem("card_slug");
+                        var known = KNOWN_CARDS[curId] || (curSlug ? KNOWN_CARDS[curSlug] : null);
+
                         var mockData;
 
                         // =====================================
                         // A. Authentication (Login)
                         // =====================================
                         if (action === "login") {
+                            var lNameEn = localStorage.getItem("name_en") || (known ? known.name_en : "Phonthep");
                             mockData = [{
                                 status: "true",
-                                id: localStorage.getItem("id") || "6820105843",
+                                id: curId,
                                 token: localStorage.getItem("token") || "5QtAdyrAe560867b",
-                                name_th: localStorage.getItem("name_th") || "พรเทพ",
-                                surname_th: localStorage.getItem("surname_th") || "พุฒอินทร์",
-                                name_en: localStorage.getItem("name_en") || "Phonthep PHUTIN",
+                                name_th: localStorage.getItem("name_th") || (known ? known.name_th : "พรเทพ"),
+                                surname_th: localStorage.getItem("surname_th") || (known ? known.surname_th : "พุฒอินทร์"),
+                                name_en: lNameEn,
                                 img_profile: localStorage.getItem("imgProfile") || "img/student_photo.jpg"
                             }];
                         }
@@ -231,15 +251,18 @@
                         // B. Student Profile (v1 & v2.7)
                         // =====================================
                         else if (action === "profile") {
-                            var fnTh = localStorage.getItem("name_th") || "พรเทพ";
-                            var snTh = localStorage.getItem("surname_th") || "";
+                            var fnTh = localStorage.getItem("name_th") || (known ? known.name_th : "พรเทพ");
+                            var snTh = localStorage.getItem("surname_th") || (known ? known.surname_th : "");
                             var fullTh = fnTh;
                             if (snTh && fnTh.indexOf(snTh) === -1) {
                                 fullTh = fnTh + " " + snTh;
                             }
 
-                            var fnEn = localStorage.getItem("name_en") || "Phonthep";
-                            var snEn = localStorage.getItem("surname_en") || "";
+                            var fnEn = localStorage.getItem("name_en") || (known ? known.name_en : "Phonthep");
+                            var snEn = (known && known.surname_en) ? known.surname_en : (localStorage.getItem("surname_en") || "");
+                            if (known && known.surname_en) {
+                                try { localStorage.setItem("surname_en", known.surname_en); } catch (e) {}
+                            }
                             var fullEn = fnEn;
                             if (snEn && fnEn.indexOf(snEn) === -1) {
                                 fullEn = fnEn + " " + snEn;
@@ -247,7 +270,7 @@
 
                             mockData = {
                                 status: "true",
-                                id: localStorage.getItem("id") || "6820105843",
+                                id: curId,
                                 name_th: fullTh,
                                 name_en: fullEn,
                                 student_card: localStorage.getItem("student_card_path") || "img/card_front.png",

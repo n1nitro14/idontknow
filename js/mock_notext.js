@@ -189,7 +189,7 @@
                 post_date: "9 พ.ย. 69",
                 post_by: "มหาวิทยาลัยเกษตรศาสตร์",
                 noticon: "img/kulogo.png",
-                read: 0
+                read: 1
             },
             {
                 id: 2,

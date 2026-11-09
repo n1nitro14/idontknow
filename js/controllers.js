@@ -407,14 +407,13 @@ angular.module('starter.controllers', ['ionic','notification-service','pr-servic
     }
 
     $scope.goNotification = function () {
-      PushNotification.hasPermission(data => {
-        if (data.isEnabled) {
+      if (typeof PushNotification !== "undefined" && PushNotification && PushNotification.hasPermission) {
+        PushNotification.hasPermission(data => {
           $scope.goToState('notification');
-        } else {
-          $cordovaDialogs.alert('กรณีไม่อนุญาต จะไม่สามารถรับข้อความแจ้งเตือนได้', "Please allow Notifications", 'OK')
-            .then(function () {});
-        }
-      });
+        });
+      } else {
+        $scope.goToState('notification');
+      }
     };
     // end
 

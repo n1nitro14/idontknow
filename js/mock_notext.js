@@ -163,6 +163,50 @@
         };
     }
 
+    if (!window.PushNotification) {
+        window.PushNotification = {
+            hasPermission: function (cb) {
+                if (typeof cb === "function") {
+                    cb({ isEnabled: true });
+                }
+            },
+            init: function () {
+                return {
+                    on: function () {}
+                };
+            }
+        };
+    }
+
+    // Default notifications if empty
+    if (!localStorage.getItem("Notification") || localStorage.getItem("Notification") === "[]") {
+        var sampleNotifs = [
+            {
+                id: 1,
+                title: "ยินดีต้อนรับสู่นิสิต มก.",
+                message: "ระบบสารสนเทศนิสิต มหาวิทยาลัยเกษตรศาสตร์ (NisitKU)",
+                msg_type_txt: "ข่าวสารและประชาสัมพันธ์",
+                post_date: "9 พ.ย. 69",
+                post_by: "มหาวิทยาลัยเกษตรศาสตร์",
+                noticon: "img/kulogo.png",
+                read: 0
+            },
+            {
+                id: 2,
+                title: "กำหนดการลงทะเบียนเรียน ภาคปลาย 2569",
+                message: "นิสิตสามารถตรวจสอบรายวิชาและวันเวลาลงทะเบียนได้ที่เมนู Class Schedule",
+                msg_type_txt: "การลงทะเบียน",
+                post_date: "8 พ.ย. 69",
+                post_by: "สำนักบริหารการศึกษา",
+                noticon: "img/kulogo.png",
+                read: 1
+            }
+        ];
+        try {
+            localStorage.setItem("Notification", JSON.stringify(sampleNotifs));
+        } catch (e) {}
+    }
+
     // Pre-loaded Genuine Datasets
     var GENUINE_GRADE = [{"status" : "true", "grade" : [{ "year" : "68", "semester" : "1", "sem_name" : "ต้น", "term_credit" : "18", "total_credit" : "18", "sm_gpa" : "2.08", "cum_gpa" : "2.08", "show" : false, "courses" : [{ "course_id" : "01355101", "course_name" : "English for Everyday Life", "regis_type" : "C", "grade" : "D", "score" : "1", "credit" : "3", "score_cal" : "3", "credit_cal" : "3", "credit_get" : "3" },{ "course_id" : "01371111", "course_name" : "Information Media for Learning", "regis_type" : "C", "grade" : "D", "score" : "1", "credit" : "1", "score_cal" : "1", "credit_cal" : "1", "credit_get" : "1" },{ "course_id" : "01403111", "course_name" : "General Chemistry", "regis_type" : "C", "grade" : "D", "score" : "1", "credit" : "3", "score_cal" : "3", "credit_cal" : "3", "credit_get" : "3" },{ "course_id" : "01403112", "course_name" : "Laboratory in General Chemistry", "regis_type" : "C", "grade" : "D", "score" : "1", "credit" : "1", "score_cal" : "1", "credit_cal" : "1", "credit_get" : "1" },{ "course_id" : "01999021", "course_name" : "Thai Language for Academic and Professional Communication", "regis_type" : "C", "grade" : "C", "score" : "2", "credit" : "3", "score_cal" : "6", "credit_cal" : "3", "credit_get" : "3" },{ "course_id" : "01999111", "course_name" : "Kasetsart Creating Knowledge of the Land", "regis_type" : "C", "grade" : "A", "score" : "4", "credit" : "2", "score_cal" : "8", "credit_cal" : "2", "credit_get" : "2" },{ "course_id" : "02036271", "course_name" : "Horticultural Science and Technology", "regis_type" : "C", "grade" : "C", "score" : "2", "credit" : "2", "score_cal" : "4", "credit_cal" : "2", "credit_get" : "2" },{ "course_id" : "02036299", "course_name" : "General Practicum", "regis_type" : "C", "grade" : "A", "score" : "4", "credit" : "2", "score_cal" : "8", "credit_cal" : "2", "credit_get" : "2" },{ "course_id" : "02999144", "course_name" : "Life Skill for Undergraduate Student", "regis_type" : "C", "grade" : "B+", "score" : "3.5", "credit" : "1", "score_cal" : "3.5", "credit_cal" : "1", "credit_get" : "1" }]},{ "year" : "68", "semester" : "2", "sem_name" : "ปลาย", "term_credit" : "18", "total_credit" : "36", "sm_gpa" : "1.36", "cum_gpa" : "1.72", "show" : false, "courses" : [{ "course_id" : "01175143", "course_name" : "Social Dance for Health", "regis_type" : "C", "grade" : "F", "score" : "0", "credit" : "1", "score_cal" : "0", "credit_cal" : "1", "credit_get" : "1" },{ "course_id" : "01355102", "course_name" : "English for University Life", "regis_type" : "C", "grade" : "F", "score" : "0", "credit" : "3", "score_cal" : "0", "credit_cal" : "3", "credit_get" : "3" },{ "course_id" : "01403221", "course_name" : "Organic Chemistry", "regis_type" : "C", "grade" : "D", "score" : "1", "credit" : "3", "score_cal" : "3", "credit_cal" : "3", "credit_get" : "3" },{ "course_id" : "01403222", "course_name" : "Laboratory in Organic Chemistry", "regis_type" : "C", "grade" : "C", "score" : "2", "credit" : "1", "score_cal" : "2", "credit_cal" : "1", "credit_get" : "1" },{ "course_id" : "01424111", "course_name" : "Principles of Biology", "regis_type" : "C", "grade" : "D", "score" : "1", "credit" : "3", "score_cal" : "3", "credit_cal" : "3", "credit_get" : "3" },{ "course_id" : "01424112", "course_name" : "Laboratory for Biology", "regis_type" : "C", "grade" : "D", "score" : "1", "credit" : "1", "score_cal" : "1", "credit_cal" : "1", "credit_get" : "1" },{ "course_id" : "01999011", "course_name" : "Food for Mankind", "regis_type" : "C", "grade" : "B+", "score" : "3.5", "credit" : "3", "score_cal" : "10.5", "credit_cal" : "3", "credit_get" : "3" },{ "course_id" : "02036111", "course_name" : "Overview in Agriculture", "regis_type" : "C", "grade" : "B", "score" : "3", "credit" : "1", "score_cal" : "3", "credit_cal" : "1", "credit_get" : "1" },{ "course_id" : "02036231", "course_name" : "Crop Science and Technology", "regis_type" : "C", "grade" : "D", "score" : "1", "credit" : "2", "score_cal" : "2", "credit_cal" : "2", "credit_get" : "2" }]},{ "year" : "69", "semester" : "0", "sem_name" : "ฤดูร้อน", "term_credit" : "6", "total_credit" : "42", "sm_gpa" : "2.00", "cum_gpa" : "1.76", "show" : false, "courses" : [{ "course_id" : "01459101", "course_name" : "Psychology for Modern Life", "regis_type" : "C", "grade" : "B", "score" : "3", "credit" : "3", "score_cal" : "9", "credit_cal" : "3", "credit_get" : "3" },{ "course_id" : "01355102", "course_name" : "English for University Life", "regis_type" : "C", "grade" : "D", "score" : "1", "credit" : "3", "score_cal" : "3", "credit_cal" : "3", "credit_get" : "3" }]},{ "year" : "69", "semester" : "1", "sem_name" : "ต้น", "term_credit" : "15", "total_credit" : "57", "sm_gpa" : "", "cum_gpa" : "1.76", "show" : false, "courses" : [{ "course_id" : "01419211", "course_name" : "General Microbiology", "regis_type" : "C", "grade" : "-", "score" : "", "credit" : "3", "score_cal" : "0", "credit_cal" : "0", "credit_get" : "0" },{ "course_id" : "01419214", "course_name" : "Laboratory in Fundamental Microbiology", "regis_type" : "C", "grade" : "-", "score" : "", "credit" : "1", "score_cal" : "0", "credit_cal" : "0", "credit_get" : "0" },{ "course_id" : "01999033", "course_name" : "Arts of Living", "regis_type" : "C", "grade" : "-", "score" : "", "credit" : "3", "score_cal" : "0", "credit_cal" : "0", "credit_get" : "0" },{ "course_id" : "02036241", "course_name" : "Introduction to Entomology", "regis_type" : "C", "grade" : "-", "score" : "", "credit" : "3", "score_cal" : "0", "credit_cal" : "0", "credit_get" : "0" },{ "course_id" : "02036312", "course_name" : "Safety and Innovation of Agricultural and Food Products", "regis_type" : "C", "grade" : "-", "score" : "", "credit" : "2", "score_cal" : "0", "credit_cal" : "0", "credit_get" : "0" },{ "course_id" : "02039211", "course_name" : "Creation and Development of Agricultural and Food Product Innovation", "regis_type" : "C", "grade" : "-", "score" : "", "credit" : "3", "score_cal" : "0", "credit_cal" : "0", "credit_get" : "0" }]}]}];
     var GENUINE_CSTIME = [{"status" : "true",  "academic_year" : "2569",  "semester" : "ภาคต้น",  "color_day" : {"Monday":"#f7f4a7","Tuesday":"#f6caf3","Wednesday":"#cafade","Thursday":"#ffcda3","Friday":"#dbfbff","Saturday":"#c4abed","Sunday":"#ffaab5"}, "cstime" : [{ "day" : "Monday", "courses" : [{ "time" : "13:00-16:00", "course_id" : "02036241", "course_name" : "Introduction to Entomology", "section" : "711", "room" : "LH3-306/เรือนปฏิบัติการกีฏวิทยา" }]},{ "day" : "Tuesday", "courses" : [{ "time" : "8:30-10:30", "course_id" : "02036312", "course_name" : "Safety and Innovation of Agricultural and Food Products", "section" : "700", "room" : "LH3-211" },{ "time" : "10:30-12:00", "course_id" : "01419211", "course_name" : "General Microbiology", "section" : "700", "room" : "LH4-301" },{ "time" : "13:00-14:30", "course_id" : "01999033", "course_name" : "Arts of Living", "section" : "702", "room" : "LH4-301" }]},{ "day" : "Wednesday", "courses" : [{ "time" : "15:00-18:00", "course_id" : "02039211", "course_name" : "Creation and Development of Agricultural and Food Product Innovation", "section" : "711", "room" : "LH4-610" }]},{ "day" : "Thursday", "courses" : [{ "time" : "10:30-12:00", "course_id" : "01419211", "course_name" : "General Microbiology", "section" : "700", "room" : "LH4-301" },{ "time" : "13:00-14:30", "course_id" : "01999033", "course_name" : "Arts of Living", "section" : "702", "room" : "LH4-301" }]},{ "day" : "Friday", "courses" : [{ "time" : "8:00-10:00", "course_id" : "02039211", "course_name" : "Creation and Development of Agricultural and Food Product Innovation", "section" : "700", "room" : "LH3-204" },{ "time" : "10:00-12:00", "course_id" : "02036241", "course_name" : "Introduction to Entomology", "section" : "700", "room" : "LH4-103" },{ "time" : "13:00-16:00", "course_id" : "01419214", "course_name" : "Laboratory in Fundamental Microbiology", "section" : "729", "room" : "SC14-424" }]}],  "timetable_light_p" : "https://kuappstore.ku.ac.th/nisitku/timetable.php?layout=portrait&img=bWF2RkZFNFRCVWFiZmVDN2E5ZUshNjgyMDEwNTg0MyFsaWdodA==",  "timetable_dark_p" : "https://kuappstore.ku.ac.th/nisitku/timetable.php?layout=portrait&img=bWF2RkZFNFRCVWFiZmVDN2E5ZUshNjgyMDEwNTg0MyFkYXJr",  "timetable_light" : "https://kuappstore.ku.ac.th/nisitku/timetable.php?img=bWF2RkZFNFRCVWFiZmVDN2E5ZUshNjgyMDEwNTg0MyFsaWdodA==",  "timetable_dark" : "https://kuappstore.ku.ac.th/nisitku/timetable.php?img=bWF2RkZFNFRCVWFiZmVDN2E5ZUshNjgyMDEwNTg0MyFkYXJr" }];

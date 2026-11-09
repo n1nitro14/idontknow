@@ -5,12 +5,13 @@
   "nameTh": "พงศกร เงินคำ",
   "name_th": "พงศกร",
   "surname_th": "เงินคำ",
-  "nameEn": "Phongsakon",
+  "nameEn": "Phongsakon Ngoenkham",
   "name_en": "Phongsakon",
   "service": "Hospitality\nIndustry",
   "barcode": "20068690168169",
   "student_card": "cards/naykimura.jpg",
   "student_card_b": "img/b_bc.png",
   "img_barcode": "cards/naykimura_barcode.png",
-  "imgProfile": "cards/naykimura_img.jpg"
+  "imgProfile": "cards/naykimura_img.jpg",
+  "surname_en": "Ngoenkham"
 }

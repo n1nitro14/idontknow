@@ -5,12 +5,13 @@
   "nameTh": "ภัครดล อิ่มทรัพย์",
   "name_th": "ภัครดล",
   "surname_th": "อิ่มทรัพย์",
-  "nameEn": "Phatkharadon",
+  "nameEn": "Phatkharadon Imsap",
   "name_en": "Phatkharadon",
   "service": "Hospitality\nIndustry",
   "barcode": "20068481146295",
   "student_card": "cards/phat123.jpg",
   "student_card_b": "img/b_bc.png",
   "img_barcode": "cards/phat123_barcode.png",
-  "imgProfile": "cards/phat123_img.jpg"
+  "imgProfile": "cards/phat123_img.jpg",
+  "surname_en": "Imsap"
 }

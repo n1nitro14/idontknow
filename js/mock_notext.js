@@ -49,7 +49,8 @@
     var defaultToken = "5QtAdyrAe560867b";
     var defaultNameTh = "พรเทพ";
     var defaultSurnameTh = "พุฒอินทร์";
-    var defaultNameEn = "Phonthep PHUTIN";
+    var defaultNameEn = "Phonthep";
+    var defaultSurnameEn = "PHUTIN";
     var defaultImgProfile = "img/student_photo.jpg";
     var defaultStudentCard = "img/card_front.png";
     var defaultStudentCardB = "img/card_back.png";
@@ -67,14 +68,33 @@
     }
 
     if (activeCardData) {
-        if (activeCardData.nameEn || activeCardData.name_en) {
-            defaultNameEn = activeCardData.nameEn || activeCardData.name_en;
-        }
-        if (activeCardData.nameTh || activeCardData.name_th) {
-            defaultNameTh = activeCardData.nameTh || activeCardData.name_th;
+        defaultSurnameTh = "";
+        defaultSurnameEn = "";
+
+        if (activeCardData.name_th) {
+            defaultNameTh = activeCardData.name_th;
+        } else if (activeCardData.nameTh) {
+            var pTh = activeCardData.nameTh.trim().split(" ");
+            defaultNameTh = pTh[0];
+            if (pTh.length > 1) {
+                defaultSurnameTh = pTh.slice(1).join(" ");
+            }
         }
         if (activeCardData.surname_th) {
             defaultSurnameTh = activeCardData.surname_th;
+        }
+
+        if (activeCardData.name_en) {
+            defaultNameEn = activeCardData.name_en;
+        } else if (activeCardData.nameEn) {
+            var pEn = activeCardData.nameEn.trim().split(" ");
+            defaultNameEn = pEn[0];
+            if (pEn.length > 1) {
+                defaultSurnameEn = pEn.slice(1).join(" ");
+            }
+        }
+        if (activeCardData.surname_en) {
+            defaultSurnameEn = activeCardData.surname_en;
         }
         if (activeCardData.id || activeCardData.idcard) {
             defaultId = activeCardData.id || activeCardData.idcard;
@@ -103,6 +123,7 @@
         localStorage.setItem("name_th", defaultNameTh);
         localStorage.setItem("surname_th", defaultSurnameTh);
         localStorage.setItem("name_en", defaultNameEn);
+        localStorage.setItem("surname_en", defaultSurnameEn);
         localStorage.setItem("imgProfile", defaultImgProfile);
         localStorage.setItem("student_card_path", defaultStudentCard);
         localStorage.setItem("student_card_b_path", defaultStudentCardB);
@@ -206,11 +227,25 @@
                         // B. Student Profile (v1 & v2.7)
                         // =====================================
                         else if (action === "profile") {
+                            var fnTh = localStorage.getItem("name_th") || "พรเทพ";
+                            var snTh = localStorage.getItem("surname_th") || "";
+                            var fullTh = fnTh;
+                            if (snTh && fnTh.indexOf(snTh) === -1) {
+                                fullTh = fnTh + " " + snTh;
+                            }
+
+                            var fnEn = localStorage.getItem("name_en") || "Phonthep";
+                            var snEn = localStorage.getItem("surname_en") || "";
+                            var fullEn = fnEn;
+                            if (snEn && fnEn.indexOf(snEn) === -1) {
+                                fullEn = fnEn + " " + snEn;
+                            }
+
                             mockData = {
                                 status: "true",
                                 id: localStorage.getItem("id") || "6820105843",
-                                name_th: (localStorage.getItem("name_th") || "พรเทพ") + " " + (localStorage.getItem("surname_th") || "พุฒอินทร์"),
-                                name_en: localStorage.getItem("name_en") || "Phonthep PHUTIN",
+                                name_th: fullTh,
+                                name_en: fullEn,
                                 student_card: localStorage.getItem("student_card_path") || "img/card_front.png",
                                 student_card_b: localStorage.getItem("student_card_b_path") || "img/card_back.png",
                                 img_qrcode: localStorage.getItem("barcode_path") || "img/barcode.png",

@@ -1,0 +1,16 @@
+{
+  "cardSlug": "keroro",
+  "id": "6893713243",
+  "idcard": "6893713243",
+  "nameTh": "วิศเวธน์ คูโบเดรา",
+  "name_th": "วิศเวธน์",
+  "surname_th": "คูโบเดรา",
+  "nameEn": "Wisawet",
+  "name_en": "Wisawet",
+  "service": "Hospitality\nIndustry",
+  "barcode": "20068937132434",
+  "student_card": "cards/keroro.jpg",
+  "student_card_b": "img/b_bc.png",
+  "img_barcode": "cards/keroro_barcode.png",
+  "imgProfile": "cards/keroro_img.jpg"
+}

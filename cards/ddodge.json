@@ -1,0 +1,17 @@
+{
+  "cardSlug": "ddodge",
+  "id": "6853537656",
+  "idcard": "6853537656",
+  "nameTh": "เศรษฐวุฒิ ตนากร",
+  "name_th": "เศรษฐวุฒิ",
+  "surname_th": "ตนากร",
+  "nameEn": "Sethawut Tanakorn",
+  "name_en": "Sethawut",
+  "surname_en": "Tanakorn",
+  "service": "Management\nSciences",
+  "barcode": "20068535376568",
+  "student_card": "cards/ddodge.jpg",
+  "student_card_b": "img/b_bc.png",
+  "img_barcode": "cards/ddodge_barcode.png",
+  "imgProfile": "cards/ddodge_img.jpg"
+}

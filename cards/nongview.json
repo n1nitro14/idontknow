@@ -1,0 +1,17 @@
+{
+  "cardSlug": "nongview",
+  "id": "6898085091",
+  "idcard": "6898085091",
+  "nameTh": "ชนิกานต์ บุญสม",
+  "name_th": "ชนิกานต์",
+  "surname_th": "บุญสม",
+  "nameEn": "Chanikan Bunsom",
+  "name_en": "Chanikan",
+  "surname_en": "Bunsom",
+  "service": "Hospitality\nIndustry",
+  "barcode": "20068218617143",
+  "student_card": "cards/nongview.jpg",
+  "student_card_b": "img/b_bc.png",
+  "img_barcode": "cards/nongview_barcode.png",
+  "imgProfile": "cards/nongview_img.jpg"
+}
